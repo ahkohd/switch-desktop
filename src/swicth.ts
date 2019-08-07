@@ -79,6 +79,7 @@ export default class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty";
+        appTile.title = 'No app chosen';
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
