@@ -1,0 +1,32 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"npm:watch-ts\" \"npm:start\" ",
+    "watch-ts": "tsc -w",
+    "watch-sass": "sass --watch ./styles"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.0"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.1",
+    "conf": "^5.0.0",
+    "icon-extractor": "^1.0.3",
+    "sass": "^1.22.9",
+    "typescript": "^3.5.3"
+  }
+}
