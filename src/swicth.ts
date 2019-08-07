@@ -1,9 +1,9 @@
 import { SwitchHotApp } from './interfaces';
+const iconExtractor = require('icon-extractor');
 const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
-const iconExtractor = require('icon-extractor');
 // config.clear();
 
 export default class Switch {
@@ -20,7 +20,7 @@ export default class Switch {
         let data = config.get('hotApps');
         if (data == null) {
             data = [];
-            for (let i = 0; i < 10; i++) data.push({ empty: true, name: '', keycode: null, path: '', icon: ''});
+            for (let i = 0; i < 10; i++) data.push({ empty: true, name: '', keycode: null, path: '', icon: '' });
             config.set('hotApps', data);
         }
         return data;
@@ -31,14 +31,23 @@ export default class Switch {
         for (let i = 0; i < this.hotApps.length; i++) {
             let elem = appsListUI[i];
             let hot = this.hotApps[i];
-            if (hot.empty) return;
+            elem.title = 'No app chosen';
+            if (hot.empty) continue;
             elem.className = 'app';
             elem.title = hot.name.split('.exe')[0];
             let icon: HTMLImageElement = document.createElement('img');
-            icon.src = 'data:image/png;base64,'+hot.icon;
+            let rmButton: HTMLButtonElement = document.createElement('button');
+            rmButton.className = 'rm-btn';
+            rmButton.id = 'rm-' + i;
+            rmButton.innerHTML = '<div>✖</div>';
+            rmButton.onclick = function () {
+                (window as any).APP.removeApp(this);
+            }.bind(i);
+            icon.src = 'data:image/png;base64,' + hot.icon;
             icon.className = 'icon';
             elem.innerHTML = "";
             elem.append(icon);
+            elem.append(rmButton);
         }
     }
 
@@ -56,31 +65,51 @@ export default class Switch {
             })
             div.appendChild(file);
             track.appendChild(div);
+
         }
+
+    }
+
+    resetAppTileUI(i) {
+        const appTile = document.getElementById('app-' + i);
+        appTile.innerHTML = "";
+        appTile.className = "app empty";
+        const file = document.createElement('input');
+        file.type = 'file';
+        file.id = "f-app-" + i;
+        file.addEventListener('change', e => {
+            (window as any).APP.onClickAddHotApp(e);
+        })
+        appTile.appendChild(file);
     }
 
 
     onClickAddHotApp(elem) {
-
         const file = elem.target.files[0];
         // console.log(file);
         if (file.type == 'application/x-msdownload') {
             let opsys = process.platform;
-            if(opsys == 'darwin')
-            {
+            if (opsys == 'darwin') {
 
             } else if (opsys == "win32" || 'win64') {
                 // extract the app icon..
-                iconExtractor.getIcon(elem.target.id, file.path);
+                const extractIcon = new iconExtractor();
+                extractIcon.getIcon(elem.target.id, file.path);
+                // listen for the icon extraction..
+                extractIcon.emitter.once('icon',  (data) => {
+                    let icon = data.Base64ImageData;
+                    let fileDetails = (document.getElementById(elem.target.id) as any).files[0];
+                    (window as any).APP.addApp(elem.target.id.split('-')[2], fileDetails, icon);
+                    // kill the child process..
+                    extractIcon.iconProcess.kill();
+                });
             }
         } else {
             alert('Please select a app.');
         }
     }
 
-    addApp(index, fileDetails, appIcon)
-    {
-        console.log(index);
+    addApp(index, fileDetails, appIcon) {
         this.hotApps[index] = {
             empty: false,
             name: fileDetails.name,
@@ -92,13 +121,11 @@ export default class Switch {
         console.log(this.hotApps[index]);
         this.renderUIUpdate();
     }
+
+    removeApp(index) {
+        this.hotApps[index] = { empty: true, name: '', keycode: null, path: '', icon: '' };
+        config.set('hotApps', this.hotApps);
+        console.log(this.hotApps);
+        this.resetAppTileUI(index);
+    }
 }
-
-
-// listen for the icon extraction..
-iconExtractor.emitter.on('icon', function(data){
-    const icon = data.Base64ImageData;
-    const filePickerid = data.Context;
-    const fileDetails = (document.getElementById(filePickerid) as any).files[0];
-    (window as any).APP.addApp(filePickerid.split('-')[2], fileDetails, icon);
-});

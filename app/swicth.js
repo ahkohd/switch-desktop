@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const iconExtractor = require('icon-extractor');
 const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
-const iconExtractor = require('icon-extractor');
 class Switch {
     constructor() {
         this.awakeAppList();
@@ -26,15 +26,24 @@ class Switch {
         for (let i = 0; i < this.hotApps.length; i++) {
             let elem = appsListUI[i];
             let hot = this.hotApps[i];
+            elem.title = 'No app chosen';
             if (hot.empty)
-                return;
+                continue;
             elem.className = 'app';
             elem.title = hot.name.split('.exe')[0];
             let icon = document.createElement('img');
+            let rmButton = document.createElement('button');
+            rmButton.className = 'rm-btn';
+            rmButton.id = 'rm-' + i;
+            rmButton.innerHTML = '<div>✖</div>';
+            rmButton.onclick = function () {
+                window.APP.removeApp(this);
+            }.bind(i);
             icon.src = 'data:image/png;base64,' + hot.icon;
             icon.className = 'icon';
             elem.innerHTML = "";
             elem.append(icon);
+            elem.append(rmButton);
         }
     }
     awakeAppList() {
@@ -53,6 +62,18 @@ class Switch {
             track.appendChild(div);
         }
     }
+    resetAppTileUI(i) {
+        const appTile = document.getElementById('app-' + i);
+        appTile.innerHTML = "";
+        appTile.className = "app empty";
+        const file = document.createElement('input');
+        file.type = 'file';
+        file.id = "f-app-" + i;
+        file.addEventListener('change', e => {
+            window.APP.onClickAddHotApp(e);
+        });
+        appTile.appendChild(file);
+    }
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
         if (file.type == 'application/x-msdownload') {
@@ -60,7 +81,14 @@ class Switch {
             if (opsys == 'darwin') {
             }
             else if (opsys == "win32" || 'win64') {
-                iconExtractor.getIcon(elem.target.id, file.path);
+                const extractIcon = new iconExtractor();
+                extractIcon.getIcon(elem.target.id, file.path);
+                extractIcon.emitter.once('icon', (data) => {
+                    let icon = data.Base64ImageData;
+                    let fileDetails = document.getElementById(elem.target.id).files[0];
+                    window.APP.addApp(elem.target.id.split('-')[2], fileDetails, icon);
+                    extractIcon.iconProcess.kill();
+                });
             }
         }
         else {
@@ -68,7 +96,6 @@ class Switch {
         }
     }
     addApp(index, fileDetails, appIcon) {
-        console.log(index);
         this.hotApps[index] = {
             empty: false,
             name: fileDetails.name,
@@ -80,12 +107,12 @@ class Switch {
         console.log(this.hotApps[index]);
         this.renderUIUpdate();
     }
+    removeApp(index) {
+        this.hotApps[index] = { empty: true, name: '', keycode: null, path: '', icon: '' };
+        config.set('hotApps', this.hotApps);
+        console.log(this.hotApps);
+        this.resetAppTileUI(index);
+    }
 }
 exports.default = Switch;
-iconExtractor.emitter.on('icon', function (data) {
-    const icon = data.Base64ImageData;
-    const filePickerid = data.Context;
-    const fileDetails = document.getElementById(filePickerid).files[0];
-    window.APP.addApp(filePickerid.split('-')[2], fileDetails, icon);
-});
 //# sourceMappingURL=swicth.js.map
