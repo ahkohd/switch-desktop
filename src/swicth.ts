@@ -4,10 +4,12 @@ const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
+
 // config.clear();
 
 export default class Switch {
     hotApps: SwitchHotApp[] | null;
+    hotApp: SwitchHotApp = { empty: true, name: '', keycode: null, path: '', icon: '' };
 
     constructor() {
         this.awakeAppList();
@@ -20,12 +22,13 @@ export default class Switch {
         let data = config.get('hotApps');
         if (data == null) {
             data = [];
-            for (let i = 0; i < 10; i++) data.push({ empty: true, name: '', keycode: null, path: '', icon: '' });
+            for (let i = 0; i < 10; i++) data.push(this.hotApp);
             config.set('hotApps', data);
         }
         return data;
     }
 
+    // redraws the appbar UI
     renderUIUpdate() {
         const appsListUI: HTMLCollectionOf<HTMLDivElement> = document.getElementsByClassName('app') as HTMLCollectionOf<HTMLDivElement>;
         for (let i = 0; i < this.hotApps.length; i++) {
@@ -51,6 +54,7 @@ export default class Switch {
         }
     }
 
+    // bootstrap the appbar UI elements
     awakeAppList() {
         const track = document.getElementById('track');
         for (let i = 0; i < 10; i++) {
@@ -70,6 +74,7 @@ export default class Switch {
 
     }
 
+    // resets a app tile with the given index
     resetAppTileUI(i) {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
@@ -83,7 +88,7 @@ export default class Switch {
         appTile.appendChild(file);
     }
 
-
+    // handles click event when user want to add new app
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
         // console.log(file);
@@ -109,6 +114,7 @@ export default class Switch {
         }
     }
 
+    // add a new app and store its details
     addApp(index, fileDetails, appIcon) {
         this.hotApps[index] = {
             empty: false,
@@ -118,14 +124,13 @@ export default class Switch {
             keycode: 2
         };
         config.set('hotApps', this.hotApps);
-        console.log(this.hotApps[index]);
         this.renderUIUpdate();
     }
 
+    // removes and app and updates store.
     removeApp(index) {
-        this.hotApps[index] = { empty: true, name: '', keycode: null, path: '', icon: '' };
+        this.hotApps[index] = this.hotApp;
         config.set('hotApps', this.hotApps);
-        console.log(this.hotApps);
         this.resetAppTileUI(index);
     }
 }

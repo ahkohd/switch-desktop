@@ -7,6 +7,7 @@ const config = new Conf({
 });
 class Switch {
     constructor() {
+        this.hotApp = { empty: true, name: '', keycode: null, path: '', icon: '' };
         this.awakeAppList();
         this.hotApps = this.getHotApps();
         this.renderUIUpdate();
@@ -16,7 +17,7 @@ class Switch {
         if (data == null) {
             data = [];
             for (let i = 0; i < 10; i++)
-                data.push({ empty: true, name: '', keycode: null, path: '', icon: '' });
+                data.push(this.hotApp);
             config.set('hotApps', data);
         }
         return data;
@@ -104,13 +105,11 @@ class Switch {
             keycode: 2
         };
         config.set('hotApps', this.hotApps);
-        console.log(this.hotApps[index]);
         this.renderUIUpdate();
     }
     removeApp(index) {
-        this.hotApps[index] = { empty: true, name: '', keycode: null, path: '', icon: '' };
+        this.hotApps[index] = this.hotApp;
         config.set('hotApps', this.hotApps);
-        console.log(this.hotApps);
         this.resetAppTileUI(index);
     }
 }
