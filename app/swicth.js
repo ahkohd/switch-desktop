@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const iconExtractor = require('icon-extractor');
+const fileIcon = require("extract-file-icon");
 const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
@@ -78,19 +78,14 @@ class Switch {
     }
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
+        const icon = fileIcon(file.path, 32).toString('base64');
+        console.log(icon);
         if (file.type == 'application/x-msdownload') {
             let opsys = process.platform;
             if (opsys == 'darwin') {
             }
             else if (opsys == "win32" || 'win64') {
-                const extractIcon = new iconExtractor();
-                extractIcon.getIcon(elem.target.id, file.path);
-                extractIcon.emitter.once('icon', (data) => {
-                    let icon = data.Base64ImageData;
-                    let fileDetails = document.getElementById(elem.target.id).files[0];
-                    window.APP.addApp(elem.target.id.split('-')[2], fileDetails, icon);
-                    extractIcon.iconProcess.kill();
-                });
+                window.APP.addApp(elem.target.id.split('-')[2], file, icon);
             }
         }
         else {
@@ -119,7 +114,11 @@ class Switch {
         update.forEach(hot => {
             hotAppsData.push({ name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode });
         });
-        window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({ type: 'update-hot-apps', data: hotAppsData }));
+        try {
+            window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({ type: 'update-hot-apps', data: hotAppsData }));
+        }
+        catch (e) {
+        }
     }
 }
 exports.default = Switch;

@@ -1,5 +1,5 @@
 import { SwitchHotApp } from './interfaces';
-const iconExtractor = require('icon-extractor');
+const fileIcon = require("extract-file-icon");
 const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
@@ -92,23 +92,16 @@ export default class Switch {
     // handles click event when user want to add new app
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
-        // console.log(file);
+        // get app icon
+        const icon = fileIcon(file.path, 32).toString('base64');
+
+        console.log(icon);
         if (file.type == 'application/x-msdownload') {
             let opsys = process.platform;
             if (opsys == 'darwin') {
 
             } else if (opsys == "win32" || 'win64') {
-                // extract the app icon..
-                const extractIcon = new iconExtractor();
-                extractIcon.getIcon(elem.target.id, file.path);
-                // listen for the icon extraction..
-                extractIcon.emitter.once('icon',  (data) => {
-                    let icon = data.Base64ImageData;
-                    let fileDetails = (document.getElementById(elem.target.id) as any).files[0];
-                    (window as any).APP.addApp(elem.target.id.split('-')[2], fileDetails, icon);
-                    // kill the child process..
-                    extractIcon.iconProcess.kill();
-                });
+                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
             }
         } else {
             alert('Please select a app.');
@@ -143,7 +136,11 @@ export default class Switch {
         update.forEach(hot => {
             hotAppsData.push({name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode})
         });
+        try {
+            (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: hotAppsData}));
+        } catch(e)
+        {
 
-        (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: hotAppsData}));
+        }
     }
 }

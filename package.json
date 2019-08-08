@@ -25,7 +25,7 @@
   "dependencies": {
     "concurrently": "^4.1.1",
     "conf": "^5.0.0",
-    "icon-extractor": "^1.0.3",
+    "extract-file-icon": "^0.3.1",
     "node-ipc": "^9.1.1",
     "sass": "^1.22.9",
     "typescript": "^3.5.3"
