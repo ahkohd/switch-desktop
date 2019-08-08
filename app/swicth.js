@@ -7,7 +7,7 @@ const config = new Conf({
 });
 class Switch {
     constructor() {
-        this.hotApp = { empty: true, name: '', keycode: null, path: '', icon: '' };
+        this.hotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
         this.awakeAppList();
         this.hotApps = this.getHotApps();
         this.renderUIUpdate();
@@ -18,7 +18,7 @@ class Switch {
             data = [];
             for (let i = 0; i < 10; i++)
                 data.push(this.hotApp);
-            config.set('hotApps', data);
+            this.saveHotApps(data);
         }
         return data;
     }
@@ -103,15 +103,23 @@ class Switch {
             name: fileDetails.name,
             path: fileDetails.path,
             icon: appIcon,
-            keycode: 2
+            rawcode: (49 + parseInt(index))
         };
-        config.set('hotApps', this.hotApps);
+        this.saveHotApps(this.hotApps);
         this.renderUIUpdate();
     }
     removeApp(index) {
         this.hotApps[index] = this.hotApp;
-        config.set('hotApps', this.hotApps);
+        this.saveHotApps(this.hotApps);
         this.resetAppTileUI(index);
+    }
+    saveHotApps(update) {
+        config.set('hotApps', update);
+        let hotAppsData = [];
+        update.forEach(hot => {
+            hotAppsData.push({ name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode });
+        });
+        window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({ type: 'update-hot-apps', data: hotAppsData }));
     }
 }
 exports.default = Switch;

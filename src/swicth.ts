@@ -9,7 +9,7 @@ const config = new Conf({
 
 export default class Switch {
     hotApps: SwitchHotApp[] | null;
-    hotApp: SwitchHotApp = { empty: true, name: '', keycode: null, path: '', icon: '' };
+    hotApp: SwitchHotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
 
     constructor() {
         this.awakeAppList();
@@ -23,7 +23,7 @@ export default class Switch {
         if (data == null) {
             data = [];
             for (let i = 0; i < 10; i++) data.push(this.hotApp);
-            config.set('hotApps', data);
+            this.saveHotApps(data);
         }
         return data;
     }
@@ -122,16 +122,28 @@ export default class Switch {
             name: fileDetails.name,
             path: fileDetails.path,
             icon: appIcon,
-            keycode: 2
+            rawcode: (49 + parseInt(index))
         };
-        config.set('hotApps', this.hotApps);
+        this.saveHotApps(this.hotApps);
         this.renderUIUpdate();
     }
 
     // removes and app and updates store.
     removeApp(index) {
         this.hotApps[index] = this.hotApp;
-        config.set('hotApps', this.hotApps);
+        this.saveHotApps(this.hotApps);
         this.resetAppTileUI(index);
+    }
+
+    saveHotApps(update)
+    {
+        config.set('hotApps', update);
+        // send update to background service
+        let hotAppsData = [];
+        update.forEach(hot => {
+            hotAppsData.push({name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode})
+        });
+
+        (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: hotAppsData}));
     }
 }

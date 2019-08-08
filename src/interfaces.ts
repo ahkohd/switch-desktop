@@ -2,7 +2,7 @@ export interface SwitchHotApp
 {
     empty: boolean,
     name: string,
-    keycode: number,
+    rawcode: number,
     path: string,
     icon: string
 }
