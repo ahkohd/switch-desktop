@@ -79,7 +79,6 @@ class Switch {
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
         const icon = fileIcon(file.path, 32).toString('base64');
-        console.log(icon);
         if (file.type == 'application/x-msdownload') {
             let opsys = process.platform;
             if (opsys == 'darwin') {

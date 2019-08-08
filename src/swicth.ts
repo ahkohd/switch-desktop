@@ -94,8 +94,6 @@ export default class Switch {
         const file = elem.target.files[0];
         // get app icon
         const icon = fileIcon(file.path, 32).toString('base64');
-
-        console.log(icon);
         if (file.type == 'application/x-msdownload') {
             let opsys = process.platform;
             if (opsys == 'darwin') {
