@@ -50,8 +50,8 @@ export default class Switch {
                 setTimeout(()=>{
                     icon.classList.remove('animated');
                     icon.classList.remove('bounce');
+                    (window as any).APP.openApp(this);
                 }, 1000);
-                (window as any).APP.openApp(this);
             }.bind(i);
             let rmButton: HTMLButtonElement = document.createElement('button');
             rmButton.className = 'rm-btn';

@@ -41,8 +41,8 @@ class Switch {
                 setTimeout(() => {
                     icon.classList.remove('animated');
                     icon.classList.remove('bounce');
+                    window.APP.openApp(this);
                 }, 1000);
-                window.APP.openApp(this);
             }.bind(i);
             let rmButton = document.createElement('button');
             rmButton.className = 'rm-btn';
