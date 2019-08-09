@@ -4,12 +4,19 @@ const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
+const open = require('open');
+
+const bat = require.resolve('./win-run-get-pid.bat');
 
 // config.clear();
+const {exec} = require ('child_process');
+
 
 export default class Switch {
     hotApps: SwitchHotApp[] | null;
     hotApp: SwitchHotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
+
+    runningHotApps = [];
 
     constructor() {
         this.awakeAppList();
@@ -39,6 +46,15 @@ export default class Switch {
             elem.className = 'app';
             elem.title = hot.name.split('.exe')[0];
             let icon: HTMLImageElement = document.createElement('img');
+            icon.onclick = function() {
+                icon.classList.add('animated');
+                icon.classList.add('bounce');
+                setTimeout(()=>{
+                    icon.classList.remove('animated');
+                    icon.classList.remove('bounce');
+                }, 1000);
+                (window as any).APP.openApp(this);
+            }.bind(i);
             let rmButton: HTMLButtonElement = document.createElement('button');
             rmButton.className = 'rm-btn';
             rmButton.id = 'rm-' + i;
@@ -132,7 +148,7 @@ export default class Switch {
         // send update to background service
         let hotAppsData = [];
         update.forEach(hot => {
-            hotAppsData.push({name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode})
+            hotAppsData.push({name: hot.name, path: hot.path, rawcode: hot.rawcode})
         });
         try {
             (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: hotAppsData}));
@@ -141,4 +157,33 @@ export default class Switch {
 
         }
     }
+
+    openApp(index)
+    {
+
+        console.log('before', this.runningHotApps);
+        let hotAppData = this.hotApps[index];
+        open(hotAppData.path);
+    //     exec(bat+' "'+hotAppData.path+'"', {shell: true}, (err,stdout,stderr)=>{
+    //         if (err){
+    //          console.log(err);
+    //          console.log(stderr);
+    //         } else {
+    //             console.log(stdout);
+    //             let pid = parseInt(stdout.split('"')[1]);
+    //             console.log(pid);
+    //             this.runningHotApps.push({name: hotAppData.name, path: hotAppData.path, rawcode: hotAppData.rawcode, pid: pid});
+    //             console.log(this.runningHotApps);
+    //             // send message to swicth bg..
+    //             try {
+    //                 (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: this.runningHotApps}));
+    //             } catch(e)
+    //             {
+
+    //             }
+    //         }
+    //        });
+        
+    }
+
 }

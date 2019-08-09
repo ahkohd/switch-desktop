@@ -5,9 +5,13 @@ const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
+const open = require('open');
+const bat = require.resolve('./win-run-get-pid.bat');
+const { exec } = require('child_process');
 class Switch {
     constructor() {
         this.hotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
+        this.runningHotApps = [];
         this.awakeAppList();
         this.hotApps = this.getHotApps();
         this.renderUIUpdate();
@@ -33,6 +37,15 @@ class Switch {
             elem.className = 'app';
             elem.title = hot.name.split('.exe')[0];
             let icon = document.createElement('img');
+            icon.onclick = function () {
+                icon.classList.add('animated');
+                icon.classList.add('bounce');
+                setTimeout(() => {
+                    icon.classList.remove('animated');
+                    icon.classList.remove('bounce');
+                }, 1000);
+                window.APP.openApp(this);
+            }.bind(i);
             let rmButton = document.createElement('button');
             rmButton.className = 'rm-btn';
             rmButton.id = 'rm-' + i;
@@ -111,13 +124,18 @@ class Switch {
         config.set('hotApps', update);
         let hotAppsData = [];
         update.forEach(hot => {
-            hotAppsData.push({ name: hot.name.split('.exe')[0], path: hot.path, rawcode: hot.rawcode });
+            hotAppsData.push({ name: hot.name, path: hot.path, rawcode: hot.rawcode });
         });
         try {
             window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({ type: 'update-hot-apps', data: hotAppsData }));
         }
         catch (e) {
         }
+    }
+    openApp(index) {
+        console.log('before', this.runningHotApps);
+        let hotAppData = this.hotApps[index];
+        open(hotAppData.path);
     }
 }
 exports.default = Switch;
