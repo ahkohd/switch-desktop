@@ -6,8 +6,6 @@ const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
 const open = require('open');
-const bat = require.resolve('./win-run-get-pid.bat');
-const { exec } = require('child_process');
 class Switch {
     constructor() {
         this.hotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };

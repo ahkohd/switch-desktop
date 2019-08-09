@@ -5,11 +5,9 @@ const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
 const open = require('open');
-
-const bat = require.resolve('./win-run-get-pid.bat');
-
+// const bat = require.resolve('./win-run-get-pid.bat');
+// const {exec} = require ('child_process');
 // config.clear();
-const {exec} = require ('child_process');
 
 
 export default class Switch {

@@ -9,11 +9,12 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    // width: 80,
-    width: 700,
+    width: 80,
+    // width: 700,
     height: 600,
     frame: false,
     resizable: false,
+    skipTaskbar: true,
     minimizable: false,
     autoHideMenuBar: true,
     transparent: true,
