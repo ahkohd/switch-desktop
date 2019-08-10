@@ -4,19 +4,21 @@ const swicth_1 = require("./swicth");
 const ipc = require('node-ipc');
 const electron_1 = require("electron");
 let windowVisible = true;
+let windowPos;
 const hide = () => {
     return setTimeout(() => {
         const window = electron_1.remote.getCurrentWindow();
-        document.body.style.opacity = '0';
-        window.hide();
+        windowPos = window.getPosition();
+        window.setPosition(-100, 0);
         windowVisible = false;
     }, 3000);
 };
 let autoHide = hide();
 const show = () => {
     const window = electron_1.remote.getCurrentWindow();
-    setTimeout(() => document.body.style.opacity = '1', 100);
     window.show();
+    window.setPosition(windowPos[0], windowPos[1]);
+    window.setSize(70, 600);
     windowVisible = true;
     clearTimeout(autoHide);
     autoHide = hide();

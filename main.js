@@ -47,7 +47,7 @@ function createWindow () {
     const positioner = new Positioner(mainWindow);
     positioner.move('rightCenter');
     const pos = mainWindow.getPosition();
-    // mainWindow.setPosition(pos.y)
+    mainWindow.setPosition(pos[0]-10, pos[1]);
     mainWindow.show()
   })
 }
