@@ -11,7 +11,7 @@ const url = require('url')
 const path = require('path')
 
 
-let trayIcon = new Tray(path.join(__dirname, '/assets/images/bolt.png'));
+let trayIcon = new Tray(path.join(__dirname, '/assets/images/blue.ico'));
 let settingsWindowOpened = false;
 
 

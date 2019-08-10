@@ -7,18 +7,10 @@ $empty-app-border-color: rgba(255, 255, 255, 0.103);
 // $app-bar-bg: rgba(255, 255, 255, 0.726);
 
 
-html
-{
-    padding: 0;
-    margin: 0;
-    outline: 0;
-}
-
 body {
     display: flex;
     height: 100vh;
     width: 100vw;
-    padding: 0;
     overflow: hidden;
     background: transparent !important;
 }
@@ -27,11 +19,9 @@ body {
     position: relative;
     margin: auto;
     width: 80px;
-    height: 92vh;
-    // height: 75%;
-    background: rgba(0, 0, 0, .8);
-    // background: $app-bar-bg;
-    // border-radius: 5px;
+    height: 75%;
+    background: $app-bar-bg;
+    border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     overflow: hidden;

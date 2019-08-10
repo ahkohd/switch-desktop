@@ -2,7 +2,6 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const Positioner = require('electron-positioner')
-const electronVibrancy = require('electron-vibrancy');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -45,7 +44,6 @@ function createWindow () {
   })
 
   mainWindow.once('ready-to-show', () => {
-    electronVibrancy.SetVibrancy(mainWindow, 0);
     const positioner = new Positioner(mainWindow);
     positioner.move('rightCenter');
     const pos = mainWindow.getPosition();
