@@ -9,6 +9,7 @@ const open = require('open');
 class Switch {
     constructor() {
         this.hotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
+        this.lastHotAppIndex = null;
         this.runningHotApps = [];
         this.awakeAppList();
         this.hotApps = this.getHotApps();
@@ -129,6 +130,23 @@ class Switch {
         }
         catch (e) {
         }
+    }
+    getHotApppIndex(name) {
+        for (let i = 0; i < this.hotApps.length; i++) {
+            if (this.hotApps[i].name == name)
+                return i;
+        }
+        return null;
+    }
+    lastSwitchedApp(hotApp) {
+        const hotAppIndex = this.getHotApppIndex(hotApp.name);
+        console.log('new', hotAppIndex);
+        if (this.lastHotAppIndex != null) {
+            console.log(this.lastHotAppIndex);
+            document.getElementById('app-' + this.lastHotAppIndex).className = 'app';
+        }
+        document.getElementById('app-' + hotAppIndex).className = 'app active';
+        this.lastHotAppIndex = hotAppIndex;
     }
     openApp(index) {
         console.log('before', this.runningHotApps);

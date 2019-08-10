@@ -1,6 +1,6 @@
 import Switch from './swicth';
 const ipc = require('node-ipc');
-import { remote, screen } from 'electron';
+import { remote } from 'electron';
 
 
 let windowVisible = true;
@@ -47,16 +47,17 @@ ipc.connectTo('switch-service-channel', () => {
   });
 
   ipc.of['switch-service-channel'].on('client-show', (data) => {
-    console.log('recived');
     if (windowVisible) {
-      console.log('hide')
       clearTimeout(autoHide);
       autoHide = hide();
     } else {
-      console.log('show')
       show();
     }
-  })
+  });
+
+  ipc.of['switch-service-channel'].on('last-switched-app', (data) => {
+    (window as any).APP.lastSwitchedApp(data.hotApp);
+  });
 
 
 });

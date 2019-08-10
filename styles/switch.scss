@@ -118,6 +118,10 @@ body {
             }
         }
 
+        .app.active
+        {
+            border-color: yellow !important;
+        }
         .app.empty:hover::before {
             color: $secondary-color;
         }

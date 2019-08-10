@@ -33,16 +33,16 @@ ipc.connectTo('switch-service-channel', () => {
         ipc.of['switch-service-channel'].emit('switch-service-incoming', JSON.stringify({ type: 'client-pid', data: electron_1.remote.process.pid }));
     });
     ipc.of['switch-service-channel'].on('client-show', (data) => {
-        console.log('recived');
         if (windowVisible) {
-            console.log('hide');
             clearTimeout(autoHide);
             autoHide = hide();
         }
         else {
-            console.log('show');
             show();
         }
+    });
+    ipc.of['switch-service-channel'].on('last-switched-app', (data) => {
+        window.APP.lastSwitchedApp(data.hotApp);
     });
 });
 //# sourceMappingURL=renderer.js.map
