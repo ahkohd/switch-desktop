@@ -124,7 +124,7 @@ body {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #00aced;
+            background: $secondary-color;
             position: absolute;
             bottom: 30%;
             right: 10%;
@@ -255,4 +255,16 @@ body {
     animation-name: fadeOut;
     animation-duration: .3s;
     animation-fill-mode: forwards;
+}
+
+
+.settings-page
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: white !important;
+
+    .window-maximize, .window-minimize
+    {
+        display: none;
+    }
 }

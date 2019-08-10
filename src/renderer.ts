@@ -33,7 +33,14 @@ const show = () => {
 // instance app
 (window as any).APP = new Switch();
 
+// don't hide when user is on the dock
+document.body.addEventListener('mouseenter', () => {
+    clearInterval(autoHide);
+});
 
+document.body.addEventListener('mouseleave', () => {
+  autoHide = hide();
+});
 
 ipc.config.id = 'switch-client-channel';
 ipc.config.retry = 1500;

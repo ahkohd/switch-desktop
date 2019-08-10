@@ -25,6 +25,7 @@
   "dependencies": {
     "concurrently": "^4.1.1",
     "conf": "^5.0.0",
+    "custom-electron-titlebar": "^3.1.0",
     "electron-positioner": "^4.1.0",
     "extract-file-icon": "^0.3.1",
     "node-ipc": "^9.1.1",

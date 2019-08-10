@@ -24,6 +24,12 @@ const show = () => {
     autoHide = hide();
 };
 window.APP = new swicth_1.default();
+document.body.addEventListener('mouseenter', () => {
+    clearInterval(autoHide);
+});
+document.body.addEventListener('mouseleave', () => {
+    autoHide = hide();
+});
 ipc.config.id = 'switch-client-channel';
 ipc.config.retry = 1500;
 ipc.config.silent = true;
