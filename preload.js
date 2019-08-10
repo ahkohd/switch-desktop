@@ -21,7 +21,6 @@ createSettingsWindow = () => {
       height: 400,
       show: false,
       frame: false,
-      hasShadow: true,
       maximizable: false,
       minimizable: false,
       resizable: false,
