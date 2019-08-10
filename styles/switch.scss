@@ -261,7 +261,42 @@ body {
 .settings-page
 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: transparent !important;
+    background: #EAF8FE !important;
+    color: black;
+   
+    .board
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+        overflow: hidden;
+
+        .lside
+        {
+            height: 100%;
+            display: flex;
+    
+            div {
+                margin: 30px auto;
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+        }
+    
+        .rside
+        {
+            width: 70%;
+            height: 100%;
+            padding-top: 30px;
+        }
+    }
+
+   
 
     .window-maximize, .window-minimize
     {

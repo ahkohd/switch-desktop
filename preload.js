@@ -24,7 +24,6 @@ createSettingsWindow = () => {
       maximizable: false,
       minimizable: false,
       resizable: false,
-      transparent: true,
       webPreferences: {
          nodeIntegration: true
       }
