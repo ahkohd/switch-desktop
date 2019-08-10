@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+const Positioner = require('electron-positioner')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -9,15 +10,18 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 80,
+    width: 70,
     // width: 700,
     height: 600,
     frame: false,
     resizable: false,
     skipTaskbar: true,
     minimizable: false,
+    alwaysOnTop: true,
     autoHideMenuBar: true,
     transparent: true,
+    show: false,
+    hasShadow: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
@@ -26,6 +30,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');
+ 
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -36,6 +41,14 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    const positioner = new Positioner(mainWindow);
+    positioner.move('rightCenter');
+    const pos = mainWindow.getPosition();
+    // mainWindow.setPosition(pos.y)
+    mainWindow.show()
   })
 }
 
