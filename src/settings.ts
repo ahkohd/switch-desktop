@@ -4,7 +4,7 @@ import { Titlebar, Color } from 'custom-electron-titlebar'
  
 new Titlebar({
     backgroundColor: Color.fromHex('#ffffff'),
-    icon: './assets/images/light2.ico',
+    icon: './assets/images/switch.ico',
     minimizable: false,
     maximizable: false,
     menu: null

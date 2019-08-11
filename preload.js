@@ -11,7 +11,7 @@ const url = require('url')
 const path = require('path')
 
 
-let trayIcon = new Tray(path.join(__dirname, '/assets/images/tray.ico'));
+let trayIcon = new Tray(path.join(__dirname, '/assets/images/switch.ico'));
 let settingsWindowOpened = false;
 
 
@@ -68,6 +68,7 @@ const trayMenuTemplate = [{
    {
       label: 'Quit',
       click: function () {
+         remote.getCurrentWindow().close();
       }
    }
 ]
