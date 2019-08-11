@@ -4,7 +4,10 @@ $app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 $empty-app-border-color: rgba(255, 255, 255, 0.103);
 
-// $app-bar-bg: rgba(255, 255, 255, 0.726);
+
+* {
+    -webkit-user-select: none; 
+}
 
 
 body {
@@ -261,8 +264,14 @@ body {
 .settings-page
 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #EAF8FE !important;
+    background: rgb(255, 255, 255) !important;
     color: black;
+
+    .titlebar
+    {
+        border-bottom: 1px solid #EAF8FE !important;
+        height: 30px !important;
+    }
    
     .board
     {
@@ -273,17 +282,30 @@ body {
         justify-content: space-around;
         flex-direction: row;
         overflow: hidden;
+        font-family: Poppins;
+
 
         .lside
         {
             height: 100%;
             display: flex;
+            justify-content: center;
+            align-items: flex-start;
     
             div {
                 margin: 30px auto;
+                text-align: center;
+
                 img {
-                    width: 80px;
-                    height: 80px;
+                    width: 60px;
+                    height: 60px;
+                }
+                p {
+                    margin: 5px 0 0 0;
+                    color: rgb(78, 78, 78);
+                    font-size: 14px;
+                    letter-spacing: 1px;
+                    // font-weight: bold;
                 }
             }
         }
@@ -293,6 +315,50 @@ body {
             width: 70%;
             height: 100%;
             padding-top: 30px;
+
+            h2 {
+                font-family: Poppins;
+                font-weight: bold;
+                font-size: 30px;
+                margin: 0 0 15px 0;
+                color: rgba(0, 0, 0, 0.712);
+            }
+
+            .label
+            {
+                font-size: 14px;
+                margin-bottom: 2px;
+                display: block;
+            }
+
+            .form-control
+            {
+                margin-top: 13px;
+            }
+            .switch
+            {
+                transform: scale(.7) translateX(-15px);
+            }
+
+            .btn {
+                display: block;
+                width: 50%;
+                margin-top: 10px;
+                padding: 10px 0; 
+                font-weight: bold;
+                border-radius: 5px;
+                background: $secondary-color;
+                color: white;
+                border: 3px solid $secondary-color;
+                outline: none;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            }
+
+            .btn:hover {
+                background: #2196F3;
+            }
+
+            
         }
     }
 
@@ -303,3 +369,63 @@ body {
         display: none;
     }
 }
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {opacity: 0;}
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }

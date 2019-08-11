@@ -11,7 +11,7 @@ const url = require('url')
 const path = require('path')
 
 
-let trayIcon = new Tray(path.join(__dirname, '/assets/images/blue.ico'));
+let trayIcon = new Tray(path.join(__dirname, '/assets/images/tray.ico'));
 let settingsWindowOpened = false;
 
 
@@ -48,8 +48,16 @@ createSettingsWindow = () => {
 
 
 const trayMenuTemplate = [{
-      label: 'Toggle switch dock',
-      enabled: false
+      label: 'Show dock',
+      click: () => {
+         try {
+            window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'show-dock'}));
+        } catch(e)
+        {
+         alert('yeee')
+        }
+
+      },
    },
 
    {
@@ -57,11 +65,9 @@ const trayMenuTemplate = [{
       click: () => createSettingsWindow(),
       enabled: !settingsWindowOpened
    },
-
    {
-      label: 'Help',
+      label: 'Quit',
       click: function () {
-         console.log("Clicked on Help")
       }
    }
 ]
