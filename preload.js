@@ -36,12 +36,14 @@ createSettingsWindow = () => {
 
 
    win.on('closed', () => {
-      settingsWindowOpened = false
+      settingsWindowOpened = false;
+      trayIcon.setContextMenu(trayMenu);
    })
 
    win.once('ready-to-show', () => {
       settingsWindowOpened = true;
       win.show();
+      trayIcon.setContextMenu(trayMenu);
    });
 
 }
@@ -51,11 +53,10 @@ const trayMenuTemplate = [{
       label: 'Show dock',
       click: () => {
          try {
-            window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'show-dock'}));
-        } catch(e)
-        {
-         alert('yeee')
-        }
+            window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
+               type: 'show-dock'
+            }));
+         } catch (e) {}
 
       },
    },
@@ -74,4 +75,4 @@ const trayMenuTemplate = [{
 ]
 
 let trayMenu = Menu.buildFromTemplate(trayMenuTemplate)
-trayIcon.setContextMenu(trayMenu)
+trayIcon.setContextMenu(trayMenu);

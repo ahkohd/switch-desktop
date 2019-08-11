@@ -342,7 +342,7 @@ body {
 
             .btn {
                 display: block;
-                width: 50%;
+                width: 20%;
                 margin-top: 10px;
                 padding: 10px 0; 
                 font-weight: bold;
@@ -352,6 +352,9 @@ body {
                 border: 3px solid $secondary-color;
                 outline: none;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+                position: absolute;
+                right: 30px;
+                bottom: 30px;
             }
 
             .btn:hover {

@@ -3,7 +3,7 @@
 import { Titlebar, Color } from 'custom-electron-titlebar'
  
 new Titlebar({
-    backgroundColor: Color.fromHex('#ffffff'),
+    backgroundColor: Color.fromHex('#63808B'),
     icon: './assets/images/switch.ico',
     minimizable: false,
     maximizable: false,
@@ -32,6 +32,6 @@ function saveSettings()
 
 }
 
-document.addEventListener('load', (e) => updateUI());
+// document.addEventListener('load', (e) => updateUI());
 // setTimeout(()=>updateUI(), 0);
 

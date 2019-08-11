@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const custom_electron_titlebar_1 = require("custom-electron-titlebar");
 new custom_electron_titlebar_1.Titlebar({
-    backgroundColor: custom_electron_titlebar_1.Color.fromHex('#ffffff'),
+    backgroundColor: custom_electron_titlebar_1.Color.fromHex('#63808B'),
     icon: './assets/images/switch.ico',
     minimizable: false,
     maximizable: false,
@@ -22,5 +22,4 @@ function updateUI() {
 }
 function saveSettings() {
 }
-document.addEventListener('load', (e) => updateUI());
 //# sourceMappingURL=settings.js.map
