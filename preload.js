@@ -37,13 +37,15 @@ createSettingsWindow = () => {
 
    win.on('closed', () => {
       settingsWindowOpened = false;
-      trayIcon.setContextMenu(trayMenu);
+      trayMenu.items[1].enabled = true;
+
    })
 
    win.once('ready-to-show', () => {
       settingsWindowOpened = true;
       win.show();
       trayIcon.setContextMenu(trayMenu);
+      trayMenu.items[1].enabled = false;
    });
 
 }
