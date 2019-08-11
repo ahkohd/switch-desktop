@@ -21,6 +21,8 @@
   </style>
   <link rel="stylesheet" href="assets/css/normalize.css" />
   <link rel="stylesheet" href="styles/switch.min.css" />
+  <link rel="stylesheet" href="styles/toastify.min.css" />
+
   <title>Switch - Settings</title>
 </head>
 
@@ -35,28 +37,29 @@
     <div class="rside">
       <h2>Settings</h2>
       <div class="form-control">
-          <label class="label">Auto hide dock</label>
-          <label class="switch">
-            <input type="checkbox" id="auto_hide">
-            <div class="slider round"></div>
-          </label>
-        </div>
+        <label class="label">Auto hide dock</label>
+        <label class="switch">
+          <input type="checkbox" id="auto_hide">
+          <div class="slider round"></div>
+        </label>
+      </div>
 
-        <div class="form-control">
-            <label class="label">Maximize app on switch</label>
-            <label class="switch">
-              <input type="checkbox" id="maximize">
-              <div class="slider round"></div>
-            </label>
-          </div>
-    
-      <button class="btn">Save</button>
+      <div class="form-control">
+        <label class="label">Maximize app on switch</label>
+        <label class="switch">
+          <input type="checkbox" id="maximize">
+          <div class="slider round"></div>
+        </label>
+      </div>
+
+      <button class="btn" onclick="settings.saveSettings()">Save</button>
 
     </div>
-    </div>
-    <script>
-      require('./app/settings.js');
-    </script>
+  </div>
+  <script>
+    const s = require('./app/settings.js');
+    const settings = new s.Settings();
+  </script>
 
 </body>
 

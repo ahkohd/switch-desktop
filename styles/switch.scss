@@ -266,6 +266,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: rgb(255, 255, 255) !important;
     color: black;
+    position: relative;
 
     .titlebar
     {
@@ -371,6 +372,8 @@ body {
     {
         display: none;
     }
+
+   
 }
 
 
@@ -431,4 +434,12 @@ body {
   
   .slider.round:before {
     border-radius: 50%;
+  }
+
+
+  .toast-left
+  {
+       left: 20px;  
+       position: absolute;
+       width: 95px;
   }
