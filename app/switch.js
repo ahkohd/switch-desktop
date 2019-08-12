@@ -27,11 +27,9 @@ class Switch {
         for (let i = 0; i < this.hotApps.length; i++) {
             let elem = appsListUI[i];
             let hot = this.hotApps[i];
-            elem.title = 'No app chosen';
             if (hot.empty)
                 continue;
             elem.className = 'app';
-            elem.title = hot.name.split('.exe')[0];
             let icon = document.createElement('img');
             icon.onclick = function () {
                 icon.classList.add('animated');
@@ -76,7 +74,6 @@ class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty";
-        appTile.title = 'No app chosen';
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
@@ -152,4 +149,4 @@ class Switch {
     }
 }
 exports.default = Switch;
-//# sourceMappingURL=swicth.js.map
+//# sourceMappingURL=switch.js.map

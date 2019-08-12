@@ -1,9 +1,6 @@
 import { SwitchHotApp } from './interfaces';
 const fileIcon = require("extract-file-icon");
-const Conf = require('conf');
-const config = new Conf({
-    encryptionKey: '..kta#md!@a-k2j',
-});
+
 const open = require('open');
 // const bat = require.resolve('./win-run-get-pid.bat');
 // const {exec} = require ('child_process');
@@ -17,7 +14,7 @@ export default class Switch {
 
     runningHotApps = [];
 
-    constructor() {
+    constructor(public config) {
         this.awakeAppList();
         this.hotApps = this.getHotApps();
         this.renderUIUpdate();
@@ -25,7 +22,7 @@ export default class Switch {
 
     // get list of hot apps
     getHotApps(): SwitchHotApp[] | null {
-        let data = config.get('hotApps');
+        let data = this.config.get('hotApps');
         if (data == null) {
             data = [];
             for (let i = 0; i < 10; i++) data.push(this.hotApp);
@@ -40,10 +37,10 @@ export default class Switch {
         for (let i = 0; i < this.hotApps.length; i++) {
             let elem = appsListUI[i];
             let hot = this.hotApps[i];
-            elem.title = 'No app chosen';
+            // elem.title = 'No app chosen';
             if (hot.empty) continue;
             elem.className = 'app';
-            elem.title = hot.name.split('.exe')[0];
+            // elem.title = hot.name.split('.exe')[0];
             let icon: HTMLImageElement = document.createElement('img');
             icon.onclick = function() {
                 icon.classList.add('animated');
@@ -94,7 +91,7 @@ export default class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty";
-        appTile.title = 'No app chosen';
+        // appTile.title = 'No app chosen';
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
@@ -143,7 +140,7 @@ export default class Switch {
 
     saveHotApps(update)
     {
-        config.set('hotApps', update);
+        this.config.set('hotApps', update);
         // send update to background service
         let hotAppsData = [];
         update.forEach(hot => {
