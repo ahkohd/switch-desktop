@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Toastify = require("toastify-js");
 window.toastify = Toastify;
+const Conf = require('conf');
+const config = new Conf({
+    encryptionKey: '..kta#md!@a-k2j',
+});
 const custom_electron_titlebar_1 = require("custom-electron-titlebar");
 new custom_electron_titlebar_1.Titlebar({
     backgroundColor: custom_electron_titlebar_1.Color.fromHex('#63808B'),
@@ -16,14 +20,22 @@ class Settings {
             this.updateUI();
         };
     }
-    getSetValuesFromStore() {
-        return {
-            autoHide: true,
-            maximize: false
-        };
+    getSavedFromStore() {
+        const settings = config.get('config');
+        if (settings == null) {
+            const initial = {
+                autoHide: true,
+                maximize: true
+            };
+            config.set('config', initial);
+            return initial;
+        }
+        else {
+            return settings;
+        }
     }
     updateUI() {
-        const data = this.getSetValuesFromStore();
+        const data = this.getSavedFromStore();
         document.clear();
         this.setCheckedValue('auto_hide', data.autoHide);
         this.setCheckedValue('maximize', data.maximize);
@@ -37,6 +49,10 @@ class Settings {
     saveSettings() {
         const autoHide = this.getCheckedValue('auto_hide');
         const maximize = this.getCheckedValue('maximize');
+        config.set('config', {
+            autoHide: autoHide,
+            maximize: maximize
+        });
         window.toastify({
             text: "✨ Saved!",
             duration: 3000,
