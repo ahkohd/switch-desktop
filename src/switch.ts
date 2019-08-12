@@ -1,26 +1,29 @@
 import { SwitchHotApp } from './interfaces';
 const fileIcon = require("extract-file-icon");
-
 const open = require('open');
-// const bat = require.resolve('./win-run-get-pid.bat');
-// const {exec} = require ('child_process');
-// config.clear();
 
 
 export default class Switch {
+
     hotApps: SwitchHotApp[] | null;
     hotApp: SwitchHotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
     lastHotAppIndex: number = null;
-
     runningHotApps = [];
 
+
     constructor(public config) {
+        // Create hot apps elements
         this.awakeAppList();
+        // Get them from store
         this.hotApps = this.getHotApps();
+        // Render them
         this.renderUIUpdate();
     }
 
-    // get list of hot apps
+    /**
+     * Get a list of hot apps
+     * @returns SwitchHotApp
+     */
     getHotApps(): SwitchHotApp[] | null {
         let data = this.config.get('hotApps');
         if (data == null) {
@@ -31,7 +34,9 @@ export default class Switch {
         return data;
     }
 
-    // redraws the appbar UI
+    /**
+     * Render Changes
+     */
     renderUIUpdate() {
         const appsListUI: HTMLCollectionOf<HTMLDivElement> = document.getElementsByClassName('app') as HTMLCollectionOf<HTMLDivElement>;
         for (let i = 0; i < this.hotApps.length; i++) {
@@ -66,7 +71,9 @@ export default class Switch {
         }
     }
 
-    // bootstrap the appbar UI elements
+    /**
+     * Bootstrap the appbar UI elements
+     */ 
     awakeAppList() {
         const track = document.getElementById('track');
         for (let i = 0; i < 10; i++) {
@@ -86,8 +93,11 @@ export default class Switch {
 
     }
 
-    // resets a app tile with the given index
-    resetAppTileUI(i) {
+    /**
+     * Resets the hot app tile of as given index
+     * @param {number} i Index to reset
+     */ 
+    resetAppTileUI(i: number) {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty";
@@ -101,25 +111,34 @@ export default class Switch {
         appTile.appendChild(file);
     }
 
-    // handles click event when user want to add new app
+    /**
+     * Handles click event when user want to add new app
+     * @param {Event} elem - Event
+     */
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
         // get app icon
         const icon = fileIcon(file.path, 32).toString('base64');
         if (file.type == 'application/x-msdownload') {
-            let opsys = process.platform;
-            if (opsys == 'darwin') {
+            // let opsys = process.platform;
+            // if (opsys == 'darwin') {
 
-            } else if (opsys == "win32" || 'win64') {
+            // } else if (opsys == "win32" || 'win64') {
                 (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
-            }
+            // }
         } else {
             alert('Please select a app.');
         }
     }
 
-    // add a new app and store its details
-    addApp(index, fileDetails, appIcon) {
+    
+    /**
+     * Adds a new app and save it details
+     * @param  {any} index
+     * @param  {any} fileDetails
+     * @param  {string} appIcon
+     */
+    addApp(index: any, fileDetails: any, appIcon: string) {
         this.hotApps[index] = {
             empty: false,
             name: fileDetails.name,
@@ -131,13 +150,20 @@ export default class Switch {
         this.renderUIUpdate();
     }
 
-    // removes and app and updates store.
-    removeApp(index) {
+    /**
+     * Removes an hotapp of given index and update store.
+     * @param {number} index 
+     */
+    removeApp(index: number) {
         this.hotApps[index] = this.hotApp;
         this.saveHotApps(this.hotApps);
         this.resetAppTileUI(index);
     }
 
+    /**
+     * Saves hotapps update into the store
+     * @param {any} update 
+     */
     saveHotApps(update)
     {
         this.config.set('hotApps', update);
@@ -154,7 +180,12 @@ export default class Switch {
         }
     }
 
-    getHotApppIndex(name)
+
+    /**
+     * Get the hot app index of a given hot app name
+     * @param {string} name Hot app name
+     */
+    getHotApppIndex(name: string)
     {
         for(let i = 0; i < this.hotApps.length; i++)
         {
@@ -163,10 +194,14 @@ export default class Switch {
         return null;
     }
 
+    /**
+     * Sets the last switched hot app
+     * @param hotApp Last switched hot app
+     */
     lastSwitchedApp(hotApp)
     {
         const hotAppIndex = this.getHotApppIndex(hotApp.name);
-        console.log('new', hotAppIndex);
+        // console.log('new', hotAppIndex);
         if(this.lastHotAppIndex != null)
         {
             console.log(this.lastHotAppIndex);
@@ -177,31 +212,15 @@ export default class Switch {
         this.lastHotAppIndex = hotAppIndex;
     }
 
-    openApp(index)
+    /**
+     * Open a hot app with a given index
+     * @param {number} index Index of the hot app to open 
+     */
+    openApp(index: number)
     {
 
-        console.log('before', this.runningHotApps);
+        // console.log('before', this.runningHotApps);
         let hotAppData = this.hotApps[index];
         open(hotAppData.path);
-    //     exec(bat+' "'+hotAppData.path+'"', {shell: true}, (err,stdout,stderr)=>{
-    //         if (err){
-    //          console.log(err);
-    //          console.log(stderr);
-    //         } else {
-    //             console.log(stdout);
-    //             let pid = parseInt(stdout.split('"')[1]);
-    //             console.log(pid);
-    //             this.runningHotApps.push({name: hotAppData.name, path: hotAppData.path, rawcode: hotAppData.rawcode, pid: pid});
-    //             console.log(this.runningHotApps);
-    //             // send message to swicth bg..
-    //             try {
-    //                 (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({type:'update-hot-apps', data: this.runningHotApps}));
-    //             } catch(e)
-    //             {
-
-    //             }
-    //         }
-    //        });
-        
     }
 }

@@ -86,12 +86,7 @@ class Switch {
         const file = elem.target.files[0];
         const icon = fileIcon(file.path, 32).toString('base64');
         if (file.type == 'application/x-msdownload') {
-            let opsys = process.platform;
-            if (opsys == 'darwin') {
-            }
-            else if (opsys == "win32" || 'win64') {
-                window.APP.addApp(elem.target.id.split('-')[2], file, icon);
-            }
+            window.APP.addApp(elem.target.id.split('-')[2], file, icon);
         }
         else {
             alert('Please select a app.');
@@ -134,7 +129,6 @@ class Switch {
     }
     lastSwitchedApp(hotApp) {
         const hotAppIndex = this.getHotApppIndex(hotApp.name);
-        console.log('new', hotAppIndex);
         if (this.lastHotAppIndex != null) {
             console.log(this.lastHotAppIndex);
             document.getElementById('app-' + this.lastHotAppIndex).className = 'app';
@@ -143,7 +137,6 @@ class Switch {
         this.lastHotAppIndex = hotAppIndex;
     }
     openApp(index) {
-        console.log('before', this.runningHotApps);
         let hotAppData = this.hotApps[index];
         open(hotAppData.path);
     }

@@ -10,17 +10,13 @@ const {
 const url = require('url')
 const path = require('path')
 
-
 const Conf = require('conf');
 const config = new Conf({
     encryptionKey: '..kta#md!@a-k2j',
 });
 
-
-
 let trayIcon = new Tray(path.join(__dirname, '/assets/images/switch.ico'));
 let settingsWindowOpened = false;
-
 
 createSettingsWindow = () => {
    let win = new BrowserWindow({
@@ -41,11 +37,9 @@ createSettingsWindow = () => {
       slashes: true
    }));
 
-
    win.on('closed', () => {
       settingsWindowOpened = false;
       trayMenu.items[1].enabled = true;
-     
       // send the update to the switch service..
       try {
          window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
@@ -53,8 +47,7 @@ createSettingsWindow = () => {
             data: config.get('config')
          }));
       } catch (e) {}
-
-   })
+   });
 
    win.once('ready-to-show', () => {
       settingsWindowOpened = true;
