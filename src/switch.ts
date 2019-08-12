@@ -204,5 +204,4 @@ export default class Switch {
     //        });
         
     }
-
 }
