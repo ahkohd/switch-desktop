@@ -1,7 +1,8 @@
 import { SwitchHotApp } from './interfaces';
+import { pathToFileURL } from 'url';
 const fileIcon = require("extract-file-icon");
 const open = require('open');
-
+const path = require('path');
 
 export default class Switch {
 
@@ -116,19 +117,38 @@ export default class Switch {
      * @param {Event} elem - Event
      */
     onClickAddHotApp(elem) {
+
         const file = elem.target.files[0];
+        if(this.checkIfAppExists(file.path, file.name))
+        {
+            alert('App already exists in dock!');
+            return;
+        }
+
         // get app icon
         const icon = fileIcon(file.path, 32).toString('base64');
-        if (file.type == 'application/x-msdownload') {
-            // let opsys = process.platform;
-            // if (opsys == 'darwin') {
-
-            // } else if (opsys == "win32" || 'win64') {
-                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
-            // }
+        let opsys = process.platform;
+        if(opsys == 'darwin' && path.extname(file.path) == '.app')
+        {
+            (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
+        } else if(file.type == 'application/x-msdownload' && opsys == "win32" || 'win64')
+        {
+            (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else {
             alert('Please select a app.');
         }
+    }
+
+    /**
+     * Checks if an app with a given name and path already exists
+     * @param  {string} path
+     * @param  {string} name
+     */
+    checkIfAppExists(path: string, name: string)
+    {
+        const nameExits = this.hotApps.filter(hotapp=>hotapp.name.toLowerCase() == name.toLocaleLowerCase());
+        const pathExists = this.hotApps.filter(hotapp=>hotapp.path.toLowerCase() == path.toLowerCase());
+        return (pathExists.length == 0 || nameExits.length == 0) ? false : true;
     }
 
     

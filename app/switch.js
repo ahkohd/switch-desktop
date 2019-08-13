@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fileIcon = require("extract-file-icon");
 const open = require('open');
+const path = require('path');
 class Switch {
     constructor(config) {
         this.config = config;
@@ -84,13 +85,26 @@ class Switch {
     }
     onClickAddHotApp(elem) {
         const file = elem.target.files[0];
+        if (this.checkIfAppExists(file.path, file.name)) {
+            alert('App already exists in dock!');
+            return;
+        }
         const icon = fileIcon(file.path, 32).toString('base64');
-        if (file.type == 'application/x-msdownload') {
+        let opsys = process.platform;
+        if (opsys == 'darwin' && path.extname(file.path) == '.app') {
+            window.APP.addApp(elem.target.id.split('-')[2], file, icon);
+        }
+        else if (file.type == 'application/x-msdownload' && opsys == "win32" || 'win64') {
             window.APP.addApp(elem.target.id.split('-')[2], file, icon);
         }
         else {
             alert('Please select a app.');
         }
+    }
+    checkIfAppExists(path, name) {
+        const nameExits = this.hotApps.filter(hotapp => hotapp.name.toLowerCase() == name.toLocaleLowerCase());
+        const pathExists = this.hotApps.filter(hotapp => hotapp.path.toLowerCase() == path.toLowerCase());
+        return (pathExists.length == 0 || nameExits.length == 0) ? false : true;
     }
     addApp(index, fileDetails, appIcon) {
         this.hotApps[index] = {
