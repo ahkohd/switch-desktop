@@ -2,6 +2,8 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const Positioner = require('electron-positioner')
+const spawn = require('cross-spawn');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,6 +54,32 @@ function createWindow () {
   })
 }
 
+
+
+//// SPWAN SWITCH SERVICE
+function SPWAN_SWITCH_SERVICE()
+{
+  const opsys = process.platform;
+  if(opsys == 'darwin')
+  {
+    return spawn('./service-binaries/switch-macos');
+  } else if(opsys == "win32" || 'win64') {
+    // spawn the executable
+    return spawn('.\\service-binaries\\switch-win');
+  } else
+  {
+    return spawn('./service-binaries/switch-linux');
+  }
+}
+let child = SPWAN_SWITCH_SERVICE();
+// on error kill service and respawn
+child.stderr.on('data', (data) => {
+  child.kill();
+  child = SPWAN_SWITCH_SERVICE(); 
+});
+
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -61,6 +89,8 @@ app.on('ready', createWindow)
 app.on('window-all-closed', function () {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
+  // kill switch service
+  child.kill();
   if (process.platform !== 'darwin') app.quit()
 })
 
