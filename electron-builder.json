@@ -21,6 +21,7 @@
     ]
   },
   "win": {
+    "publish": ["github"],
     "target": ["zip", "nsis"]
   },
   "mac": {
