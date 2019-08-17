@@ -125,7 +125,7 @@ export default class Switch {
         }
 
         // get app icon
-        const icon = fileIcon(file.path, 32).toString('base64');
+        const icon = fileIcon(file.path, 64).toString('base64');
         let opsys = process.platform;
         if(opsys == 'darwin' && path.extname(file.path) == '.app')
         {
