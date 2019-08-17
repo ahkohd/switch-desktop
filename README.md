@@ -13,4 +13,4 @@ Switch between your favourite apps lightning fast. (Windows, macOS)
 # Components
 Switch as 2 main components.
 - [Switch desktop](https://github.com/ahkohd/switch-desktop) Serves as the UI, provides the dock and tray menu.
-- [Switch service](https://github.com/ahkohd/switch) Does the actually window switching magic.
+- [Switch service](https://github.com/ahkohd/switch) Does the actual window switching magic.
