@@ -1,7 +1,7 @@
 {
   "name": "Switch",
   "version": "1.0.0",
-  "description": "Switch between your favourite apps like breeze (Windows, MacOS)",
+  "description": "Switch between your favourite lightning fast. (Windows, MacOS)",
   "main": "./main.js",
   "scripts": {
     "start": "electron .",
@@ -22,7 +22,7 @@
     "utility",
     "productivity"
   ],
-  "author": "SoftNexus",
+  "author": "Victor Aremu",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^6.0.0",

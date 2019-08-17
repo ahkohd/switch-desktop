@@ -70,6 +70,14 @@ body {
                 margin: auto;
             }
 
+            &:hover 
+            {
+                .icon
+                {
+                    transform: scale(1.1);
+                }
+            }
+
             .icon {
                 width: 32px;
                 height: 32px;
