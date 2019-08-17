@@ -17,8 +17,7 @@ class Settings {
         if (settings == null) {
             const initial = {
                 autoHide: true,
-                maximize: true,
-                showIntro: true
+                maximize: true
             };
             config.set('config', initial);
             return initial;
