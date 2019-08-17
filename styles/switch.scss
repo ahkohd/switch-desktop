@@ -70,19 +70,10 @@ body {
                 margin: auto;
             }
 
-            &:hover 
-            {
-                .icon
-                {
-                    transform: scale(1.06);
-                }
-            }
-
             .icon {
                 width: 32px;
                 height: 32px;
                 z-index: 0;
-                transition: .2s ease-in;
                 border-radius: 5px;
             }
 
