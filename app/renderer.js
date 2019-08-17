@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const switch_1 = require("./switch");
 const ipc = require('node-ipc');
 const electron_1 = require("electron");
-const Conf = require('conf');
-const config = new Conf({
-    encryptionKey: '..kta#md!@a-k2j',
+const Store = require('electron-store');
+const config = new Store({
+    projectName: 'SwitchDock'
 });
 let windowVisible = true;
 let windowPos;
@@ -72,8 +72,8 @@ ipc.connectTo('switch-service-channel', () => {
             show(false);
             window.DOCK_CAN_AUTO_HIDE = false;
         }
-        else {
-            autoHide = hide();
+        else if (settings.autoHide && !window.DOCK_CAN_AUTO_HIDE) {
+            show();
             window.DOCK_CAN_AUTO_HIDE = true;
         }
     });

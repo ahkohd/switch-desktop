@@ -10,24 +10,64 @@ const {
 const url = require('url')
 const path = require('path')
 
-const Conf = require('conf');
-const config = new Conf({
-    encryptionKey: '..kta#md!@a-k2j',
+const Store = require('electron-store');
+const config = new Store({
+   projectName: 'SwitchDock'
 });
 
 let trayIcon = new Tray(path.join(__dirname, '/assets/images/switch.ico'));
 let settingsWindowOpened = false;
+
+
+canShowIntro = () => {
+   const status = config.get('showIntro');
+   return (status == null) ? true : status;
+}
+
+// creates an intro window
+createIntroWindow = () => {
+    let win = new remote.BrowserWindow({
+        width: 600,
+        height: 400,
+        show: false,
+        frame: false,
+        transparent: true,
+        maximizable: false,
+        minimizable: false,
+        skipTaskbar: true,
+        resizable: false,
+        webPreferences: {
+           nodeIntegration: true
+        }
+     });
+
+     win.loadURL(url.format({
+        pathname: path.join(__dirname, 'intro.html'),
+        protocol: 'file:',
+        slashes: true
+     }));
+     win.on('closed', () => {
+
+     });
+     win.once('ready-to-show', ()=>{
+        win.show();
+        readyToShow();
+     });
+}
+//show intro on startup.
+if(canShowIntro()) createIntroWindow();
+
 
 createSettingsWindow = () => {
    let win = new BrowserWindow({
       width: 600,
       height: 400,
       show: false,
-      frame: false,
       maximizable: false,
       minimizable: false,
       resizable: false,
       webPreferences: {
+         devTools: false,
          nodeIntegration: true
       }
    })
@@ -51,6 +91,7 @@ createSettingsWindow = () => {
 
    win.once('ready-to-show', () => {
       settingsWindowOpened = true;
+      win.setMenu(null);
       win.show();
       trayIcon.setContextMenu(trayMenu);
       trayMenu.items[1].enabled = false;

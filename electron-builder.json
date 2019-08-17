@@ -1,0 +1,29 @@
+{
+  "appId": "com.softnexus.switch",
+  "productName": "Switch",
+  "asar": true,
+  "directories": {
+    "output": "dist",
+    "buildResources": "assets/app-icons"
+  },
+  "extraResources": ["./service-binaries/**/*"],
+  "files": ["./app/**/*", "./styles/**/*", "./assets/**/*", "package.json", "./main.js", "./index.html", "./intro.html", "./preload.js", "./settings.html"],
+  "linux": {
+    "category": "Network",
+    "target": [{
+        "target": "deb",
+        "arch": ["ia32", "x64"]
+      },
+      {
+        "target": "AppImage",
+        "arch": ["ia32", "x64"]
+      }
+    ]
+  },
+  "win": {
+    "target": ["zip", "nsis"]
+  },
+  "mac": {
+    "category": "public.app-category.navigation"
+  }
+}

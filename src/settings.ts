@@ -1,20 +1,11 @@
 import * as Toastify from 'toastify-js';
 (window as any).toastify = Toastify;
 
-const Conf = require('conf');
-const config = new Conf({
-    encryptionKey: '..kta#md!@a-k2j',
+const Store = require('electron-store');
+const config = new Store({
+    projectName: 'SwitchDock',
 });
 
-
-import { Titlebar, Color } from 'custom-electron-titlebar'
-new Titlebar({
-    backgroundColor: Color.fromHex('#63808B'),
-    icon: './assets/images/switch.ico',
-    minimizable: false,
-    maximizable: false,
-    menu: null
-});
 
 export class Settings {
 
@@ -38,11 +29,18 @@ export class Settings {
         }
     }
 
+    getShowIntro()
+    {
+        const status = config.get('showIntro');
+        return status == null ? true: status;
+    }
+
     updateUI() {
         const data = this.getSavedFromStore();
         document.clear();
         this.setCheckedValue('auto_hide', data.autoHide);
         this.setCheckedValue('maximize', data.maximize);
+        this.setCheckedValue('intro', this.getShowIntro());
     }
 
     getCheckedValue(id: string): boolean {
@@ -57,21 +55,36 @@ export class Settings {
 
         const autoHide = this.getCheckedValue('auto_hide');
         const maximize = this.getCheckedValue('maximize');
+        const intro = this.getCheckedValue('intro');
+
 
         config.set('config', {
             autoHide: autoHide,
             maximize: maximize
         });
 
+        config.set('showIntro', intro);
 
-            (window as any).toastify({
-                text: "✨ Saved!",
-                duration: 3000,
-                gravity: "bottom",
-                close: true,
-                position: 'left',
-                className: 'toast-left',
-                backgroundColor: "linear-gradient(136.2deg, #71D8FF -22.19%, #09B5F5 51.02%, #5811F0 114.32%)",
-            }).showToast();
+
+        (window as any).toastify({
+            text: "✨ Saved!",
+            duration: 3000,
+            gravity: "bottom",
+            close: true,
+            position: 'left',
+            className: 'toast-left',
+            backgroundColor: "linear-gradient(136.2deg, #71D8FF -22.19%, #09B5F5 51.02%, #5811F0 114.32%)",
+        }).showToast();
     }
+}
+
+
+// Disable key-combo refresh..
+document.onkeydown = (e) => {
+    const press = (window as any).event ? (window as any).event : e;
+    if (press.keyCode == 82 && press.ctrlKey) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
 }

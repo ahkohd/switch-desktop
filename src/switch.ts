@@ -1,5 +1,4 @@
 import { SwitchHotApp } from './interfaces';
-import { pathToFileURL } from 'url';
 const fileIcon = require("extract-file-icon");
 const open = require('open');
 const path = require('path');
@@ -26,7 +25,7 @@ export default class Switch {
      * @returns SwitchHotApp
      */
     getHotApps(): SwitchHotApp[] | null {
-        let data = this.config.get('hotApps');
+        let data = this.config.get('DockHotApps');
         if (data == null) {
             data = [];
             for (let i = 0; i < 10; i++) data.push(this.hotApp);
@@ -131,11 +130,11 @@ export default class Switch {
         if(opsys == 'darwin' && path.extname(file.path) == '.app')
         {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
-        } else if(file.type == 'application/x-msdownload' && opsys == "win32" || 'win64')
+        } else if(file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64'))
         {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else {
-            alert('Please select a app.');
+            alert('Please select an app.');
         }
     }
 
@@ -186,7 +185,7 @@ export default class Switch {
      */
     saveHotApps(update)
     {
-        this.config.set('hotApps', update);
+        this.config.set('DockHotApps', update);
         // send update to background service
         let hotAppsData = [];
         update.forEach(hot => {
@@ -243,4 +242,14 @@ export default class Switch {
         let hotAppData = this.hotApps[index];
         open(hotAppData.path);
     }
+}
+
+// Disable key-combo refresh..
+document.onkeydown = (e) => {
+    const press = (window as any).event ? (window as any).event : e;
+    if (press.keyCode == 82 && press.ctrlKey) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
 }

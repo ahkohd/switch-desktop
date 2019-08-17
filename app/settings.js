@@ -2,17 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Toastify = require("toastify-js");
 window.toastify = Toastify;
-const Conf = require('conf');
-const config = new Conf({
-    encryptionKey: '..kta#md!@a-k2j',
-});
-const custom_electron_titlebar_1 = require("custom-electron-titlebar");
-new custom_electron_titlebar_1.Titlebar({
-    backgroundColor: custom_electron_titlebar_1.Color.fromHex('#63808B'),
-    icon: './assets/images/switch.ico',
-    minimizable: false,
-    maximizable: false,
-    menu: null
+const Store = require('electron-store');
+const config = new Store({
+    projectName: 'SwitchDock',
 });
 class Settings {
     constructor() {
@@ -25,7 +17,8 @@ class Settings {
         if (settings == null) {
             const initial = {
                 autoHide: true,
-                maximize: true
+                maximize: true,
+                showIntro: true
             };
             config.set('config', initial);
             return initial;
@@ -34,11 +27,16 @@ class Settings {
             return settings;
         }
     }
+    getShowIntro() {
+        const status = config.get('showIntro');
+        return status == null ? true : status;
+    }
     updateUI() {
         const data = this.getSavedFromStore();
         document.clear();
         this.setCheckedValue('auto_hide', data.autoHide);
         this.setCheckedValue('maximize', data.maximize);
+        this.setCheckedValue('intro', this.getShowIntro());
     }
     getCheckedValue(id) {
         return document.getElementById(id).checked;
@@ -49,10 +47,12 @@ class Settings {
     saveSettings() {
         const autoHide = this.getCheckedValue('auto_hide');
         const maximize = this.getCheckedValue('maximize');
+        const intro = this.getCheckedValue('intro');
         config.set('config', {
             autoHide: autoHide,
             maximize: maximize
         });
+        config.set('showIntro', intro);
         window.toastify({
             text: "✨ Saved!",
             duration: 3000,
@@ -65,4 +65,11 @@ class Settings {
     }
 }
 exports.Settings = Settings;
+document.onkeydown = (e) => {
+    const press = window.event ? window.event : e;
+    if (press.keyCode == 82 && press.ctrlKey) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+};
 //# sourceMappingURL=settings.js.map

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Roboto'), local('Roboto-Regular'), url('./assets/fonts/Poppins-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 800;
+            src: local('Roboto'), local('Roboto-Regular'), url('./assets/fonts/Poppins-Bold.ttf');
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="styles/switch.min.css" />
+    <title>Intro</title>
+</head>
+
+<body class="intro-page">
+    <div class="slide">
+        <div class="pane">
+
+            <div class="tip">
+                <img src="./assets/images/switch.ico" alt="">
+                <h2>Open dock</h2>
+                <p>
+                    Tap left or right <span class="key">alt</span> key to show Switch dock.
+                </p>
+
+            </div>
+            <div class="tip">
+                <img src="./assets/images/tip-manage.svg" alt="">
+                <h2>Manage apps</h2>
+                <p>
+                    You can add and remove apps at the dock.
+                </p>
+            </div>
+
+            <div class="tip">
+                <img src="./assets/images/tip-switch.svg" alt="">
+                <h2>Switch apps</h2>
+                <p>
+                    Hold left or right <span class="key">alt</span> then press your <span class="key">num</span> keys to
+                    switch between your hotapps.
+                </p>
+            </div>
+
+            <div class="tip">
+                <img src="./assets/images/tip-pref.svg" alt="">
+                <h2>Settings</h2>
+                <p>
+                    You can find Switch settings at the tray menu.
+                </p>
+            </div>
+
+            <div class="tip">
+                <img src="./assets/images/tip-final.svg" alt="">
+                <h2>🎉✨</h2>
+                <p>
+                    All that's all for now, Get ready to switch!
+                </p>
+            </div>
+
+            <div class="nav">
+                <button class="prev" id="prev" onclick="intro.prev()">Prev</button>
+                <button class="next" id="next" onclick="intro.next()">Next</button>
+                <button class="close" id="close" onclick="intro.close()">Okay, Thanks!</button>
+            </div>
+        </div>
+
+
+
+
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <script>
+        const {
+            Intro
+        } = require('./app/intro.js');
+        const intro = new Intro();
+    </script>
+
+</body>
+
+</html>

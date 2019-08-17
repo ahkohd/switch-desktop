@@ -1,37 +1,42 @@
 {
-  "name": "swicth",
+  "name": "Switch",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "description": "Switch between your favourite apps like breeze (Windows, MacOS)",
+  "main": "./main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "concurrently \"npm:watch-ts\" \"npm:start\" ",
+    "start-dev": "electron . --dev",
+    "dev": "concurrently \"npm:watch-ts\" \"npm:start-dev\" ",
+    "prod": "concurrently \"npm:watch-ts\" \"npm:start\" ",
     "watch-ts": "tsc -w",
+    "compile-win32": "electron-builder -w",
+    "compile-darwin": "electron-builder -m",
+    "compile-linux": "electron-builder -l",
+    "postinstall": "electron-builder install-app-deps --publish=never",
     "watch-sass": "sass --watch ./styles"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ahkohd/switch-desktop",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Switch",
+    "app",
+    "utility",
+    "productivity"
   ],
-  "author": "GitHub",
+  "author": "SoftNexus",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.0"
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0"
   },
   "dependencies": {
     "concurrently": "^4.1.1",
-    "conf": "^5.0.0",
-    "cross-spawn": "^6.0.5",
-    "custom-electron-titlebar": "^3.1.0",
     "electron-positioner": "^4.1.0",
+    "electron-store": "^4.0.0",
     "extract-file-icon": "^0.3.1",
     "node-ipc": "^9.1.1",
     "open": "^6.4.0",
     "sass": "^1.22.9",
+    "toastify-js": "^1.6.1",
     "typescript": "^3.5.3"
   }
 }

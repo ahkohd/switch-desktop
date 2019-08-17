@@ -14,7 +14,7 @@ class Switch {
         this.renderUIUpdate();
     }
     getHotApps() {
-        let data = this.config.get('hotApps');
+        let data = this.config.get('DockHotApps');
         if (data == null) {
             data = [];
             for (let i = 0; i < 10; i++)
@@ -94,11 +94,11 @@ class Switch {
         if (opsys == 'darwin' && path.extname(file.path) == '.app') {
             window.APP.addApp(elem.target.id.split('-')[2], file, icon);
         }
-        else if (file.type == 'application/x-msdownload' && opsys == "win32" || 'win64') {
+        else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
             window.APP.addApp(elem.target.id.split('-')[2], file, icon);
         }
         else {
-            alert('Please select a app.');
+            alert('Please select an app.');
         }
     }
     checkIfAppExists(path, name) {
@@ -123,7 +123,7 @@ class Switch {
         this.resetAppTileUI(index);
     }
     saveHotApps(update) {
-        this.config.set('hotApps', update);
+        this.config.set('DockHotApps', update);
         let hotAppsData = [];
         update.forEach(hot => {
             hotAppsData.push({ name: hot.name, path: hot.path, rawcode: hot.rawcode });
@@ -156,4 +156,11 @@ class Switch {
     }
 }
 exports.default = Switch;
+document.onkeydown = (e) => {
+    const press = window.event ? window.event : e;
+    if (press.keyCode == 82 && press.ctrlKey) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+};
 //# sourceMappingURL=switch.js.map

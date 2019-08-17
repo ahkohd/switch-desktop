@@ -2,11 +2,10 @@ import Switch from './switch';
 const ipc = require('node-ipc');
 import { remote } from 'electron';
 
-
 // Load saved configurations
-const Conf = require('conf');
-const config = new Conf({
-  encryptionKey: '..kta#md!@a-k2j',
+const Store = require('electron-store');
+const config = new Store({
+  projectName: 'SwitchDock'
 });
 
 // Dock visibility
@@ -16,7 +15,7 @@ let windowPos;
 /* Hides the dock after 3000 seconds.
  * - By moving it to a negative screen position, since the dock
  * is always on top of every other window.
- */ 
+ */
 const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
@@ -74,6 +73,8 @@ document.body.addEventListener('mouseleave', () => {
 });
 
 
+
+
 /*
  * SWITCH SERVICE
  * Node IPC channel
@@ -116,9 +117,9 @@ ipc.connectTo('switch-service-channel', () => {
     if (!settings.autoHide) {
       show(false);
       (window as any).DOCK_CAN_AUTO_HIDE = false;
-    } else {
-      autoHide = hide();
-      (window as any).DOCK_CAN_AUTO_HIDE = true;
+    } else if (settings.autoHide && !(window as any).DOCK_CAN_AUTO_HIDE) {
+        show();
+        (window as any).DOCK_CAN_AUTO_HIDE = true;
     }
   });
 
