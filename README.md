@@ -29,3 +29,4 @@ $npm run dev
 ```
 
 # License
+[Read  LICENSE.md](./LICENSE.md)
