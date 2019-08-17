@@ -42,10 +42,10 @@ export default class Switch {
         for (let i = 0; i < this.hotApps.length; i++) {
             let elem = appsListUI[i];
             let hot = this.hotApps[i];
-            // elem.title = 'No app chosen';
+            elem.title = 'No app chosen';
             if (hot.empty) continue;
             elem.className = 'app';
-            // elem.title = hot.name.split('.exe')[0];
+            elem.title = hot.name.split('.exe')[0].replace(/^\w/, c => c.toUpperCase());
             let icon: HTMLImageElement = document.createElement('img');
             icon.onclick = function() {
                 icon.classList.add('animated');
@@ -101,7 +101,7 @@ export default class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty";
-        // appTile.title = 'No app chosen';
+        appTile.title = 'No app chosen';
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
