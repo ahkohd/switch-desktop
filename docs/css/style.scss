@@ -18,17 +18,16 @@ nav.navbar
 .demo_pane
 {
     display: flex;
-    perspective: 900px;
     padding-top: 3.2rem;
 
-
-
     img {
+        bottom: 0;
+        left: 0;
         margin: auto;
         max-width: 80%;
         border-radius: 5px;
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        transform:  rotateY(30deg);
+        // transform:  rotateY(30deg);
     }
 }
 
