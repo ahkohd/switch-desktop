@@ -18,12 +18,17 @@ nav.navbar
 .demo_pane
 {
     display: flex;
+    perspective: 900px;
+    padding-top: 3.2rem;
+
+
 
     img {
         margin: auto;
         max-width: 80%;
         border-radius: 5px;
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transform:  rotateY(30deg);
     }
 }
 
@@ -37,6 +42,10 @@ nav.navbar
         font-weight: 700;
         font-size: 5.5em;
         text-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+
+        sup {
+            font-size: 12px;
+        }
     }
 
     p {
