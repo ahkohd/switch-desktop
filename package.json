@@ -10,7 +10,7 @@
     "prod": "concurrently \"npm:watch-ts\" \"npm:start\" ",
     "watch-ts": "tsc -w",
     "compile-win32": "electron-builder -w",
-    "compile-darwin": "electron-builder -m",
+    "compile-darwin": "electron-builder -m --osx-sign=true",
     "compile-linux": "electron-builder -l",
     "postinstall": "electron-builder install-app-deps --publish=never",
     "watch-sass": "sass --watch ./styles"
