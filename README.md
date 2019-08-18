@@ -6,7 +6,7 @@ Switch between your favourite apps lightning fast. (Windows, macOS)
 # Features
 - Switch fast between apps.
 - Favourite apps loadout.
-- Convenience for both left and right handed users with the use of left/right <kbd>alt</kbd>.
+- Convenience of use by both left and right handed users with the use of left/right <kbd>alt</kbd>.
 
 # Demo
 ![Switch demo](./docs/switch-demo.gif)
