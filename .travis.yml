@@ -7,6 +7,10 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+      - stage: Update application info
+        if: tag IS present
+      script:
+        - sh ../.travis-update-app-package-version.sh
       script:
         - npm run compile-darwin
         - npm run compile-win32
