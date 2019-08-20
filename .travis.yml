@@ -1,7 +1,8 @@
-sudo: false
-
 language: node_js
 node_js: "10"
+
+before_install:
+  - cd app
 
 cache:
   directories:
@@ -18,11 +19,16 @@ env:
 
 jobs:
   include:
+    - stage: Update application info
+      if: tag IS present
+      script:
+        - sh ../.travis-update-app-package-version.sh
     - stage: Deploy Windows & Mac
       if: tag IS present
       os: osx
       osx_image: xcode10.2
       script:
+        - newVersion=$(git describe --abbrev=0)
         - npm run compile-darwin
         - npm run compile-win32
       before_cache:
@@ -32,4 +38,6 @@ jobs:
       os: linux
       dist: trusty
       script:
+        - newVersion=$(git describe --abbrev=0)
+        - npm version $newVersion
         - npm run release
