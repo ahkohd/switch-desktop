@@ -8,7 +8,6 @@ cache:
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
     - $HOME/.npm/_prebuilds
-
 env:
   global:
     - ELECTRON_CACHE=$HOME/.cache/electron
