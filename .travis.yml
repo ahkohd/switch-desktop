@@ -7,7 +7,6 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-        - GH_TOKEN=$GH_TOKEN
       script:
         - npm run compile-darwin
         - npm run compile-win32
