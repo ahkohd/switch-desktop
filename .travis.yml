@@ -1,28 +1,41 @@
-matrix:
-  include:
-    - os: osx
-      osx_image: xcode10.2
-      language: node_js
-      node_js: "10"
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-      - stage: Update application info
-        if: tag IS present
-      script:
-        - sh ../.travis-update-app-package-version.sh
-      script:
-        - npm run compile-darwin
-        - npm run compile-win32
+sudo: false
+
+language: node_js
+node_js: "10"
+
+before_install:
+  - cd app
 
 cache:
   directories:
     - node_modules
+    - app/node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+    - $HOME/.npm/_prebuilds
 
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
+jobs:
+  include:
+    #- stage: Test
+    #  script:
+    #    - npm test
+    - stage: Deploy Windows & Mac
+      if: tag IS present
+      os: osx
+      osx_image: xcode10.2
+      script:
+        - npm run compile-darwin
+        - npm run compile-win32
+      before_cache:
+        - rm -rf $HOME/.cache/electron-builder/wine
+    - stage: Deploy linux
+      if: tag IS present
+      os: linux
+      dist: trusty
+      script:
+        - npm run release
