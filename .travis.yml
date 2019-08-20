@@ -1,39 +1,24 @@
-language: node_js
-node_js: "10"
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode10.2
+      language: node_js
+      node_js: "10"
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+      script:
+        - npm run compile-darwin
+        - npm run compile-win32
 
 cache:
   directories:
     - node_modules
-    - app/node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-    - $HOME/.npm/_prebuilds
-env:
-  global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
 
-jobs:
-  include:
-    - stage: Update application info
-      if: tag IS present
-      script:
-        - sh ../.travis-update-app-package-version.sh
-    - stage: Deploy Windows & Mac
-      if: tag IS present
-      os: osx
-      osx_image: xcode10.2
-      script:
-        - newVersion=$(git describe --abbrev=0)
-        - npm run compile-darwin
-        - npm run compile-win32
-      before_cache:
-        - rm -rf $HOME/.cache/electron-builder/wine
-    - stage: Deploy linux
-      if: tag IS present
-      os: linux
-      dist: trusty
-      script:
-        - newVersion=$(git describe --abbrev=0)
-        - npm version $newVersion
-        - npm run release
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
