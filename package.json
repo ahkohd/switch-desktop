@@ -12,7 +12,7 @@
     "compile-win32": "electron-builder -w",
     "compile-darwin": "electron-builder -m --osx-sign=true",
     "compile-linux": "electron-builder -l",
-    "postinstall": "electron-builder install-app-deps --publish=never",
+    "postinstall": "electron-builder install-app-deps",
     "watch-sass": "sass --watch ./styles"
   },
   "repository": "https://github.com/ahkohd/switch-desktop",
