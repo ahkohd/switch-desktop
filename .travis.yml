@@ -1,37 +1,38 @@
-osx_image: xcode10.2
-language: node_js
-
-env:
-  global:
-    - FORCE_COLOR=1
-
 matrix:
   include:
     - os: osx
-      env: TEST_FILES=BuildTest,extraMetadataTest,globTest,filesTest,ignoreTest,linux,windows,macIconTest
+      osx_image: xcode10.2
+      language: node_js
       node_js: "10"
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-    - os: osx
-      env: TEST_FILES=CodeSignTest,macArchiveTest,macPackagerTest
-      node_js: "10"
-
-    - os: osx
-      env: TEST_FILES=masTest,dmgTest,protonTest
-      node_js: "10"
+    - os: linux
+      services: docker
+      language: generic
 
 cache:
-  yarn: true
   directories:
     - node_modules
-    - $HOME/Library/Caches/electron
-    - $HOME/Library/Caches/electron-builder
-    - /tmp/jest-electron-builder-tests
-
-install:
-  - yarn --frozen-lockfile
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
 
 script:
-  - yarn test
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      docker run --rm \
+        --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+    else
+      yarn release
+    fi
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
 
 branches:
   except:
