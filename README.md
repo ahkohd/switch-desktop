@@ -1,5 +1,6 @@
 ![Switch logo](./docs/switch-logo-dark.png)
 [![Build Status](https://travis-ci.org/ahkohd/switch-desktop.svg?branch=master)](https://travis-ci.org/ahkohd/switch-desktop)
+
 Switch between your favourite apps lightning fast. (Windows, macOS)
 > NOTE: Switch works currently only on Windows and macOS. Support for Linux coming soon.
 
