@@ -25,6 +25,7 @@
     "target": ["zip", "nsis"]
   },
   "mac": {
+    "publish": ["github"],
     "category": "public.app-category.navigation"
   }
 }
