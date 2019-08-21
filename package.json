@@ -15,7 +15,10 @@
     "postinstall": "electron-builder install-app-deps",
     "watch-sass": "sass --watch ./styles"
   },
-  "repository": "https://github.com/ahkohd/switch-desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahkohd/switch-desktop.git"
+  },
   "keywords": [
     "Switch",
     "app",
