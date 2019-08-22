@@ -92,8 +92,9 @@ if (!gotTheLock) {
   
   let child = SPWAN_SWITCH_SERVICE();
   // on error kill service and respawn
-  child.stderr.on('data', (data) => {
+  child.stderr.on('data', data => {
     child.kill();
+    // auto spwan..
     child = SPWAN_SWITCH_SERVICE();
   });
 
