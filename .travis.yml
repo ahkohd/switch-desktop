@@ -22,3 +22,5 @@ before_cache:
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+  only:
+    - master
