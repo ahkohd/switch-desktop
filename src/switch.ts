@@ -45,7 +45,6 @@ export default class Switch {
             elem.title = 'No app chosen';
             if (hot.empty) continue;
             elem.className = 'app';
-            elem.title = hot.name.split('.exe')[0].replace(/^\w/, c => c.toUpperCase());
             let icon: HTMLImageElement = document.createElement('img');
             icon.onclick = function() {
                 icon.classList.add('animated');
