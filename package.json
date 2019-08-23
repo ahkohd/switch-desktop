@@ -39,6 +39,7 @@
     "node-ipc": "^9.1.1",
     "open": "^6.4.0",
     "sass": "^1.22.9",
+    "tether": "^1.4.7",
     "toastify-js": "^1.6.1",
     "typescript": "^3.5.3"
   }
