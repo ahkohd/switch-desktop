@@ -4,9 +4,9 @@ $secondary-color: #00aced;
 $app-hover-indicator-color: white;
 $app-bar-bg: rgba(0, 0, 0, 0.521);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
-$empty-app-border-color: rgba(255, 255, 255, 0.103);
-$tooltip-bg: rgba(44, 44, 44, 0.986);
-$tooltip-fg: white;
+$empty-app-border-color: rgba(255, 255, 255, 0.17);
+$tooltip-bg: rgba(44, 44, 44, 0.658);
+$tooltip-fg: rgba(255, 255, 255, 0.822);
 $tooltip-shadow-color1: rgba(0, 0, 0, 0.12);
 $tooltip-shadow-color2: rgba(0, 0, 0, 0.24);
 
@@ -34,7 +34,7 @@ body {
     position: relative;
     margin: auto;
     width: 75px;
-    height: 92%;
+    height: 92.2%;
     background: $app-bar-bg;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
