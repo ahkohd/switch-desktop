@@ -277,7 +277,12 @@ export default class Switch {
 
     }
 
-
+    /**
+     * Builds new context menu which triggers functions of the
+     * hot app provided.
+     * @param {number} i Index of the hot app
+     * @returns {Menu} The built menu
+     */
     buildContextMenuBasedOnHotAppIndex(i: number) {
         const menu = new Menu();
         const menuItems = [
@@ -301,10 +306,15 @@ export default class Switch {
         return menu;
     }
 
+    /**
+     * Add event listener on context menu.
+     */
+
     setUpContextMenu() {
         window.addEventListener('contextmenu', (e) => {
-            e.preventDefault()
+            e.preventDefault();
             const elem = e.target as HTMLElement;
+            // if the element has a data attribute data-hotAppId.
             if (elem.dataset.hotAppId) {
                 const hotAppID = parseInt(elem.dataset.hotAppId);
                 document.getElementById("tip-" + hotAppID).classList.remove('show');
@@ -316,11 +326,11 @@ export default class Switch {
 }
 
 // Disable key-combo refresh..
-document.onkeydown = (e) => {
-    const press = (window as any).event ? (window as any).event : e;
-    if (press.keyCode == 82 && press.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
+// document.onkeydown = (e) => {
+//     const press = (window as any).event ? (window as any).event : e;
+//     if (press.keyCode == 82 && press.ctrlKey) {
+//         e.preventDefault();
+//         e.stopPropagation();
+//     }
 
-}
+// }
