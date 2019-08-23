@@ -20,7 +20,6 @@ export default class Switch {
         this.hotApps = this.getHotApps();
         // Render them
         this.renderUIUpdate();
-        Tether.position();
     }
 
     /**
@@ -81,6 +80,8 @@ export default class Switch {
             elem.append(icon);
             elem.append(rmButton);
         }
+
+        Tether.position();
     }
 
     /**
@@ -142,10 +143,11 @@ export default class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty tooltip";
-        appTile.title = 'No app chosen';
+        document.getElementById('tip-'+i).innerHTML = `<p>Add app</p>`;
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
+        file.title = "";
         file.addEventListener('change', e => {
             (window as any).APP.onClickAddHotApp(e);
         })
