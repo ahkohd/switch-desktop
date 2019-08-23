@@ -1,7 +1,5 @@
 import { SwitchHotApp } from './interfaces';
 import * as Tether from 'tether';
-import { BrowserWindow } from 'electron';
-console.log(Tether);
 const fileIcon = require("extract-file-icon");
 const open = require('open');
 const path = require('path');
@@ -11,7 +9,7 @@ const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 
 
-export default class Switch {
+export class Switch {
 
     hotApps: SwitchHotApp[] | null;
     hotApp: SwitchHotApp = { empty: true, name: '', rawcode: null, path: '', icon: '' };
@@ -323,14 +321,25 @@ export default class Switch {
             }
         }, false);
     }
+
+}
+
+
+export function windowOsSpecific()
+{
+    const opsys = process.platform;
+    if(opsys == "win32")
+    {
+        document.getElementById('appbar').style.borderRadius = '0px';
+    }
 }
 
 // Disable key-combo refresh..
-// document.onkeydown = (e) => {
-//     const press = (window as any).event ? (window as any).event : e;
-//     if (press.keyCode == 82 && press.ctrlKey) {
-//         e.preventDefault();
-//         e.stopPropagation();
-//     }
+document.onkeydown = (e) => {
+    const press = (window as any).event ? (window as any).event : e;
+    if (press.keyCode == 82 && press.ctrlKey) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
 
-// }
+}
