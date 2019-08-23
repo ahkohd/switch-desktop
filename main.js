@@ -42,7 +42,6 @@ if (!gotTheLock) {
       autoHideMenuBar: true,
       transparent: true,
       show: false,
-      hasShadow: true,
       vibrancy: true,
       webPreferences: {
         nodeIntegration: true,
