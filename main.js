@@ -6,7 +6,6 @@ const {
 const path = require('path')
 const Positioner = require('electron-positioner')
 const { execFile } = require('child_process');
-var electronVibrancy = require('electron-vibrancy');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -44,6 +43,7 @@ if (!gotTheLock) {
       transparent: true,
       show: false,
       hasShadow: true,
+      vibrancy: true,
       webPreferences: {
         nodeIntegration: true,
         preload: path.join(__dirname, 'preload.js')
@@ -70,7 +70,6 @@ if (!gotTheLock) {
       positioner.move('rightCenter');
       const pos = mainWindow.getPosition();
       mainWindow.setPosition(pos[0] - 10, pos[1]);
-      var viewId = electronVibrancy.SetVibrancy(mainWindow, 0);
       mainWindow.show()
     })
   }

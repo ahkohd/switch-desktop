@@ -1,10 +1,14 @@
-// $app-bar-bg: rgba(0, 0, 0, 0.863);
+$app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-height: 35px;
 $secondary-color: #00aced;
 $app-hover-indicator-color: white;
-$app-bar-bg: rgba(0, 0, 0, 0.521);
+//  vibrancy value
+// $app-bar-bg: rgba(0, 0, 0, 0.521);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
-$empty-app-border-color: rgba(255, 255, 255, 0.17);
+// vibrancy value
+// $empty-app-border-color: rgba(255, 255, 255, 0.17);
+$empty-app-border-color: rgba(255, 255, 255, 0.089);
+
 $tooltip-bg: rgb(44, 44, 44);
 $tooltip-fg: rgba(255, 255, 255, 0.822);
 $tooltip-shadow-color1: rgba(0, 0, 0, 0.12);
@@ -29,14 +33,13 @@ body {
 }
 
 #appbar {
-    // height: 90vh;
-    // border-radius: 5px;
+    border-radius: 5px;
     position: relative;
     margin: auto;
     width: 75px;
     height: 92.2%;
     background: $app-bar-bg;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
