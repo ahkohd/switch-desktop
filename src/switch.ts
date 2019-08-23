@@ -69,7 +69,7 @@ export default class Switch {
                     (window as any).APP.openApp(this);
                 }, 1000);
             }.bind(i);
-            
+
 
             icon.src = 'data:image/png;base64,' + hot.icon;
             icon.className = 'icon';
@@ -124,6 +124,8 @@ export default class Switch {
             div.onmouseleave = () => {
                 document.getElementById("tip-" + i).classList.remove('show');
             }
+
+
 
 
 
@@ -280,13 +282,13 @@ export default class Switch {
         const menu = new Menu();
         const menuItems = [
             {
-                label: 'Launch',
+                label: 'Launch app',
                 click: () => {
                     this.openApp(i);
                 }
             },
             {
-                label: 'Remove',
+                label: 'Remove app',
                 click: () => {
                     this.removeApp(i);
                 }
@@ -304,7 +306,9 @@ export default class Switch {
             e.preventDefault()
             const elem = e.target as HTMLElement;
             if (elem.dataset.hotAppId) {
-                const menu = this.buildContextMenuBasedOnHotAppIndex(parseInt(elem.dataset.hotAppId));
+                const hotAppID = parseInt(elem.dataset.hotAppId);
+                document.getElementById("tip-" + hotAppID).classList.remove('show');
+                const menu = this.buildContextMenuBasedOnHotAppIndex(hotAppID);
                 menu.popup(remote.getCurrentWindow() as any);
             }
         }, false);
