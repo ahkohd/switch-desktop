@@ -1,7 +1,8 @@
+// $app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-height: 35px;
 $secondary-color: #00aced;
 $app-hover-indicator-color: white;
-$app-bar-bg: rgba(0, 0, 0, 0.863);
+$app-bar-bg: rgba(0, 0, 0, 0.521);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 $empty-app-border-color: rgba(255, 255, 255, 0.103);
 $tooltip-bg: rgba(44, 44, 44, 0.986);
@@ -14,26 +15,32 @@ $tooltip-shadow-color2: rgba(0, 0, 0, 0.24);
     -webkit-user-select: none;
 }
 
-
+html
+{
+    padding: 0;
+    margin: 0;
+    outline: 0;
+}
 body {
     display: flex;
     height: 100vh;
-    width: 100vw;
     overflow: hidden;
     background: transparent !important;
 }
 
 #appbar {
+    // height: 90vh;
+    // border-radius: 5px;
     position: relative;
     margin: auto;
     width: 75px;
-    height: 90vh;
+    height: 92%;
     background: $app-bar-bg;
-    border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, .1);
 
     .track {
         overflow-x: hidden;
