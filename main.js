@@ -6,7 +6,7 @@ const {
 const path = require('path')
 const Positioner = require('electron-positioner')
 const { execFile } = require('child_process');
-var electronVibrancy = require('electron-vibrancy');
+var electronVibrancy = require('electron-vibrancy-6');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
