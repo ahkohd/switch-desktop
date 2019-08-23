@@ -3,6 +3,10 @@ $secondary-color: #00aced;
 $app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 $empty-app-border-color: rgba(255, 255, 255, 0.103);
+$tooltip-bg: rgba(44, 44, 44, 0.986);
+$tooltip-fg: white;
+$tooltip-shadow-color1: rgba(0, 0, 0, 0.12);
+$tooltip-shadow-color2: rgba(0, 0, 0, 0.24);
 
 
 * {
@@ -63,7 +67,7 @@ body {
             border-radius: 5px;
             display: flex;
             border: dashed 2px transparent;
-            overflow: hidden;
+            // overflow: hidden;
 
             & * {
                 margin: auto;
@@ -150,6 +154,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 99999 !important;
 
     .circle {
         width: 8px;
@@ -497,8 +502,7 @@ input:checked+.slider:before {
                     color: white;
                 }
 
-                button.close 
-                {
+                button.close {
                     background: #00aced;
                     color: white;
                 }
@@ -534,7 +538,7 @@ span.key {
         }
     }
 
-    .particle:nth-child(#{$i}){
+    .particle:nth-child(#{$i}) {
         animation: particle-animation-#{$i} 60s infinite;
         $size: random(5) + 5 + px;
         opacity: random(100)/100;
@@ -544,4 +548,88 @@ span.key {
         transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
         background: hsl(random(360), 70%, 50%);
     }
+}
+
+.tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    max-width: 50px !important;
+    min-width: 40px !important;
+    background-color: $tooltip-bg;
+    color: $tooltip-fg;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    z-index: 1 !important;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    // transition: opacity .3s;
+    text-align: center;
+    text-overflow: ellipsis;
+    box-shadow: 0 1px 3px $tooltip-shadow-color1, 0 1px 2px $tooltip-shadow-color2;
+    pointer-events: none;
+}
+
+
+.tooltiptext p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.tooltiptext::first-letter {
+    text-transform: capitalize;
+}
+
+.tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $tooltip-bg transparent transparent transparent;
+}
+
+.tooltiptext.top::after {
+    content: " ";
+    position: absolute;
+    top: initial;
+    bottom: 100%;
+    /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent $tooltip-bg transparent;
+}
+
+
+.tooltiptext.show {
+    animation-name: tooltip;
+    animation-delay: .8s;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes tooltip {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.tooltiptext.tether-out-of-bounds-top,
+.tooltiptext.tether-out-of-bounds-bottom {
+    display: none;
 }
