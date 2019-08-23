@@ -1,4 +1,4 @@
-import Switch from './switch';
+import {Switch, windowOsSpecific} from './switch';
 const ipc = require('node-ipc');
 import { remote } from 'electron';
 
@@ -11,6 +11,9 @@ const config = new Store({
 // Dock visibility
 let windowVisible = true;
 let windowPos;
+
+// specifics for windows..
+windowOsSpecific();
 
 /* Hides the dock after 3000 seconds.
  * - By moving it to a negative screen position, since the dock
