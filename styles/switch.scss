@@ -1,5 +1,6 @@
 $drag-height: 35px;
 $secondary-color: #00aced;
+$app-hover-indicator-color: white;
 $app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 $empty-app-border-color: rgba(255, 255, 255, 0.103);
@@ -95,6 +96,7 @@ body {
 
         .app:hover {
             color: $secondary-color;
+           
 
           
             .icon {
@@ -103,10 +105,24 @@ body {
             }
         }
 
+        .app:hover::after
+        {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: $app-hover-indicator-color;
+            position: absolute;
+            bottom: 30%;
+            right: 10%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            z-index: 100;
+        }
+
         .app.active::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: $secondary-color;
             position: absolute;
@@ -591,7 +607,7 @@ span.key {
 
 .tooltiptext.show {
     animation-name: tooltip;
-    animation-delay: .8s;
+    animation-delay: .7s;
     animation-duration: .3s;
     animation-fill-mode: forwards;
 }
