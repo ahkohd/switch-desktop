@@ -13,7 +13,8 @@
     "compile-darwin": "electron-builder -m -p always",
     "compile-linux": "electron-builder -l -p always",
     "postinstall": "electron-builder install-app-deps",
-    "watch-sass": "sass --watch ./styles"
+    "watch-sass": "sass --watch ./styles",
+    "retarget-vibrancy": "cd ./node_modules/electron-vibrancy && node-gyp rebuild --target=6.0.0  --arch=x64 --debug"
   },
   "repository": {
     "type": "git",
