@@ -1,5 +1,6 @@
 $drag-height: 35px;
 $secondary-color: #00aced;
+$app-hover-indicator-color: white;
 $app-bar-bg: rgba(0, 0, 0, 0.863);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 $empty-app-border-color: rgba(255, 255, 255, 0.103);
@@ -56,6 +57,7 @@ body {
         }
 
 
+
         .app {
             position: relative;
             width: 56px !important;
@@ -78,6 +80,7 @@ body {
                 height: 32px;
                 z-index: 0;
                 border-radius: 5px;
+                // transition: all .3s ease-in-out;
             }
 
             input[type=file] {
@@ -88,46 +91,38 @@ body {
                 z-index: 10;
             }
 
-            .rm-btn {
-                position: absolute;
-                width: 25px;
-                height: 25px;
-                background: transparent;
-                left: 0;
-                top: 0;
-                border: none;
-                border-bottom-right-radius: 5px;
-                color: $secondary-color;
-                display: none;
-                outline: none;
-                z-index: 40;
-
-                div {
-                    position: relative;
-                    font-size: 12px;
-                    margin: auto;
-                }
-            }
-
-            .rm-btn:hover {
-                background: $secondary-color;
-                color: white;
-            }
+            
         }
 
         .app:hover {
-            border: solid 2px $secondary-color;
             color: $secondary-color;
+           
 
-            .rm-btn {
-                display: flex;
+          
+            .icon {
+                // transform: rotateZ(5deg) scale(.95);
+               filter: hue-rotate(0deg) saturate(2) invert(0);
             }
+        }
+
+        .app:hover::after
+        {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: $app-hover-indicator-color;
+            position: absolute;
+            bottom: 30%;
+            right: 10%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            z-index: 100;
         }
 
         .app.active::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: $secondary-color;
             position: absolute;
@@ -612,7 +607,7 @@ span.key {
 
 .tooltiptext.show {
     animation-name: tooltip;
-    animation-delay: .8s;
+    animation-delay: .7s;
     animation-duration: .3s;
     animation-fill-mode: forwards;
 }

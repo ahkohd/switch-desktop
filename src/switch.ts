@@ -1,9 +1,15 @@
 import { SwitchHotApp } from './interfaces';
 import * as Tether from 'tether';
+import { BrowserWindow } from 'electron';
 console.log(Tether);
 const fileIcon = require("extract-file-icon");
 const open = require('open');
 const path = require('path');
+
+const remote = require('electron').remote;
+const Menu = remote.Menu;
+const MenuItem = remote.MenuItem;
+
 
 export default class Switch {
 
@@ -20,6 +26,8 @@ export default class Switch {
         this.hotApps = this.getHotApps();
         // Render them
         this.renderUIUpdate();
+        // set up context menu
+        this.setUpContextMenu();
     }
 
     /**
@@ -49,6 +57,9 @@ export default class Switch {
             // tooltip
             document.getElementById('tip-' + i).innerHTML = `<p>${hot.name.split('.exe')[0]}</p>`;
             let icon: HTMLImageElement = document.createElement('img');
+            icon.dataset.hotAppId = i.toString();
+            icon.dataset.appName = hot.name;
+            icon.id = "ic-" + i;
             icon.onclick = function () {
                 icon.classList.add('animated');
                 icon.classList.add('bounce');
@@ -58,27 +69,12 @@ export default class Switch {
                     (window as any).APP.openApp(this);
                 }, 1000);
             }.bind(i);
-            let rmButton: HTMLButtonElement = document.createElement('button');
-            rmButton.className = 'rm-btn';
-            rmButton.id = 'rm-' + i;
-            rmButton.innerHTML = '<div>✖</div>';
-            rmButton.onclick = function () {
-                (window as any).APP.removeApp(this);
-            }.bind(i);
 
-
-            rmButton.onmouseenter = () => {
-                document.getElementById("tip-" + i).classList.remove('show');
-            };
-            rmButton.onmouseleave = () => {
-                document.getElementById("tip-" + i).classList.add('show');
-            };
 
             icon.src = 'data:image/png;base64,' + hot.icon;
             icon.className = 'icon';
             elem.innerHTML = "";
             elem.append(icon);
-            elem.append(rmButton);
         }
 
         Tether.position();
@@ -94,7 +90,7 @@ export default class Switch {
             const file = document.createElement('input');
             div.id = "app-" + i;
             div.className = "app empty tooltip";
-            div.innerHTML += `<div id="tip-${i}" class="tooltiptext ${(i==0) ? 'top' : ''}"><p>Add app</p></div>`;
+            div.innerHTML += `<div id="tip-${i}" class="tooltiptext ${(i == 0) ? 'top' : ''}"><p>Add app</p></div>`;
             file.type = 'file';
             // remove default title behaviour.
             file.title = "";
@@ -110,8 +106,8 @@ export default class Switch {
                 element: document.getElementById("tip-" + i),
                 target: div,
                 attachment: 'middle center',
-                targetAttachment: (i==0) ?  'bottom center' :  'top center',
-                offset: (i==0) ? '-8px 0' : '8px 0',
+                targetAttachment: (i == 0) ? 'bottom center' : 'top center',
+                offset: (i == 0) ? '-8px 0' : '8px 0',
                 constraints: [
                     {
                         to: 'scrollParent',
@@ -131,6 +127,8 @@ export default class Switch {
 
 
 
+
+
         }
 
     }
@@ -143,7 +141,7 @@ export default class Switch {
         const appTile = document.getElementById('app-' + i);
         appTile.innerHTML = "";
         appTile.className = "app empty tooltip";
-        document.getElementById('tip-'+i).innerHTML = `<p>Add app</p>`;
+        document.getElementById('tip-' + i).innerHTML = `<p>Add app</p>`;
         const file = document.createElement('input');
         file.type = 'file';
         file.id = "f-app-" + i;
@@ -273,6 +271,47 @@ export default class Switch {
         // console.log('before', this.runningHotApps);
         let hotAppData = this.hotApps[index];
         open(hotAppData.path);
+    }
+
+    onRightClick() {
+
+    }
+
+
+    buildContextMenuBasedOnHotAppIndex(i: number) {
+        const menu = new Menu();
+        const menuItems = [
+            {
+                label: 'Launch app',
+                click: () => {
+                    this.openApp(i);
+                }
+            },
+            {
+                label: 'Remove app',
+                click: () => {
+                    this.removeApp(i);
+                }
+            }];
+
+        menuItems.forEach(item => {
+            menu.append(new MenuItem(item));
+        });
+
+        return menu;
+    }
+
+    setUpContextMenu() {
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            const elem = e.target as HTMLElement;
+            if (elem.dataset.hotAppId) {
+                const hotAppID = parseInt(elem.dataset.hotAppId);
+                document.getElementById("tip-" + hotAppID).classList.remove('show');
+                const menu = this.buildContextMenuBasedOnHotAppIndex(hotAppID);
+                menu.popup(remote.getCurrentWindow() as any);
+            }
+        }, false);
     }
 }
 
