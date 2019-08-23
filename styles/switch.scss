@@ -108,8 +108,8 @@ body {
         .app:hover::after
         {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: $app-hover-indicator-color;
             position: absolute;
@@ -121,8 +121,8 @@ body {
 
         .app.active::before {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: $secondary-color;
             position: absolute;
