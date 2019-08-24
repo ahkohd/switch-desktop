@@ -2,10 +2,18 @@
 const {
   app,
   BrowserWindow,
-} = require('electron')
-const path = require('path')
-const Positioner = require('electron-positioner')
+} = require('electron');
+const path = require('path');
+const Positioner = require('electron-positioner');
 const { execFile } = require('child_process');
+
+
+// Load saved configurations
+const Store = require('electron-store');
+const config = new Store({
+  projectName: 'SwitchDock'
+});
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -45,6 +53,7 @@ if (!gotTheLock) {
       vibrancy: true,
       webPreferences: {
         nodeIntegration: true,
+        devTools: false,
         preload: path.join(__dirname, 'preload.js')
       }
     })
@@ -65,11 +74,16 @@ if (!gotTheLock) {
     })
 
     mainWindow.once('ready-to-show', () => {
+      // setup positioner
       const positioner = new Positioner(mainWindow);
-      positioner.move('rightCenter');
+      let placement = config.get('config');
+      // get placement
+      placement = (placement == null) ? 'right': placement.placement;
+      (placement == 'right') ? positioner.move('rightCenter') : positioner.move('leftCenter');
       const pos = mainWindow.getPosition();
-      mainWindow.setPosition(pos[0] - 10, pos[1]);
-      mainWindow.show()
+      (placement == 'right') ? mainWindow.setPosition(pos[0] - 10, pos[1]) : mainWindow.setPosition(pos[0] + 10, pos[1]);
+      mainWindow.show();
+
     })
   }
 

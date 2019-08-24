@@ -2,6 +2,7 @@ import {Switch, windowOsSpecific} from './switch';
 const ipc = require('node-ipc');
 import { remote } from 'electron';
 
+
 // Load saved configurations
 const Store = require('electron-store');
 const config = new Store({
@@ -22,6 +23,7 @@ windowOsSpecific();
 const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
+    window.setIgnoreMouseEvents(true);
     windowPos = window.getPosition();
     window.setPosition(-100, 0);
     windowVisible = false;
@@ -30,7 +32,8 @@ const hide = () => {
 
 // Get user settings
 const settings = config.get('config');
-console.log(settings);
+// save previous placement 
+let previousPlacement  = settings.placement;
 // holds auto hide timeout.
 let autoHide;
 // a flag
@@ -50,6 +53,7 @@ if (settings == null || settings.autoHide) {
 // Shows the current window
 const show = (thenHide: boolean = true) => {
   const window = remote.getCurrentWindow();
+  window.setIgnoreMouseEvents(false);
   window.setPosition(windowPos[0], windowPos[1]);
   window.setSize(70, 600);
   windowVisible = true;
@@ -57,18 +61,37 @@ const show = (thenHide: boolean = true) => {
   if (thenHide) autoHide = hide();
 }
 
+// places the dock to the left or right..
+function placeDock(placement: string)
+{
+  const dock = remote.getCurrentWindow();
+  const screenSize = window.screen;
+  // 600 - window's height
+  let calcY = (screenSize.height / 2) - (600/2);
+  if(placement == 'left')
+  {
+    dock.setPosition(10, calcY);
+    windowPos = [10, calcY];
+  } else {
+    // place right..
+    // 70 - window's width
+    let calcX = screenSize.width - (70+10);
+    dock.setPosition(calcX, calcY);
+    windowPos = [calcX, calcY];
+  }
+
+}
+
 // Instance Switch UI 
 (window as any).APP = new Switch(config);
 
 // Don't hide when user is on the dock
 document.body.addEventListener('mouseenter', () => {
-  // alert('entered');
   if ((window as any).DOCK_CAN_AUTO_HIDE) clearInterval(autoHide);
 });
 
 // Hide the dock when user is not on the dock
 document.body.addEventListener('mouseleave', () => {
-  // alert('left');
   if ((window as any).DOCK_CAN_AUTO_HIDE) {
     clearInterval(autoHide);
     autoHide = hide();
@@ -98,7 +121,7 @@ ipc.connectTo('switch-service-channel', () => {
   });
 
   // When Switch service sends a show dock event
-  ipc.of['switch-service-channel'].on('client-show', (data) => {
+  ipc.of['switch-service-channel'].on('client-show', (payload) => {
     // if dock and auto hide
     if ((window as any).DOCK_CAN_AUTO_HIDE) {
       // and dock is visible
@@ -117,6 +140,19 @@ ipc.connectTo('switch-service-channel', () => {
   // When Switch service sends config update.
   ipc.of['switch-service-channel'].on('config-update', (settings) => {
     // check if user disable or enables dock autohide
+    
+    if(settings.placement && settings.placement == 'left' && previousPlacement != 'left') {
+      placeDock('left');
+      previousPlacement = 'left';
+      clearTimeout(autoHide);
+      show();
+    } else if (settings.placement && settings.placement == 'right' && previousPlacement != 'right') {
+      placeDock('right');
+      previousPlacement = 'right';
+      clearTimeout(autoHide);
+      show();
+    }
+
     if (!settings.autoHide) {
       show(false);
       (window as any).DOCK_CAN_AUTO_HIDE = false;

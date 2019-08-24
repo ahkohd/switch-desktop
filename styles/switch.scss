@@ -331,10 +331,20 @@ body {
                 font-size: 14px;
                 margin-bottom: 2px;
                 display: block;
+                
             }
 
             .form-control {
                 margin-top: 13px;
+
+                select 
+                {
+                    border-radius: 5px;
+                    padding: 3px 5px;
+                    border: 2px solid #00aced;
+                    outline: none;
+                    font-family: Poppins;
+                }
             }
 
             .switch {
