@@ -31,7 +31,7 @@
     <div class="lside">
       <div>
         <img src="./assets/images/switch.ico" />
-        <p class="version">v0.0.1</p>
+        <p class="version">v1.0.6</p>
       </div>
     </div>
     <div class="rside">
@@ -53,12 +53,22 @@
       </div>
 
       <div class="form-control">
-          <label class="label">Show intro on startup</label>
-          <label class="switch">
-            <input type="checkbox" id="intro">
-            <div class="slider round"></div>
-          </label>
-        </div>
+        <label class="label">Place dock</label>
+        <select id="placement">
+          <option value="right" default>Right</option>
+          <option value="left">Left</option>
+        </select>
+        <label class="switch">
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label class="label">Show intro on startup</label>
+        <label class="switch">
+          <input type="checkbox" id="intro">
+          <div class="slider round"></div>
+        </label>
+      </div>
 
       <button class="btn" onclick="settings.saveSettings()">Save</button>
 
