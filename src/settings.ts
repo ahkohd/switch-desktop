@@ -7,6 +7,7 @@ const config = new Store({
 });
 
 
+
 export class Settings {
 
     constructor() {
@@ -20,7 +21,8 @@ export class Settings {
         if (settings == null) {
             const initial = {
                 autoHide: true,
-                maximize: true
+                maximize: true,
+                placement: 'right'
             };
             config.set('config', initial)
             return initial;
@@ -41,6 +43,7 @@ export class Settings {
         this.setCheckedValue('auto_hide', data.autoHide);
         this.setCheckedValue('maximize', data.maximize);
         this.setCheckedValue('intro', this.getShowIntro());
+        this.setSelectedValue('placement', data.placement);
     }
 
     getCheckedValue(id: string): boolean {
@@ -51,16 +54,28 @@ export class Settings {
         (document.getElementById(id) as HTMLInputElement).checked = value;
     }
 
+    setSelectedValue(id: string, value: string)
+    {
+        (document.getElementById(id) as HTMLInputElement).value = value;
+    }
+
+    getValue(id: string)
+    {
+        return (document.getElementById(id) as HTMLInputElement).value;
+    }
+
     saveSettings() {
 
         const autoHide = this.getCheckedValue('auto_hide');
         const maximize = this.getCheckedValue('maximize');
         const intro = this.getCheckedValue('intro');
+        const placement = this.getValue('placement');
 
 
         config.set('config', {
             autoHide: autoHide,
-            maximize: maximize
+            maximize: maximize,
+            placement: placement
         });
 
         config.set('showIntro', intro);
