@@ -7,6 +7,12 @@ const config = new Store({
     projectName: 'SwitchDock',
 });
 
+import * as Sentry from '@sentry/browser';
+Sentry.init({
+  dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
+});
+
+
 
 
 export class Settings {
@@ -97,7 +103,7 @@ export class Settings {
 
     getAppVersion()
     {
-        fs.readFile('./package.json', (err, data) => {
+        fs.readFile(path.join(__dirname, '../package.json'), (err, data) => {
             if(err) throw new Error(err);
             const parse = JSON.parse(data);
             document.getElementById('ver').innerText = `v${parse.version}`
