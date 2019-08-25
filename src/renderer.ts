@@ -1,7 +1,10 @@
 import {Switch, windowOsSpecific} from './switch';
 const ipc = require('node-ipc');
 import { remote } from 'electron';
-
+import * as Sentry from '@sentry/browser';
+Sentry.init({
+  dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
+});
 
 // Load saved configurations
 const Store = require('electron-store');

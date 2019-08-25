@@ -33,6 +33,8 @@
     "electron-builder": "^21.2.0"
   },
   "dependencies": {
+    "@sentry/browser": "^5.6.2",
+    "@sentry/node": "^5.6.2",
     "concurrently": "^4.1.1",
     "electron-positioner": "^4.1.0",
     "electron-store": "^4.0.0",
