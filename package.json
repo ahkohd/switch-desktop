@@ -9,9 +9,10 @@
     "dev": "concurrently \"npm:watch-ts\" \"npm:start-dev\" ",
     "prod": "concurrently \"npm:watch-ts\" \"npm:start\" ",
     "watch-ts": "tsc -w",
-    "compile-win32": "electron-builder -w -p always",
-    "compile-darwin": "electron-builder -m -p always",
-    "compile-linux": "electron-builder -l -p always",
+    "build-ts": "npx tsc",
+    "compile-win32": "npm run build-ts && electron-builder -w -p always",
+    "compile-darwin": "npm run build-ts && electron-builder -m -p always",
+    "compile-linux": "npm run build-ts && electron-builder -l -p always",
     "postinstall": "electron-builder install-app-deps",
     "watch-sass": "sass --watch ./styles",
     "retarget-vibrancy": "cd ./node_modules/electron-vibrancy && node-gyp rebuild --target=6.0.0  --arch=x64 --debug"
@@ -30,7 +31,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^6.0.0",
-    "electron-builder": "^21.2.0"
+    "electron-builder": "^21.2.0",
+    "typescript": "^3.5.3"
   },
   "dependencies": {
     "@sentry/browser": "^5.6.2",
@@ -43,7 +45,6 @@
     "open": "^6.4.0",
     "sass": "^1.22.9",
     "tether": "^1.4.7",
-    "toastify-js": "^1.6.1",
-    "typescript": "^3.5.3"
+    "toastify-js": "^1.6.1"
   }
 }
