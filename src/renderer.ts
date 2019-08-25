@@ -33,7 +33,7 @@ const hide = () => {
 // Get user settings
 const settings = config.get('config');
 // save previous placement 
-let previousPlacement  = settings.placement;
+let previousPlacement  = (settings == null) ? 'right' : settings.placement;
 // holds auto hide timeout.
 let autoHide;
 // a flag
