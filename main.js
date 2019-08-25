@@ -40,8 +40,8 @@ if (!gotTheLock) {
   function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-      // width: 70,
-      width: 400,
+      width: 70,
+      // width: 400,
       height: 600,
       frame: false,
       resizable: false,
@@ -54,7 +54,7 @@ if (!gotTheLock) {
       vibrancy: true,
       webPreferences: {
         nodeIntegration: true,
-        // devTools: false,
+        devTools: false,
         preload: path.join(__dirname, 'preload.js')
       }
     })
