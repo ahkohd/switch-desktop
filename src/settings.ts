@@ -1,6 +1,7 @@
 import * as Toastify from 'toastify-js';
 (window as any).toastify = Toastify;
-
+const fs = require('fs');
+const path = require('path');
 const Store = require('electron-store');
 const config = new Store({
     projectName: 'SwitchDock',
@@ -14,6 +15,8 @@ export class Settings {
         window.onload = () => {
             this.updateUI();
         }
+
+        this.getAppVersion();
     }
 
     getSavedFromStore() {
@@ -90,6 +93,15 @@ export class Settings {
             className: 'toast-left',
             backgroundColor: "linear-gradient(136.2deg, #71D8FF -22.19%, #09B5F5 51.02%, #5811F0 114.32%)",
         }).showToast();
+    }
+
+    getAppVersion()
+    {
+        fs.readFile('./package.json', (err, data) => {
+            if(err) throw new Error(err);
+            const parse = JSON.parse(data);
+            document.getElementById('ver').innerText = `v${parse.version}`
+        });
     }
 }
 

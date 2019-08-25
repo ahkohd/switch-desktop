@@ -37,6 +37,7 @@ createIntroWindow = () => {
         skipTaskbar: true,
         resizable: false,
         webPreferences: {
+           devTools: false,
            nodeIntegration: true
         }
      });
