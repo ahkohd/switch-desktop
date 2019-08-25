@@ -6,7 +6,8 @@ const {
 const path = require('path');
 const Positioner = require('electron-positioner');
 const { execFile } = require('child_process');
-
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999' });
 
 // Load saved configurations
 const Store = require('electron-store');
