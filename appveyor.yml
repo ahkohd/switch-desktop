@@ -19,3 +19,7 @@ build_script:
   - npm run compile-win32
 
 test: off
+
+branches:
+  only:
+    - master
