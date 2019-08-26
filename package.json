@@ -10,7 +10,7 @@
     "prod": "concurrently \"npm:watch-ts\" \"npm:start\" ",
     "watch-ts": "tsc -w",
     "build-ts": "npx tsc",
-    "get-ss-prebuild": "node getSwitchServicePreBuild.js 0.0.1",
+    "get-ss-prebuild": "node ./build-scripts/getSwitchServicePreBuild.js 0.0.1",
     "compile-win32": "npm run build-ts && electron-builder -w -p always",
     "compile-darwin": "npm run build-ts && electron-builder -m -p always",
     "compile-linux": "npm run build-ts && electron-builder -l -p always",
