@@ -47,6 +47,8 @@ if (!gotTheLock) {
       resizable: false,
       skipTaskbar: true,
       minimizable: false,
+      maximizable: false,
+      fullscreenable: false,
       alwaysOnTop: true,
       autoHideMenuBar: true,
       transparent: true,
