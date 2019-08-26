@@ -14,7 +14,6 @@ const config = new Store({
 
 // Dock visibility
 let windowVisible = true;
-let windowPos;
 
 // specifics for windows..
 windowOsSpecific();
@@ -27,8 +26,7 @@ const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
     window.setIgnoreMouseEvents(true);
-    windowPos = window.getPosition();
-    window.setPosition(-100, 0);
+    document.body.style.opacity = '0';
     windowVisible = false;
   }, 3000)
 };
@@ -57,8 +55,7 @@ if (settings == null || settings.autoHide) {
 const show = (thenHide: boolean = true) => {
   const window = remote.getCurrentWindow();
   window.setIgnoreMouseEvents(false);
-  window.setPosition(windowPos[0], windowPos[1]);
-  window.setSize(70, 600);
+  document.body.style.opacity = '1';
   windowVisible = true;
   clearTimeout(autoHide);
   if (thenHide) autoHide = hide();
@@ -74,13 +71,11 @@ function placeDock(placement: string)
   if(placement == 'left')
   {
     dock.setPosition(10, calcY);
-    windowPos = [10, calcY];
   } else {
     // place right..
     // 70 - window's width
     let calcX = screenSize.width - (70+10);
     dock.setPosition(calcX, calcY);
-    windowPos = [calcX, calcY];
   }
 
 }
