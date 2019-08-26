@@ -15,6 +15,7 @@ install:
   - npm i
 
 build_script:
+  - npm run get-ss-prebuild
   - npm run compile-win32
 
 test: off
