@@ -1,6 +1,6 @@
 {
   "name": "switch",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Switch between your favourite lightning fast. (Windows, MacOS)",
   "main": "./main.js",
   "scripts": {
