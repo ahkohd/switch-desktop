@@ -12,7 +12,7 @@ matrix:
         - npm run compile-darwin
 cache:
   directories:
-   - node_modules
+#   - node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 before_cache:
