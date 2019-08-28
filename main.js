@@ -101,7 +101,7 @@ if (!gotTheLock) {
     if (opsys == 'darwin') {
       return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-macos'), [], (error, stdout, stderr) => {});
     } else if (opsys == "win32" || 'win64') {
-      return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch-win'), [], (error, stdout, stderr) => {});
+      return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch.exe') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch-win'), [], (error, stdout, stderr) => {});
     } else {
       return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-linux'), [], (error, stdout, stderr) => {});
     }
