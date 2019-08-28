@@ -99,11 +99,11 @@ if (!gotTheLock) {
     // spawn the executable approraite for the platform
     const opsys = process.platform;
     if (opsys == 'darwin') {
-      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch-macos') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-macos'), [], (error, stdout, stderr) => {});
+      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-macos'), [], (error, stdout, stderr) => {});
     } else if (opsys == "win32" || 'win64') {
-      return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch-win') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch-win'), [], (error, stdout, stderr) => {});
+      return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch-win'), [], (error, stdout, stderr) => {});
     } else {
-      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch-linux') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-linux'), [], (error, stdout, stderr) => {});
+      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch-linux'), [], (error, stdout, stderr) => {});
     }
   }
   
