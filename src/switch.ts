@@ -177,7 +177,7 @@ export class Switch {
         } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else {
-            alert('Please select an app.');
+            alert('Please select an app!');
         }
     }
 
