@@ -52,7 +52,9 @@ if (!gotTheLock) {
       alwaysOnTop: true,
       autoHideMenuBar: true,
       transparent: true,
+      hasShadow: false,
       show: false,
+      darkTheme: true,
       vibrancy: true,
       webPreferences: {
         nodeIntegration: true,

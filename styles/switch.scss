@@ -171,6 +171,14 @@ body {
         background: $drag-indicator-color;
         cursor: move;
     }
+    .bar {
+        width: 30px;
+        height: 8px;
+        border-radius: 10px;
+        margin-left: 5px;
+        background: $drag-indicator-color;
+        cursor: move;
+    }
 
     .circle:nth-child(2) {
         margin-left: 5px;

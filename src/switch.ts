@@ -342,11 +342,11 @@ export function windowOsSpecific()
 }
 
 // Disable key-combo refresh..
-document.onkeydown = (e) => {
-    const press = (window as any).event ? (window as any).event : e;
-    if (press.keyCode == 82 && press.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
+// document.onkeydown = (e) => {
+//     const press = (window as any).event ? (window as any).event : e;
+//     if (press.keyCode == 82 && press.ctrlKey) {
+//         e.preventDefault();
+//         e.stopPropagation();
+//     }
 
-}
+// }
