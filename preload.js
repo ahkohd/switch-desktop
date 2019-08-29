@@ -15,7 +15,7 @@ const config = new Store({
    projectName: 'SwitchDock'
 });
 
-let trayIcon = new Tray(path.join(__dirname, '/assets/images/switch.png'));
+let trayIcon = new Tray(path.join(__dirname, '/assets/app-icons/icon.png'));
 let settingsWindowOpened = false;
 
 
