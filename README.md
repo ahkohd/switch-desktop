@@ -1,9 +1,9 @@
 ![Switch logo](./docs/switch-logo-dark.png)
 
-[![Build Status](https://travis-ci.org/ahkohd/switch-desktop.svg?branch=master)](https://travis-ci.org/ahkohd/switch-desktop)
+[![Build Status](https://travis-ci.org/ahkohd/switch-desktop.svg?branch=master)](https://travis-ci.org/ahkohd/switch-desktop) [![Build status](https://ci.appveyor.com/api/projects/status/ueo46t4pb2p8tdrv?svg=true)](https://ci.appveyor.com/project/ahkohd/switch-desktop)
 
-Switch between your favourite apps lightning fast (Windows, MacOS - WIP)
-> NOTE: Switch works on Windows, macOS build is under active development. Support for Linux coming soon.
+Switch between your favourite apps lightning fast (Windows, MacOS - Under development)
+> NOTE: Switch works on Windows, macOS support is under development.
 
 # Features
 - Switch fast between apps.
