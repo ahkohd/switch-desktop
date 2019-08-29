@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/ahkohd/switch-desktop.svg?branch=master)](https://travis-ci.org/ahkohd/switch-desktop)
 
-Switch between your favourite apps lightning fast. (Windows, macOS)
-> NOTE: Switch works currently only on Windows and macOS. Support for Linux coming soon.
+Switch between your favourite apps lightning fast (Windows, MacOS - WIP)
+> NOTE: Switch works on Windows, macOS build is under active development. Support for Linux coming soon.
 
 # Features
 - Switch fast between apps.
