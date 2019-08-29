@@ -172,12 +172,12 @@ export class Switch {
         // get app icon
         const icon = fileIcon(file.path, 32).toString('base64');
         let opsys = process.platform;
-        if (opsys == 'darwin' && file.type == 'application/x-mach-binary') {
+        if (opsys == 'darwin' && file.path.toLowerCase().includes('.app') && file.path.toLowerCase().includes('/MacOS')) {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else {
-            alert('Please select an app.');
+            alert('Please select an app!');
         }
     }
 

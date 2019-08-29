@@ -91,13 +91,12 @@ export class Settings {
 
 
         (window as any).toastify({
-            text: "✨ Saved!",
+            text: "🦄 Saved!",
             duration: 3000,
             gravity: "bottom",
-            close: true,
             position: 'left',
             className: 'toast-left',
-            backgroundColor: "linear-gradient(136.2deg, #71D8FF -22.19%, #09B5F5 51.02%, #5811F0 114.32%)",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
         }).showToast();
     }
 
