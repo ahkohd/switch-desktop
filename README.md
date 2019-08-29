@@ -13,7 +13,7 @@ Switch between your favourite apps lightning fast (Windows, MacOS - Under develo
 
 > **[Download Switch now! 🦄](https://ahkohd.github.io/switch-desktop/)**
 
-# Demo
+# Screenshot
 
 
 ![Switch demo](./docs/shot.png)
