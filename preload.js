@@ -53,7 +53,6 @@ createIntroWindow = () => {
      });
      win.once('ready-to-show', ()=>{
         win.show();
-        readyToShow();
      });
 }
 //show intro on startup.
