@@ -16,7 +16,7 @@ Switch between your favourite apps lightning fast (Windows, MacOS - Under develo
 # Screenshot
 
 
-![Switch demo](./docs/shot.png)
+![Switch demo](./docs/switch-shot.png)
 
 # Components
 Switch as two main components.
