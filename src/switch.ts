@@ -156,6 +156,13 @@ export class Switch {
      */
     onClickAddHotApp(elem) {
 
+        // request dock to appear. A fix for macOS - dock disappears while add app..
+        try {
+            (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
+               type: 'show-dock'
+            }));
+         } catch (e) { }
+
         const file = elem.target.files[0];
         if (this.checkIfAppExists(file.path, file.name)) {
             alert('App already exists in dock!');
