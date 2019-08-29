@@ -282,9 +282,13 @@ body {
 
 .settings-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: rgb(255, 255, 255) !important;
-    color: black;
+    background: rgb(37, 37, 37) !important;
+    color: #999;
     position: relative;
+
+    h2 {
+        color: #999;
+    }
 
     .board {
         width: 100%;
@@ -314,7 +318,7 @@ body {
 
                 p {
                     margin: 5px 0 0 0;
-                    color: rgb(78, 78, 78);
+                    color: #999;
                     font-size: 14px;
                     letter-spacing: 1px;
                 }
@@ -351,6 +355,14 @@ body {
                     border: 2px solid #00aced;
                     outline: none;
                     font-family: Poppins;
+                    color: #999;
+                    background: transparent;
+
+                    & option
+                    {
+                        background: #222;
+                        color: #999;
+                    }
                 }
             }
 
@@ -365,9 +377,9 @@ body {
                 padding: 10px 0;
                 font-weight: bold;
                 border-radius: 5px;
-                background: $secondary-color;
+                background: #222;
                 color: white;
-                border: 3px solid $secondary-color;
+                border: 3px solid #111;
                 outline: none;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
                 position: absolute;
@@ -459,8 +471,10 @@ input:checked+.slider:before {
 .toast-left {
     left: 20px;
     position: absolute;
-    width: 95px;
+    width: 80px !important;
     font-family: Poppins;
+    box-shadow: none !important;
+    color: #999;
 }
 
 .intro-page {
