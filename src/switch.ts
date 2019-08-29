@@ -156,6 +156,13 @@ export class Switch {
      */
     onClickAddHotApp(elem) {
 
+        // request dock to appear. A fix for macOS - dock disappears while add app..
+        try {
+            (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
+               type: 'show-dock'
+            }));
+         } catch (e) { }
+
         const file = elem.target.files[0];
         if (this.checkIfAppExists(file.path, file.name)) {
             alert('App already exists in dock!');
@@ -165,7 +172,7 @@ export class Switch {
         // get app icon
         const icon = fileIcon(file.path, 32).toString('base64');
         let opsys = process.platform;
-        if (opsys == 'darwin' && path.extname(file.path) == '.app') {
+        if (opsys == 'darwin' && file.type == 'application/x-mach-binary') {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
         } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
             (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
@@ -335,11 +342,11 @@ export function windowOsSpecific()
 }
 
 // Disable key-combo refresh..
-document.onkeydown = (e) => {
-    const press = (window as any).event ? (window as any).event : e;
-    if (press.keyCode == 82 && press.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
+// document.onkeydown = (e) => {
+//     const press = (window as any).event ? (window as any).event : e;
+//     if (press.keyCode == 82 && press.ctrlKey) {
+//         e.preventDefault();
+//         e.stopPropagation();
+//     }
 
-}
+// }

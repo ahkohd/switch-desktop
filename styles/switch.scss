@@ -39,7 +39,6 @@ body {
     width: 75px;
     height: 92.2%;
     background: $app-bar-bg;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
@@ -169,6 +168,14 @@ body {
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        background: $drag-indicator-color;
+        cursor: move;
+    }
+    .bar {
+        width: 30px;
+        height: 8px;
+        border-radius: 10px;
+        margin-left: 5px;
         background: $drag-indicator-color;
         cursor: move;
     }
