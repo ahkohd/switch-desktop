@@ -100,12 +100,10 @@ if (!gotTheLock) {
   function SPWAN_SWITCH_SERVICE() {
     // spawn the executable approraite for the platform
     const opsys = process.platform;
-    if (opsys == 'darwin') {
+    if (opsys == 'darwin' || opsys == 'linux') {
       return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch'), [], (error, stdout, stderr) => {});
     } else if (opsys == "win32" || 'win64') {
       return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch'), [], (error, stdout, stderr) => {});
-    } else {
-      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch'), [], (error, stdout, stderr) => {});
     }
   }
   
