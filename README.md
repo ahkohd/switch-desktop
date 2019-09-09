@@ -32,6 +32,7 @@ Before running Switch in development mode, please ensure you have Node.js instal
 Clone this repo, and cd into it, Then:
 ```bash
 $npm i
+$npm run get-ss-prebuild
 $npm run dev
 ```
 
