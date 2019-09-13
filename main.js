@@ -95,25 +95,25 @@ if (!gotTheLock) {
 
 
   // SPWAN SWITCH SERVICE
-  const devmode = (process.argv[2] == "--dev") ? true : false;
+  // const devmode = (process.argv[2] == "--dev") ? true : false;
   
-  function SPWAN_SWITCH_SERVICE() {
-    // spawn the executable approraite for the platform
-    const opsys = process.platform;
-    if (opsys == 'darwin' || opsys == 'linux') {
-      return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch'), [], (error, stdout, stderr) => {});
-    } else if (opsys == "win32" || 'win64') {
-      return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch'), [], (error, stdout, stderr) => {});
-    }
-  }
+  // function SPWAN_SWITCH_SERVICE() {
+  //   // spawn the executable approraite for the platform
+  //   const opsys = process.platform;
+  //   if (opsys == 'darwin' || opsys == 'linux') {
+  //     return execFile((devmode) ? path.join(app.getAppPath(), '/service-binaries/switch') : path.join(path.dirname(app.getAppPath()), '/service-binaries/switch'), [], (error, stdout, stderr) => {});
+  //   } else if (opsys == "win32" || 'win64') {
+  //     return execFile((devmode) ? path.join(app.getAppPath(), '\\service-binaries\\switch') : path.join(path.dirname(app.getAppPath()), '\\service-binaries\\switch'), [], (error, stdout, stderr) => {});
+  //   }
+  // }
   
-  let child = SPWAN_SWITCH_SERVICE();
-  // on error kill service and respawn
-  child.stderr.on('data', data => {
-    child.kill();
-    // auto spwan..
-    child = SPWAN_SWITCH_SERVICE();
-  });
+  // let child = SPWAN_SWITCH_SERVICE();
+  // // on error kill service and respawn
+  // child.stderr.on('data', data => {
+  //   child.kill();
+  //   // auto spwan..
+  //   child = SPWAN_SWITCH_SERVICE();
+  // });
 
 
   // This method will be called when Electron has finished
@@ -126,7 +126,7 @@ if (!gotTheLock) {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     // kill switch service
-    child.kill();
+    // child.kill();
     if (process.platform !== 'darwin') app.quit()
   })
 
@@ -138,7 +138,5 @@ if (!gotTheLock) {
 
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
-
-
 
 }

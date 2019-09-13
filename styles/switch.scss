@@ -19,12 +19,12 @@ $tooltip-shadow-color2: rgba(0, 0, 0, 0.24);
     -webkit-user-select: none;
 }
 
-html
-{
+html {
     padding: 0;
     margin: 0;
     outline: 0;
 }
+
 body {
     display: flex;
     height: 100vh;
@@ -100,22 +100,21 @@ body {
                 z-index: 10;
             }
 
-            
+
         }
 
         .app:hover {
             color: $secondary-color;
-           
 
-          
+
+
             .icon {
                 // transform: rotateZ(5deg) scale(.95);
-               filter: hue-rotate(0deg) saturate(2) invert(0);
+                filter: hue-rotate(0deg) saturate(2) invert(0);
             }
         }
 
-        .app:hover::after
-        {
+        .app:hover::after {
             content: '';
             width: 9px;
             height: 9px;
@@ -127,8 +126,8 @@ body {
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
             z-index: 100;
         }
-        .app.empty:hover::after
-        {   
+
+        .app.empty:hover::after {
             display: none;
         }
 
@@ -171,6 +170,7 @@ body {
         background: $drag-indicator-color;
         cursor: move;
     }
+
     .bar {
         width: 30px;
         height: 8px;
@@ -280,24 +280,30 @@ body {
 }
 
 
+
+
+
+
 .settings-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: rgb(37, 37, 37) !important;
     color: #999;
     position: relative;
+    overflow-y: scroll !important;
 
     h2 {
         color: #999;
     }
 
     .board {
-        width: 100%;
+        width: 90%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-around;
         flex-direction: row;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll !important;
         font-family: Poppins;
 
 
@@ -342,14 +348,13 @@ body {
                 font-size: 14px;
                 margin-bottom: 2px;
                 display: block;
-                
+
             }
 
             .form-control {
                 margin-top: 13px;
 
-                select 
-                {
+                select {
                     border-radius: 5px;
                     padding: 3px 5px;
                     border: 2px solid #00aced;
@@ -358,8 +363,7 @@ body {
                     color: #999;
                     background: transparent;
 
-                    & option
-                    {
+                    & option {
                         background: #222;
                         color: #999;
                     }
