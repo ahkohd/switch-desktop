@@ -161,24 +161,25 @@ export class Switch {
             (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
                type: 'show-dock'
             }));
+
+            const file = elem.target.files[0];
+            if (this.checkIfAppExists(file.path, file.name)) {
+                alert('App already exists in dock!');
+                return;
+            }
+    
+            // get app icon
+            const icon = fileIcon(file.path, 32).toString('base64');
+            let opsys = process.platform;
+            if (opsys == 'darwin' && file.path.toLowerCase().includes('.app') && file.path.toLowerCase().includes('/MacOS')) {
+                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
+            } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
+                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
+            } else {
+                alert('Please select an app!');
+            }
+
          } catch (e) { }
-
-        const file = elem.target.files[0];
-        if (this.checkIfAppExists(file.path, file.name)) {
-            alert('App already exists in dock!');
-            return;
-        }
-
-        // get app icon
-        const icon = fileIcon(file.path, 32).toString('base64');
-        let opsys = process.platform;
-        if (opsys == 'darwin' && file.path.toLowerCase().includes('.app') && file.path.toLowerCase().includes('/MacOS')) {
-            (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
-        } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
-            (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
-        } else {
-            alert('Please select an app!');
-        }
     }
 
     /**
@@ -340,13 +341,3 @@ export function windowOsSpecific()
         document.getElementById('appbar').style.borderRadius = '0px';
     }
 }
-
-// Disable key-combo refresh..
-// document.onkeydown = (e) => {
-//     const press = (window as any).event ? (window as any).event : e;
-//     if (press.keyCode == 82 && press.ctrlKey) {
-//         e.preventDefault();
-//         e.stopPropagation();
-//     }
-
-// }

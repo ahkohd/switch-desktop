@@ -68,7 +68,7 @@ createSettingsWindow = () => {
       minimizable: false,
       resizable: false,
       webPreferences: {
-         devTools: false,
+         // devTools: true,
          nodeIntegration: true
       }
    })
@@ -85,7 +85,7 @@ createSettingsWindow = () => {
       try {
          window.SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
             type: 'config-update',
-            data: config.get('config')
+            data: {...config.get('config'), disableAltGr: config.get('disableAltGr') }
          }));
       } catch (e) {}
    });

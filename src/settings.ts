@@ -31,7 +31,7 @@ export class Settings {
             const initial = {
                 autoHide: true,
                 maximize: true,
-                placement: 'right'
+                placement: 'right',
             };
             config.set('config', initial)
             return initial;
@@ -46,6 +46,15 @@ export class Settings {
         return status == null ? true: status;
     }
 
+    getDisableAltGr()
+    {
+        const status = config.get('disableAltGr');
+        return status == null ? false: status;
+    }
+
+
+
+
     updateUI() {
         const data = this.getSavedFromStore();
         document.clear();
@@ -53,6 +62,8 @@ export class Settings {
         this.setCheckedValue('maximize', data.maximize);
         this.setCheckedValue('intro', this.getShowIntro());
         this.setSelectedValue('placement', data.placement);
+        this.setCheckedValue('disableAltGr', this.getDisableAltGr());
+
     }
 
     getCheckedValue(id: string): boolean {
@@ -79,6 +90,8 @@ export class Settings {
         const maximize = this.getCheckedValue('maximize');
         const intro = this.getCheckedValue('intro');
         const placement = this.getValue('placement');
+        const disableAltGr = this.getCheckedValue('disableAltGr');
+
 
 
         config.set('config', {
@@ -88,6 +101,8 @@ export class Settings {
         });
 
         config.set('showIntro', intro);
+        config.set('disableAltGr', disableAltGr);
+
 
 
         (window as any).toastify({
