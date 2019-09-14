@@ -177,6 +177,12 @@ button:hover {
     }
 }
 
+@media screen and (min-width: 801px) {
+    body {
+        overflow: hidden;
+    }
+}
+
 @media screen and (max-width: 800px) {
 
 
