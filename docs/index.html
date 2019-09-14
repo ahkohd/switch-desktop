@@ -45,16 +45,15 @@
     <div class="particle"></div>
     <div class="particle"></div>
 
-
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="./switch-logo.png" alt="">
+            <img src="./switch-logo-dark.png" alt="">
         </a>
 
 
         <ul class="navbar-nav d-none d-sm-block">
             <li class="nav-item">
-                <button class="sm" onclick="window.location='http://www.github.com/ahkohd/switch-desktop'">
+                <button class="gh" onclick="window.location='http://www.github.com/ahkohd/switch-desktop'">
                     <i class="fa fa-github"></i> GitHub
                 </button>
             </li>
@@ -64,15 +63,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-6 demo_pane">
-                <div class='embed-container'><iframe src='https://www.youtube.com/embed/cysVHi-pcxU' frameborder='0'
-                        allowfullscreen></iframe></div>
-            </div>
-            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-6 rside">
+            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 rside">
 
                 <h2>
-                    Switch
-                    <sup>(alpha)</sup>
+                    A crossplatform key+combo window manager
                 </h2>
 
                 <p>
@@ -80,19 +74,36 @@
                 </p>
 
                 <div class="pan">
-                    <button onclick="window.location='https://rebrand.ly/switch-win'">
-                        <i class="fa fa-windows"></i> Windows
+                    <button class="win" onclick="window.location='https://rebrand.ly/switch-win'">
+                        <i class="fa fa-windows"></i> Install on Windos
                     </button>
-                    <!--
-            <button class="dl" onclick="window.location='https://rebrand.ly/switch-mac'">
-                                    <i class="fa fa-apple"></i> MacOS (WIP)
-                                </button>
-                   -->
+                    <button class="mac" disabled>
+                        <i class="fa fa-apple"></i> MacOS - 🚧 WIP
+                    </button>
+
+                    <br><br>
+                    <a class="ph-link"
+                        href="https://www.producthunt.com/posts/switch-8?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-switch-8"
+                        target="_blank"><img
+                            src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=166945&theme=light&period=daily"
+                            alt="Switch - Zap between your favorite apps lightning fast. | Product Hunt Embed"
+                            style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 demo_pane">
+                <div class='embed-container'>
+                    <iframe src='https://www.youtube.com/embed/cysVHi-pcxU' frameborder='0' allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="rgb(73, 64, 253)" fill-opacity="1"
+            d="M0,256L60,266.7C120,277,240,299,360,266.7C480,235,600,149,720,117.3C840,85,960,107,1080,106.7C1200,107,1320,85,1380,74.7L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+        </path>
+    </svg>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -102,6 +113,59 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+
+    <script>
+        ! function () {
+            var analytics = window.analytics = window.analytics || [];
+            if (!analytics.initialize)
+                if (analytics.invoked) window.console && console.error && console.error(
+                    "Segment snippet included twice.");
+                else {
+                    analytics.invoked = !0;
+                    analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify",
+                        "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"
+                    ];
+                    analytics.factory = function (t) {
+                        return function () {
+                            var e = Array.prototype.slice.call(arguments);
+                            e.unshift(t);
+                            analytics.push(e);
+                            return analytics
+                        }
+                    };
+                    for (var t = 0; t < analytics.methods.length; t++) {
+                        var e = analytics.methods[t];
+                        analytics[e] = analytics.factory(e)
+                    }
+                    analytics.load = function (t, e) {
+                        var n = document.createElement("script");
+                        n.type = "text/javascript";
+                        n.async = !0;
+                        n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
+                        var a = document.getElementsByTagName("script")[0];
+                        a.parentNode.insertBefore(n, a);
+                        analytics._loadOptions = e
+                    };
+                    analytics.SNIPPET_VERSION = "4.1.0";
+                    analytics.load("gYFmTzv4VVjvMCIxZJgptjiGhRT1rqV0");
+                    analytics.page();
+                }
+        }();
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126189060-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-126189060-3');
+    </script>
+
 </body>
 
 </html>
