@@ -1,12 +1,14 @@
 // Modules to control application life and create native browser window
 const {
   app,
-  BrowserWindow,
+  BrowserWindow
 } = require('electron');
 const path = require('path');
 const Positioner = require('electron-positioner');
 const { execFile } = require('child_process');
 const Sentry = require('@sentry/node');
+const { autoUpdater } = require('electron-updater');
+
 Sentry.init({ dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999' });
 
 // Load saved configurations
@@ -89,7 +91,10 @@ if (!gotTheLock) {
       (placement == 'right') ? mainWindow.setPosition(pos[0] - 10, pos[1]) : mainWindow.setPosition(pos[0] + 10, pos[1]);
       mainWindow.show();
 
-    })
+    });
+
+    // check for update...
+    autoUpdater.checkForUpdatesAndNotify();
   }
 
 
@@ -139,5 +144,38 @@ if (!gotTheLock) {
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
 
+  // When new udpdate is available alert the user...  
+  autoUpdater.on('update-available', () => {
+    alert('🔥🙌 A new Switch update is available.');
+  });
+  
+  // When new udpdate as been downloaded alert the user...  
+  autoUpdater.addListener("update-downloaded", (info) => {
+
+    dialog.showMessageBox({
+      type:      'info',
+      title:     'Switch Update',
+      message:   '😉🎉 Switch update as been downloaded and is ready to install!',
+      buttons:   ['Install and Restart', 'Not now'],
+      defaultId: 0,
+      cancelId:  1,
+    }, (buttonIndex) => {
+      log.debug('User responded to update restart request with ' + buttonIndex);
+
+      if (buttonIndex === 0) {
+        setImmediate(() => {
+          app.removeAllListeners("window-all-closed")
+
+          if (mainWindow != null) {
+            mainWindow.close()
+          }
+          autoUpdater.quitAndInstall(false)
+        })
+      }
+    });
+
+  });
 
 }
+
+
