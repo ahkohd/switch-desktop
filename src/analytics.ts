@@ -34,8 +34,11 @@ export function firstUseAnalytics(uid) {
     if (isFirstTime == null) {
         // its user's first time, log it using the app...
         try {
-            analytics.pageview('switch-dock', 'intro?newUser=yes', 'Intro', 'start', uid)
-                .then((response) => {
+            analytics.send('pageview', {
+                dh: 'switch-dock',
+                dp: 'intro?newUser=yes',
+                dt: 'Intro',
+              }, uid).then((response) => {
                     return response;
                 }).catch((err) => {
                     return err;
@@ -45,8 +48,11 @@ export function firstUseAnalytics(uid) {
     } else if (isFirstTime == 'no') {
         // user is just rechecking intro...
         try {
-            analytics.pageview('switch-dock', 'intro?newUser=no', 'Intro', 'start', uid)
-                .then((response) => {
+            analytics.send('pageview', {
+                dh: 'switch-dock',
+                dp: 'intro?newUser=no',
+                dt: 'Intro',
+              }, uid).then((response) => {
                     return response;
                 }).catch((err) => {
                     return err;
@@ -59,8 +65,11 @@ export function firstUseAnalytics(uid) {
 export function logOnShowDock(uid, startup = false) {
     if (startup) {
         try {
-            analytics.pageview('switch-dock', 'dock?version=' + appVersion + '&startup=true', 'Dock', 'start', uid)
-                .then((response) => {
+            analytics.send('pageview', {
+                dh: 'switch-dock',
+                dp: 'dock?version=' + appVersion + '&startup=true',
+                dt: 'Dock',
+              }, uid).then((response) => {
                     return response;
                 }).catch((err) => {
                     return err;
