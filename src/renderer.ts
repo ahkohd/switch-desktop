@@ -6,9 +6,6 @@ Sentry.init({
   dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
 });
 
-// Initialize analytics...
-import { initDockAnalytics, logOnShowDock } from './analytics';
-initDockAnalytics();
 
 
 // Load saved configurations
@@ -16,6 +13,12 @@ const Store = require('electron-store');
 const config = new Store({
   projectName: 'SwitchDock'
 });
+
+// Initialize analytics...
+import { initAnalytics, logOnShowDock } from './analytics';
+const uuid = initAnalytics(config);
+logOnShowDock(uuid, true);
+
 
 // Dock visibility
 let windowVisible = true;
@@ -66,7 +69,7 @@ const show = (thenHide: boolean = true) => {
   if (thenHide) autoHide = hide();
 
   try {
-    logOnShowDock();
+    logOnShowDock(uuid);
   } catch(e) {}
   
 }

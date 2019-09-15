@@ -5,8 +5,9 @@ const config = new Store({
 });
 
 // Initialize analytics...
-import { firstUseAnalytics } from './analytics';
-firstUseAnalytics();
+import { initAnalytics, firstUseAnalytics } from './analytics';
+const uuid = initAnalytics(config);
+firstUseAnalytics(uuid);
 
 
 export class Intro {

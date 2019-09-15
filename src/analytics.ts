@@ -7,14 +7,12 @@ const uuid = require('uuid/v4');
 
 const username = require('username');
 const appVersion = getAppVersion();
-const uid = localStorage.getItem('uid') || uuid();
-localStorage.setItem('uid', uid);
-const details = {uname: username.sync(), platform:  process.platform,  version: appVersion};
-
+const details = { uname: username.sync(), platform: process.platform, version: appVersion };
 
 // usage dock analytics
-export function initDockAnalytics() {
+export function initAnalytics(store) {
     console.log('[Info]: Intialize analytics');
+    const uid = store.get('uid', uuid());
     try {
         analytics.set('uid', uid);
         analytics.set('clientID', uid);
@@ -24,57 +22,58 @@ export function initDockAnalytics() {
     } catch (e) {
         console.log('Failed to log Switch dock version.')
     }
-    logOnShowDock(true);
+
+    store.set('uid', uid);
+    return uid;
 }
 
 
 // installs and setup analytics
-export function firstUseAnalytics() {
-    initDockAnalytics();
+export function firstUseAnalytics(uid) {
     const isFirstTime = localStorage.getItem('first-time');
     if (isFirstTime == null) {
         // its user's first time, log it using the app...
         try {
-            analytics.pageview('switch-dock', 'intro?newUser=yes', 'Intro', new Date().getTime(), uid)
-            .then((response) => {
-                return response;
-            }).catch((err) => {
-                return err;
-            });
-        } catch(e) { }
+            analytics.pageview('switch-dock', 'intro?newUser=yes', 'Intro', 'start', uid)
+                .then((response) => {
+                    return response;
+                }).catch((err) => {
+                    return err;
+                });
+        } catch (e) { }
         localStorage.setItem('first-time', 'no');
     } else if (isFirstTime == 'no') {
         // user is just rechecking intro...
         try {
-            analytics.pageview('switch-dock', 'intro?newUser=no', 'Intro', new Date().getTime(), uid)
-            .then((response) => {
-                return response;
-            }).catch((err) => {
-                return err;
-            });
-        } catch (e) {}
+            analytics.pageview('switch-dock', 'intro?newUser=no', 'Intro', 'start', uid)
+                .then((response) => {
+                    return response;
+                }).catch((err) => {
+                    return err;
+                });
+        } catch (e) { }
     }
 }
 
 // on dock show log to analytics...
-export function logOnShowDock(startup = false) {
+export function logOnShowDock(uid, startup = false) {
     if (startup) {
         try {
-            analytics.pageview('switch-dock', 'dock?version=' + appVersion + '&startup=true', 'Dock', new Date().getTime(), uid)
-            .then((response) => {
-                return response;
-            }).catch((err) => {
-                return err;
-            });
-        } catch (e) {}
+            analytics.pageview('switch-dock', 'dock?version=' + appVersion + '&startup=true', 'Dock', 'start', uid)
+                .then((response) => {
+                    return response;
+                }).catch((err) => {
+                    return err;
+                });
+        } catch (e) { }
     } else {
         try {
             analytics.event('ShowDock', 'show', { ec: 'ShowDock', ea: 'show', el: 'dock', ev: details, clientID: uid })
-            .then((response) => {
-                return response;
-            }).catch((err) => {
-                return err;
-            });
+                .then((response) => {
+                    return response;
+                }).catch((err) => {
+                    return err;
+                });
         } catch (e) { }
     }
 }
