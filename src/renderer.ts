@@ -6,6 +6,11 @@ Sentry.init({
   dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
 });
 
+// Initialize analytics...
+import { initDockAnalytics, logOnShowDock } from './analytics';
+initDockAnalytics();
+
+
 // Load saved configurations
 const Store = require('electron-store');
 const config = new Store({
@@ -59,6 +64,11 @@ const show = (thenHide: boolean = true) => {
   windowVisible = true;
   clearTimeout(autoHide);
   if (thenHide) autoHide = hide();
+
+  try {
+    logOnShowDock();
+  } catch(e) {}
+  
 }
 
 // places the dock to the left or right..

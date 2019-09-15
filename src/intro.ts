@@ -4,6 +4,10 @@ const config = new Store({
    projectName: 'SwitchDock'
 });
 
+// Initialize analytics...
+import { firstUseAnalytics } from './analytics';
+firstUseAnalytics();
+
 
 export class Intro {
     currentIndex: number = 1;
