@@ -1,8 +1,7 @@
 // Modules to control application life and create native browser window
 const {
   app,
-  BrowserWindow,
-  Notification
+  BrowserWindow
 } = require("electron");
 const path = require("path");
 const Positioner = require("electron-positioner");
