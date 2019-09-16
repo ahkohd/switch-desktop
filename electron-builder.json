@@ -22,7 +22,8 @@
   },
   "win": {
     "publish": ["github"],
-    "target": ["zip", "nsis"]
+    "target": ["zip", "nsis"],
+    "verifyUpdateCodeSignature": false
   },
   "mac": {
     "publish": ["github"],
