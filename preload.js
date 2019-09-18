@@ -32,6 +32,7 @@ createIntroWindow = () => {
         height: 400,
         show: false,
         frame: false,
+        hasShadow: false,
         transparent: true,
         maximizable: false,
         minimizable: false,

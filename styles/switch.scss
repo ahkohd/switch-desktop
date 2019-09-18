@@ -484,6 +484,14 @@ input:checked+.slider:before {
 .intro-page {
     display: flex;
 
+    .slide.mac {
+        margin: auto;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+    }
+
     .slide {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         border-radius: 5px;

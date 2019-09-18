@@ -15,6 +15,9 @@ export class Intro {
 
     constructor()
     {
+        // add mac specific styling
+        if(remote.process.platform == 'darwin') document.getElementById('slide-mac').classList.add('mac');
+
         let pane = this.getAllPanes();
         this.showPane(this.currentIndex);
     }
