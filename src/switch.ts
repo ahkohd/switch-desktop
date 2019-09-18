@@ -214,7 +214,7 @@ export class Switch {
             name: fileDetails.name,
             path: fileDetails.path,
             icon: appIcon,
-            rawcode: (49 + parseInt(index))
+            rawcode: ((process.platform == 'darwin') ? 18 : 49 + parseInt(index))
         };
         this.saveHotApps(this.hotApps);
         this.renderUIUpdate();
