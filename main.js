@@ -11,6 +11,9 @@ const {
 const Sentry = require("@sentry/node");
 
 
+
+
+
 Sentry.init({
   dsn: "https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999"
 });
@@ -41,8 +44,10 @@ if (!gotTheLock) {
   function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-      // width: 70,
-      width: 450,
+      width: 70,
+      minWidth: 70,
+      // width: 450,
+      // width: 600,
       height: 600,
       frame: false,
       resizable: false,
@@ -59,7 +64,7 @@ if (!gotTheLock) {
       vibrancy: true,
       webPreferences: {
         nodeIntegration: true,
-        devTools: false,
+        // devTools: false,
         preload: path.join(__dirname, "preload.js")
       }
     });
@@ -79,6 +84,11 @@ if (!gotTheLock) {
     });
 
     mainWindow.once("ready-to-show", () => {
+      if(process.platform == 'win32') 
+      {
+        const electronVibrancy = require('electron-vibrancy');
+        electronVibrancy.SetVibrancy(mainWindow, 7);
+      }
       // setup positioner
       const positioner = new Positioner(mainWindow);
       let placement = config.get("config");

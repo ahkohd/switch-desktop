@@ -1,5 +1,6 @@
 import { SwitchHotApp } from './interfaces';
 import * as Tether from 'tether';
+import AppsMenu from './appsMenu';
 const fileIcon = require("extract-file-icon");
 const open = require('open');
 const path = require('path');
@@ -8,6 +9,7 @@ const remote = require('electron').remote;
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 
+const appsMenu = new AppsMenu();
 
 export class Switch {
 
@@ -52,6 +54,7 @@ export class Switch {
             let hot = this.hotApps[i];
             if (hot.empty) continue;
             elem.className = 'app tooltip';
+            elem.removeEventListener('click', this.openAppsMenuListener)
             // tooltip
             document.getElementById('tip-' + i).innerHTML = `<p>${hot.name.split('.exe')[0]}</p>`;
             let icon: HTMLImageElement = document.createElement('img');
@@ -85,18 +88,21 @@ export class Switch {
         const track = document.getElementById('track');
         for (let i = 0; i < 10; i++) {
             const div = document.createElement('div');
-            const file = document.createElement('input');
+            // const file = document.createElement('input');
             div.id = "app-" + i;
             div.className = "app empty tooltip";
             div.innerHTML += `<div id="tip-${i}" class="tooltiptext ${(i == 0) ? 'top' : ''}"><p>Add app</p></div>`;
-            file.type = 'file';
+            // file.type = 'file';
             // remove default title behaviour.
-            file.title = "";
-            file.id = "f-app-" + i;
-            file.addEventListener('change', e => {
-                (window as any).APP.onClickAddHotApp(e);
-            })
-            div.appendChild(file);
+            // file.title = "";
+            // file.id = "f-app-" + i;
+            // file.addEventListener('change', e => {
+            //     (window as any).APP.onClickAddHotApp(e);
+            // })
+            // div.appendChild(file);
+
+            div.addEventListener('click', this.openAppsMenuListener);
+
             track.appendChild(div);
 
             //place tooltip
@@ -131,6 +137,10 @@ export class Switch {
 
     }
 
+    openAppsMenuListener(e) {
+        (window as any).APP.openAppsMenu(e);
+    }
+
     /**
      * Resets the hot app tile of as given index
      * @param {number} i Index to reset
@@ -140,14 +150,17 @@ export class Switch {
         appTile.innerHTML = "";
         appTile.className = "app empty tooltip";
         document.getElementById('tip-' + i).innerHTML = `<p>Add app</p>`;
-        const file = document.createElement('input');
-        file.type = 'file';
-        file.id = "f-app-" + i;
-        file.title = "";
-        file.addEventListener('change', e => {
-            (window as any).APP.onClickAddHotApp(e);
-        })
-        appTile.appendChild(file);
+        // const file = document.createElement('input');
+        // file.type = 'file';
+        // file.id = "f-app-" + i;
+        // file.title = "";
+        // file.addEventListener('change', e => {
+        //     (window as any).APP.onClickAddHotApp(e);
+        // })
+        // appTile.appendChild(file);
+        appTile.addEventListener('click', e => {
+            (window as any).APP.openAppsMenu(e);
+        });
     }
 
     /**
@@ -159,7 +172,7 @@ export class Switch {
         // request dock to appear. A fix for macOS - dock disappears while add app..
         try {
             (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({
-               type: 'show-dock'
+                type: 'show-dock'
             }));
 
             const file = elem.target.files[0];
@@ -167,7 +180,7 @@ export class Switch {
                 alert('App already exists in dock!');
                 return;
             }
-    
+
             // get app icon
             const icon = fileIcon(file.path, 32).toString('base64');
             let opsys = process.platform;
@@ -179,7 +192,7 @@ export class Switch {
                 alert('Please select an app!');
             }
 
-         } catch (e) { }
+        } catch (e) { }
     }
 
     /**
@@ -330,14 +343,16 @@ export class Switch {
         }, false);
     }
 
+    openAppsMenu(e) {
+        if(!appsMenu.isOpened) appsMenu.open(10);
+    }
+
 }
 
 
-export function windowOsSpecific()
-{
+export function windowOsSpecific() {
     const opsys = process.platform;
-    if(opsys == "win32")
-    {
+    if (opsys == "win32") {
         document.getElementById('appbar').style.borderRadius = '0px';
     }
 }

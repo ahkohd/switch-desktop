@@ -3,7 +3,7 @@ $drag-height: 35px;
 $secondary-color: #00aced;
 $app-hover-indicator-color: white;
 //  vibrancy value
-// $app-bar-bg: rgba(0, 0, 0, 0.521);
+$app-bar-bg-vb: rgba(0, 0, 0, 0.65);
 $drag-indicator-color: rgba(255, 255, 255, 0.192);
 // vibrancy value
 // $empty-app-border-color: rgba(255, 255, 255, 0.17);
@@ -32,17 +32,21 @@ body {
     background: transparent !important;
 }
 
+
+  
 #appbar {
     border-radius: 5px;
     position: relative;
     margin: auto;
     width: 75px;
     height: 92.2%;
-    background: $app-bar-bg url(./nn.png);
+    // background: $app-bar-bg url(./no.png);
+    background: $app-bar-bg-vb url(./no.png);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
     border: 1px solid rgba(255, 255, 255, .1);
+    
 
     .track {
         overflow-x: hidden;
@@ -680,9 +684,10 @@ span.key {
 
 #appsMenu {
     flex: 1;
-    background: $app-bar-bg url(./nn.png);
+    background: $app-bar-bg-vb url(./no.png);
     margin-right: 10px;
     border: 1px solid rgba(255, 255, 255, .1);
+    display: none;
 
 
     #userAvatar {
@@ -705,7 +710,7 @@ span.key {
     #appSearch {
         width: 80%;
         height: 40px;
-        background: $app-bar-bg;
+        background: $app-bar-bg-vb;
         border-radius: 5px;
         border: none;
         text-align: center;
@@ -742,7 +747,7 @@ span.key {
             content: '';
             height: 60%;
             width: 1px;
-            background: white;
+            background: rgba(255, 255, 255, .5);
             position: absolute;
             left: calc(50% - 1px);
             top: 20%;
@@ -753,7 +758,7 @@ span.key {
             content: '';
             height: 1px;
             width: 60%;
-            background: white;
+            background: rgba(255, 255, 255, .5);
             position: absolute;
             left: 20%;
             top: calc(50% - 1px);
@@ -793,6 +798,10 @@ span.key {
         align-items: flex-start;
         padding: 0 9%;
         flex-wrap: wrap;
+
+        .app-card:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
 
         .app-card {
             width: 76px;
