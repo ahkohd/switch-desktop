@@ -209,7 +209,7 @@ export class Switch {
      * @param  {string} appIcon
      */
     addApp(index: any, fileDetails: any, appIcon: string) {
-        let mapDarwinKeycode = parseInt(index) + 1;
+        let mapDarwinKeycode = parseInt(index) + 2;
         if(mapDarwinKeycode == 10) mapDarwinKeycode =  0; 
         this.hotApps[index] = {
             empty: false,
