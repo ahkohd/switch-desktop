@@ -156,6 +156,8 @@ export class Switch {
      */
     onClickAddHotApp(elem) {
 
+        if(process.platform == "darwin") (window as any).SHOW_DOCK();
+
         // request dock to appear. A fix for macOS - dock disappears while add app..
         try {
             (window as any).SWITCH_SERVICE_CHANNEL.emit('switch-service-incoming', JSON.stringify({

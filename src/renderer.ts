@@ -74,6 +74,8 @@ const show = (thenHide: boolean = true) => {
   
 }
 
+(window as any).SHOW_DOCK = show;
+
 // places the dock to the left or right..
 function placeDock(placement: string)
 {
