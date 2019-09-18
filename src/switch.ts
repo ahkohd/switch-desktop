@@ -92,6 +92,7 @@ export class Switch {
             file.type = 'file';
             // remove default title behaviour.
             file.title = "";
+            // if(process.platform == 'darwin') file.accept = ".app";
             file.id = "f-app-" + i;
             file.addEventListener('change', e => {
                 (window as any).APP.onClickAddHotApp(e);
@@ -144,6 +145,7 @@ export class Switch {
         file.type = 'file';
         file.id = "f-app-" + i;
         file.title = "";
+        // if(process.platform == 'darwin') file.accept = ".app";
         file.addEventListener('change', e => {
             (window as any).APP.onClickAddHotApp(e);
         })
@@ -171,11 +173,15 @@ export class Switch {
             }
     
             // get app icon
-            const icon = fileIcon(file.path, 32).toString('base64');
             let opsys = process.platform;
-            if (opsys == 'darwin' && file.path.toLowerCase().includes('.app') && file.path.toLowerCase().includes('/MacOS')) {
-                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
+            if (opsys == 'darwin' && file.path.toLowerCase().split('/pkginfo').length == 2 ) {
+                const chunck = file.path.split('.app');
+                const p = chunck[0].split('/');
+                const appPath = chunck[0]+'.app';
+                const icon = fileIcon(appPath, 64).toString('base64');
+                (window as any).APP.addApp(elem.target.id.split('-')[2], {name: p[p.length -1], path: appPath}, icon);
             } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
+                const icon = fileIcon(file.path, 32).toString('base64');
                 (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
             } else {
                 alert('Please select an app!');
