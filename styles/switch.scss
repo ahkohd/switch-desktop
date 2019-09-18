@@ -38,7 +38,7 @@ body {
     margin: auto;
     width: 75px;
     height: 92.2%;
-    background: $app-bar-bg;
+    background: $app-bar-bg url(./nn.png);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
@@ -676,4 +676,161 @@ span.key {
 .tooltiptext.tether-out-of-bounds-top,
 .tooltiptext.tether-out-of-bounds-bottom {
     display: none;
+}
+
+#appsMenu {
+    flex: 1;
+    background: $app-bar-bg url(./nn.png);
+    margin-right: 10px;
+    border: 1px solid rgba(255, 255, 255, .1);
+
+
+    #userAvatar {
+        display: table;
+        margin: 20px auto;
+        height: 85px;
+        width: 85px;
+        border-radius: 50%;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+    #username {
+        color: white;
+        display: table;
+        margin: 10px auto;
+        font-weight: lighter;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #appSearch {
+        width: 80%;
+        height: 40px;
+        background: $app-bar-bg;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        display: table;
+        color: white;
+        outline: none;
+        margin: 25px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    #appSearch::placeholder {
+        text-align: center;
+    }
+
+    #section {
+        display: flex;
+        color: white;
+        font-size: 13px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 0 12%;
+        justify-content: space-between;
+        align-items: center;
+
+        #addPane:hover {
+            background: rgba(75, 75, 75, 0.411);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+
+
+
+        #addPane::after
+        {
+            content: '';
+            height: 60%;
+            width: 1px;
+            background: white;
+            position: absolute;
+            left: calc(50% - 1px);
+            top: 20%;
+        }
+        
+        #addPane::before
+        {
+            content: '';
+            height: 1px;
+            width: 60%;
+            background: white;
+            position: absolute;
+            left: 20%;
+            top: calc(50% - 1px);
+        }
+
+        #addPane {
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 5px;
+            transform: scale(.95);
+            transition: ease all .2s;
+
+            input {
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+
+        }
+
+
+    }
+
+    .apps-can {
+        height: 50%;
+        overflow-y: scroll;
+    }
+
+    .apps-pane {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 0 9%;
+        flex-wrap: wrap;
+
+        .app-card {
+            width: 76px;
+            height: 76px;
+            display: flex;
+            background: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+          
+            .span-item {
+                margin: auto;
+                img, p {
+                    display: table;
+                    margin: 0 auto;
+                }
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+                margin-bottom: 6px !important;
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 12px;
+                font-weight: bold;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                text-transform: capitalize;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+    }
+
+
 }
