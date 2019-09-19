@@ -56,7 +56,8 @@ if (!gotTheLock) {
       hasShadow: false,
       show: false,
       darkTheme: true,
-      vibrancy: true,
+      titleBarStyle: 'customButtonsOnHover',
+      closable: false,
       webPreferences: {
         nodeIntegration: true,
         devTools: false,
