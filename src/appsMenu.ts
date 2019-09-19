@@ -31,6 +31,8 @@ export default class AppsMenu {
         (window as any).DOCK_CAN_AUTO_HIDE = false;
         try{
             appsMenu.classList.remove('pane-out');
+            appBar.classList.remove('phaseOut');
+
         } catch (e) {}
         appsMenu.classList.add('pane-in');
         this.addPickListners();
@@ -53,9 +55,15 @@ export default class AppsMenu {
         const _window = remote.getCurrentWindow();
         document.getElementById('appsMenu').classList.remove('pane-in');
         document.getElementById('appsMenu').classList.add('pane-out');
+        document.getElementById('appbar').classList.add('phaseOut');
+
 
         setTimeout(() => {
             document.getElementById('appsMenu').style.display = 'none';
+        }, 250);
+
+        setTimeout(() => {
+            // document.getElementById('appsMenu').style.display = 'none';
             _window.setBounds({ width: 70, height: 600, x: this.lastPos[0], y: this.lastPos[1] }, true);
             document.getElementById('overlay').classList.remove('acylic');
             document.getElementById('appbar').classList.add('acylic');
@@ -63,6 +71,7 @@ export default class AppsMenu {
             document.getElementById('overlay').style.borderRight = 'none';
             (window as any).DOCK_CAN_AUTO_HIDE = true;
         }, 300);
+        //  300
         this.isOpened = false;
         if(appPicked) return appPicked;
     }

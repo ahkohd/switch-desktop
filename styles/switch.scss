@@ -712,6 +712,23 @@ span.key {
     }
 }
 
+@keyframes phaseOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity:  0;
+    }
+}
+
+.phaseOut {
+    animation-name: phaseOut;
+    animation-timing-function: linear;
+    animation-duration: .285s;
+    animation-iteration-count: 1;
+}
+
 
 @keyframes slideOut {
 
@@ -719,13 +736,13 @@ span.key {
     from {
         width: 361px;
         opacity: 1;
-        display: block !important;
+        // display: block !important;
     }
 
     to {
         width: 0;
         opacity: 0;
-        display: none !important;
+        // display: none !important;
     }
 
 }
