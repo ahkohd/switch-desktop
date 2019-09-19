@@ -1,4 +1,4 @@
-import {Switch, windowOsSpecific} from './switch';
+import {Switch, osSpecificAppearance} from './switch';
 const ipc = require('node-ipc');
 import { remote } from 'electron';
 import * as Sentry from '@sentry/browser';
@@ -24,7 +24,7 @@ logOnShowDock(uuid, true);
 let windowVisible = true;
 
 // specifics for windows..
-windowOsSpecific();
+osSpecificAppearance();
 
 /* Hides the dock after 3000 seconds.
  * - By moving it to a negative screen position, since the dock

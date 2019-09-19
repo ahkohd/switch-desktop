@@ -343,11 +343,15 @@ export class Switch {
 }
 
 
-export function windowOsSpecific()
+export function osSpecificAppearance()
 {
     const opsys = process.platform;
+    const appBar = document.getElementById('appbar');
     if(opsys == "win32")
     {
-        document.getElementById('appbar').style.borderRadius = '0px';
+        appBar.style.borderRadius = '0px';
+    } else if(opsys == 'darwin')
+    {
+        appBar.classList.add('mac-style');
     }
 }
