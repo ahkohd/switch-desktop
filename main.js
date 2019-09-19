@@ -47,7 +47,7 @@ if (!gotTheLock) {
       width: 70,
       minWidth: 70,
       // width: 450,
-      // width: 600,
+      // width: 800,
       height: 600,
       frame: false,
       resizable: false,
@@ -68,6 +68,11 @@ if (!gotTheLock) {
         preload: path.join(__dirname, "preload.js")
       }
     });
+    mainWindow.webContents.openDevTools({
+      mode: "undocked"
+    });
+
+   
 
     // and load the index.html of the app.
     mainWindow.loadFile("index.html");

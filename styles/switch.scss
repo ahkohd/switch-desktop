@@ -25,15 +25,27 @@ html {
     outline: 0;
 }
 
-body {
+body, #overlay {
     display: flex;
     height: 100vh;
     overflow: hidden;
+}
+
+#overlay
+{
+    width: 100vh;
+}
+
+body {
     background: transparent !important;
 }
 
 
-  
+
+.acylic {
+    background: $app-bar-bg-vb url(./no.png);
+}
+
 #appbar {
     border-radius: 5px;
     position: relative;
@@ -41,12 +53,12 @@ body {
     width: 75px;
     height: 92.2%;
     // background: $app-bar-bg url(./no.png);
-    background: $app-bar-bg-vb url(./no.png);
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
     border: 1px solid rgba(255, 255, 255, .1);
-    
+
+
 
     .track {
         overflow-x: hidden;
@@ -682,11 +694,70 @@ span.key {
     display: none;
 }
 
+@keyframes slideIn {
+    0% {
+        width: 100px;
+        opacity: 0;
+    }
+
+
+    // 40% {
+    //     opacity: 1;
+    // }
+
+    100% {
+        width: 361px;
+        opacity: 1;
+        display: block !important;
+    }
+}
+
+
+@keyframes slideOut {
+
+
+    from {
+        width: 361px;
+        opacity: 1;
+        display: block !important;
+    }
+
+    to {
+        width: 0;
+        opacity: 0;
+        display: none !important;
+    }
+
+}
+
+.pane-in {
+    animation-name: slideIn;
+    animation-timing-function: ease-in-out;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+
+.pane-out {
+    width: 361px !important;
+    opacity: 1 !important;
+    animation-name: slideOut;
+    animation-timing-function: ease-in-out;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+
+
 #appsMenu {
-    flex: 1;
-    background: $app-bar-bg-vb url(./no.png);
+    // flex: 1;
     margin-right: 10px;
     border: 1px solid rgba(255, 255, 255, .1);
+    border-right: 0 !important;
+    width: 0;
+    opacity: 0;
     display: none;
 
 
@@ -742,8 +813,7 @@ span.key {
 
 
 
-        #addPane::after
-        {
+        #addPane::after {
             content: '';
             height: 60%;
             width: 1px;
@@ -752,9 +822,8 @@ span.key {
             left: calc(50% - 1px);
             top: 20%;
         }
-        
-        #addPane::before
-        {
+
+        #addPane::before {
             content: '';
             height: 1px;
             width: 60%;
@@ -811,10 +880,12 @@ span.key {
             margin: 10px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-          
+
             .span-item {
                 margin: auto;
-                img, p {
+
+                img,
+                p {
                     display: table;
                     margin: 0 auto;
                 }
