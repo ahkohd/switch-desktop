@@ -57,7 +57,7 @@ if (!gotTheLock) {
       show: false,
       darkTheme: true,
       titleBarStyle: 'customButtonsOnHover',
-      closable: false,
+      // closable: false,
       webPreferences: {
         nodeIntegration: true,
         devTools: false,
