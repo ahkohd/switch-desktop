@@ -52,22 +52,25 @@ export default class AppsMenu {
 
     close(e, appPicked?)
     {
+
+        const appsMenu = document.getElementById('appsMenu');
+        const appBar = document.getElementById('appbar');
         const _window = remote.getCurrentWindow();
-        document.getElementById('appsMenu').classList.remove('pane-in');
-        document.getElementById('appsMenu').classList.add('pane-out');
-        document.getElementById('appbar').classList.add('phaseOut');
+        appsMenu.classList.remove('pane-in');
+        appsMenu.classList.add('pane-out');
+        appBar.classList.add('phaseOut');
 
 
         setTimeout(() => {
-            document.getElementById('appsMenu').style.display = 'none';
+            appsMenu.style.display = 'none';
         }, 250);
 
         setTimeout(() => {
-            // document.getElementById('appsMenu').style.display = 'none';
+            // appsMenu.style.display = 'none';
             _window.setBounds({ width: 70, height: 600, x: this.lastPos[0], y: this.lastPos[1] }, true);
             document.getElementById('overlay').classList.remove('acylic');
-            document.getElementById('appbar').classList.add('acylic');
-            document.getElementById('appsMenu').classList.add('acylic');
+            appBar.classList.add('acylic');
+            appsMenu.classList.add('acylic');
             document.getElementById('overlay').style.borderRight = 'none';
             (window as any).DOCK_CAN_AUTO_HIDE = true;
         }, 300);
@@ -80,7 +83,6 @@ export default class AppsMenu {
     _calculateCenterPos()
     {
         const {width, height} = window.screen;
-
         return [(width/2) - (450/2), 600];
     }
 }
