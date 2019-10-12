@@ -53,11 +53,10 @@ if (!gotTheLock) {
       alwaysOnTop: true,
       autoHideMenuBar: true,
       transparent: true,
-      hasShadow: false,
       show: false,
       darkTheme: true,
-      titleBarStyle: 'customButtonsOnHover',
-      // closable: false,
+      vibrancy: 'dark',
+      hasShadow: false,
       webPreferences: {
         nodeIntegration: true,
         devTools: false,
