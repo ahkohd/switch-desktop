@@ -704,9 +704,15 @@ span.key {
         top: 2px !important;
         color: rgba(255, 255, 255, .4) !important;
     }
+    .app.empty:hover::before {
+        top: 2px !important;
+        color: #00aced !important;
+    }
 
     .app .icon {
         width: 48px !important;
         height: 48px !important;
     }
+
+   
 }
