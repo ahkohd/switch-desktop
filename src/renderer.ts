@@ -34,7 +34,11 @@ const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
     window.setIgnoreMouseEvents(true);
-    document.body.style.opacity = '0';
+    if(process.platform == 'darwin') {
+      window.setOpacity(0);
+    } else {
+      document.body.style.opacity = '0';
+    }
     windowVisible = false;
   }, 3000)
 };
@@ -63,7 +67,11 @@ if (settings == null || settings.autoHide) {
 const show = (thenHide: boolean = true) => {
   const window = remote.getCurrentWindow();
   window.setIgnoreMouseEvents(false);
-  document.body.style.opacity = '1';
+  if(process.platform == 'darwin') {
+    window.setOpacity(1);
+  } else {
+    document.body.style.opacity = '1';
+  }
   windowVisible = true;
   clearTimeout(autoHide);
   if (thenHide) autoHide = hide();

@@ -288,7 +288,7 @@ body {
 
 
 .settings-page {
-    font-family: caption;
+    font: caption;
     background: rgb(37, 37, 37) !important;
     color: #999;
     position: relative;
@@ -307,7 +307,7 @@ body {
         flex-direction: row;
         overflow-x: hidden;
         overflow-y: scroll !important;
-        font-family: Poppins;
+        font: caption;
 
 
         .lside {
@@ -340,7 +340,7 @@ body {
             padding-top: 30px;
 
             h2 {
-                font-family: Poppins;
+                font: caption;
                 font-weight: bold;
                 font-size: 30px;
                 margin: 0 0 15px 0;
@@ -362,7 +362,7 @@ body {
                     padding: 3px 5px;
                     border: 2px solid #00aced;
                     outline: none;
-                    font-family: Poppins;
+                    font: caption;
                     color: #999;
                     background: transparent;
 
@@ -479,7 +479,7 @@ input:checked+.slider:before {
     left: 20px;
     position: absolute;
     width: 80px !important;
-    font-family: Poppins;
+    font: caption;
     box-shadow: none !important;
     color: #999;
 }
@@ -506,7 +506,7 @@ input:checked+.slider:before {
 
         .pane {
             margin: auto;
-            font-family: Poppins;
+            font: caption;
             text-align: center;
             max-width: 75vh;
             position: relative;
@@ -616,7 +616,7 @@ span.key {
     border-radius: 3px;
     padding: 5px;
     z-index: 1 !important;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font: caption;
     font-size: 13px;
     // transition: opacity .3s;
     text-align: center;

@@ -54,8 +54,7 @@ if (!gotTheLock) {
       autoHideMenuBar: true,
       transparent: true,
       show: false,
-      darkTheme: true,
-      vibrancy: 'dark',
+      vibrancy: 'ultra-dark',
       hasShadow: false,
       webPreferences: {
         nodeIntegration: true,
