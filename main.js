@@ -61,7 +61,7 @@ if (!gotTheLock) {
       autoHideMenuBar: true,
       transparent: true,
       show: false,
-      vibrancy: 'menu',
+      vibrancy: 'popover',
       hasShadow: false,
       webPreferences: {
         nodeIntegration: true,

@@ -697,9 +697,16 @@ span.key {
     .tooltip.empty {
         transform: scale(.8);
         font-weight: lighter !important;
+        border-color: rgba(255, 255, 255, .4) !important;
     }
 
     .app.empty::before {
         top: 2px !important;
+        color: rgba(255, 255, 255, .4) !important;
+    }
+
+    .app .icon {
+        width: 48px !important;
+        height: 48px !important;
     }
 }
