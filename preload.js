@@ -1,7 +1,7 @@
 const {
-   remote
+   remote,
+   app
 } = require('electron')
-
 
 const {
    Tray,
@@ -18,7 +18,6 @@ const config = new Store({
 
 let trayIcon = new Tray(path.join(__dirname, `/assets/app-icons/${(process.platform == 'darwin') ? 'icon@22.png' : 'icon.png'}`));
 let settingsWindowOpened = false;
-
 
 canShowIntro = () => {
    const status = config.get('showIntro');

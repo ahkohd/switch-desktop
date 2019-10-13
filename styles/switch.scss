@@ -693,4 +693,13 @@ span.key {
 .mac-style
 {
     background: transparent !important;
+
+    .tooltip.empty {
+        transform: scale(.8);
+        font-weight: lighter !important;
+    }
+
+    .app.empty::before {
+        top: 2px !important;
+    }
 }

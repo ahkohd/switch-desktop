@@ -39,11 +39,18 @@ if (!gotTheLock) {
   });
 
   function createWindow() {
+    const dimension = {
+      mac: [65, 600],
+      win: [70, 600]
+    };
+    const getDim = function () {
+      return process.platform == 'darwin' ? dimension.mac : dimension.win
+    };
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
-      width: 70,
-      // width: 400,
-      height: 600,
+      width: getDim()[0],
+      height: getDim()[1],
       frame: false,
       resizable: false,
       skipTaskbar: true,
@@ -54,7 +61,7 @@ if (!gotTheLock) {
       autoHideMenuBar: true,
       transparent: true,
       show: false,
-      vibrancy: 'ultra-dark',
+      vibrancy: 'menu',
       hasShadow: false,
       webPreferences: {
         nodeIntegration: true,
