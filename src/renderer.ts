@@ -1,12 +1,10 @@
-import {Switch, windowOsSpecific} from './switch';
+import {Switch, osSpecificAppearance} from './switch';
 const ipc = require('node-ipc');
-import { remote } from 'electron';
+import { remote, app } from 'electron';
 import * as Sentry from '@sentry/browser';
 Sentry.init({
   dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
 });
-
-
 
 // Load saved configurations
 const Store = require('electron-store');
@@ -24,7 +22,7 @@ logOnShowDock(uuid, true);
 let windowVisible = true;
 
 // specifics for windows..
-windowOsSpecific();
+osSpecificAppearance();
 
 /* Hides the dock after 3000 seconds.
  * - By moving it to a negative screen position, since the dock
@@ -34,7 +32,11 @@ const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
     window.setIgnoreMouseEvents(true);
-    document.body.style.opacity = '0';
+    if(process.platform == 'darwin') {
+      window.setOpacity(0);
+    } else {
+      document.body.style.opacity = '0';
+    }
     windowVisible = false;
   }, 3000)
 };
@@ -63,7 +65,11 @@ if (settings == null || settings.autoHide) {
 const show = (thenHide: boolean = true) => {
   const window = remote.getCurrentWindow();
   window.setIgnoreMouseEvents(false);
-  document.body.style.opacity = '1';
+  if(process.platform == 'darwin') {
+    window.setOpacity(1);
+  } else {
+    document.body.style.opacity = '1';
+  }
   windowVisible = true;
   clearTimeout(autoHide);
   if (thenHide) autoHide = hide();
@@ -73,6 +79,8 @@ const show = (thenHide: boolean = true) => {
   } catch(e) {}
   
 }
+
+(window as any).SHOW_DOCK = show;
 
 // places the dock to the left or right..
 function placeDock(placement: string)

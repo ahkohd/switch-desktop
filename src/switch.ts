@@ -92,6 +92,7 @@ export class Switch {
             file.type = 'file';
             // remove default title behaviour.
             file.title = "";
+            // if(process.platform == 'darwin') file.accept = ".app";
             file.id = "f-app-" + i;
             file.addEventListener('change', e => {
                 (window as any).APP.onClickAddHotApp(e);
@@ -144,6 +145,7 @@ export class Switch {
         file.type = 'file';
         file.id = "f-app-" + i;
         file.title = "";
+        // if(process.platform == 'darwin') file.accept = ".app";
         file.addEventListener('change', e => {
             (window as any).APP.onClickAddHotApp(e);
         })
@@ -155,6 +157,8 @@ export class Switch {
      * @param {Event} elem - Event
      */
     onClickAddHotApp(elem) {
+
+        if(process.platform == "darwin") (window as any).SHOW_DOCK();
 
         // request dock to appear. A fix for macOS - dock disappears while add app..
         try {
@@ -169,11 +173,15 @@ export class Switch {
             }
     
             // get app icon
-            const icon = fileIcon(file.path, 32).toString('base64');
             let opsys = process.platform;
-            if (opsys == 'darwin' && file.path.toLowerCase().includes('.app') && file.path.toLowerCase().includes('/MacOS')) {
-                (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
+            if (opsys == 'darwin' && file.path.toLowerCase().split('/pkginfo').length == 2 ) {
+                const chunck = file.path.split('.app');
+                const p = chunck[0].split('/');
+                const appPath = chunck[0]+'.app';
+                const icon = fileIcon(appPath, 64).toString('base64');
+                (window as any).APP.addApp(elem.target.id.split('-')[2], {name: p[p.length -1], path: appPath}, icon);
             } else if (file.type == 'application/x-msdownload' && path.extname(file.path.toLowerCase()) == '.exe' && (opsys == "win32" || 'win64')) {
+                const icon = fileIcon(file.path, 32).toString('base64');
                 (window as any).APP.addApp(elem.target.id.split('-')[2], file, icon);
             } else {
                 alert('Please select an app!');
@@ -201,12 +209,14 @@ export class Switch {
      * @param  {string} appIcon
      */
     addApp(index: any, fileDetails: any, appIcon: string) {
+        let mapDarwinKeycode = parseInt(index) + 2;
+        if(mapDarwinKeycode == 10) mapDarwinKeycode =  0; 
         this.hotApps[index] = {
             empty: false,
             name: fileDetails.name,
             path: fileDetails.path,
             icon: appIcon,
-            rawcode: (49 + parseInt(index))
+            rawcode: ((process.platform == 'darwin') ? mapDarwinKeycode : 49 + parseInt(index))
         };
         this.saveHotApps(this.hotApps);
         this.renderUIUpdate();
@@ -333,11 +343,15 @@ export class Switch {
 }
 
 
-export function windowOsSpecific()
+export function osSpecificAppearance()
 {
     const opsys = process.platform;
+    const appBar = document.getElementById('appbar');
     if(opsys == "win32")
     {
-        document.getElementById('appbar').style.borderRadius = '0px';
+        appBar.style.borderRadius = '0px';
+    } else if(opsys == 'darwin')
+    {
+        appBar.classList.add('mac-style');
     }
 }
