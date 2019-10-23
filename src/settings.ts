@@ -9,7 +9,7 @@ const config = new Store({
 
 import * as Sentry from '@sentry/browser';
 Sentry.init({
-  dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
+    dsn: 'https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999',
 });
 
 
@@ -18,6 +18,7 @@ Sentry.init({
 export class Settings {
 
     constructor() {
+        if (process.platform == 'darwin') this.macOSCleanUp();
         window.onload = () => {
             this.updateUI();
         }
@@ -40,16 +41,14 @@ export class Settings {
         }
     }
 
-    getShowIntro()
-    {
+    getShowIntro() {
         const status = config.get('showIntro');
-        return status == null ? true: status;
+        return status == null ? true : status;
     }
 
-    getDisableAltGr()
-    {
+    getDisableAltGr() {
         const status = config.get('disableAltGr');
-        return status == null ? false: status;
+        return status == null ? false : status;
     }
 
 
@@ -74,13 +73,11 @@ export class Settings {
         (document.getElementById(id) as HTMLInputElement).checked = value;
     }
 
-    setSelectedValue(id: string, value: string)
-    {
+    setSelectedValue(id: string, value: string) {
         (document.getElementById(id) as HTMLInputElement).value = value;
     }
 
-    getValue(id: string)
-    {
+    getValue(id: string) {
         return (document.getElementById(id) as HTMLInputElement).value;
     }
 
@@ -115,23 +112,18 @@ export class Settings {
         }).showToast();
     }
 
-    getAppVersion()
-    {
+    getAppVersion() {
         fs.readFile(path.join(__dirname, '../package.json'), (err, data) => {
-            if(err) throw new Error(err);
+            if (err) throw new Error(err);
             const parse = JSON.parse(data);
             document.getElementById('ver').innerText = `v${parse.version}`
         });
     }
-}
 
-
-// Disable key-combo refresh..
-document.onkeydown = (e) => {
-    const press = (window as any).event ? (window as any).event : e;
-    if (press.keyCode == 82 && press.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
+    macOSCleanUp() {
+        let $macHides = document.getElementsByClassName('mac-hide');
+        for (let i = 0; i < $macHides.length; i++) {
+            ($macHides.item(i) as HTMLElement).style.opacity = '0';
+        }
     }
-
 }

@@ -23,12 +23,14 @@ html {
     padding: 0;
     margin: 0;
     outline: 0;
+    background: transparent;
 }
 
 body {
     display: flex;
     height: 100vh;
     overflow: hidden;
+    font: caption;
     background: transparent !important;
 }
 
@@ -38,7 +40,8 @@ body {
     margin: auto;
     width: 75px;
     height: 92.2%;
-    background: $app-bar-bg;
+    // background: $app-bar-bg;
+    background: transparent !important;
     overflow: hidden;
     padding-top: $drag-height;
     padding-bottom: 10px;
@@ -285,7 +288,7 @@ body {
 
 
 .settings-page {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font: caption;
     background: rgb(37, 37, 37) !important;
     color: #999;
     position: relative;
@@ -304,7 +307,7 @@ body {
         flex-direction: row;
         overflow-x: hidden;
         overflow-y: scroll !important;
-        font-family: Poppins;
+        font: caption;
 
 
         .lside {
@@ -337,7 +340,7 @@ body {
             padding-top: 30px;
 
             h2 {
-                font-family: Poppins;
+                font: caption;
                 font-weight: bold;
                 font-size: 30px;
                 margin: 0 0 15px 0;
@@ -359,7 +362,7 @@ body {
                     padding: 3px 5px;
                     border: 2px solid #00aced;
                     outline: none;
-                    font-family: Poppins;
+                    font: caption;
                     color: #999;
                     background: transparent;
 
@@ -476,13 +479,21 @@ input:checked+.slider:before {
     left: 20px;
     position: absolute;
     width: 80px !important;
-    font-family: Poppins;
+    font: caption;
     box-shadow: none !important;
     color: #999;
 }
 
 .intro-page {
     display: flex;
+
+    .slide.mac {
+        margin: auto;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+    }
 
     .slide {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -495,7 +506,7 @@ input:checked+.slider:before {
 
         .pane {
             margin: auto;
-            font-family: Poppins;
+            font: caption;
             text-align: center;
             max-width: 75vh;
             position: relative;
@@ -605,7 +616,7 @@ span.key {
     border-radius: 3px;
     padding: 5px;
     z-index: 1 !important;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font: caption;
     font-size: 13px;
     // transition: opacity .3s;
     text-align: center;
@@ -676,4 +687,32 @@ span.key {
 .tooltiptext.tether-out-of-bounds-top,
 .tooltiptext.tether-out-of-bounds-bottom {
     display: none;
+}
+
+// adds specific styling..
+.mac-style
+{
+    background: transparent !important;
+
+    .tooltip.empty {
+        transform: scale(.8);
+        font-weight: lighter !important;
+        border-color: rgba(255, 255, 255, .4) !important;
+    }
+
+    .app.empty::before {
+        top: 2px !important;
+        color: rgba(255, 255, 255, .4) !important;
+    }
+    .app.empty:hover::before {
+        top: 2px !important;
+        color: #00aced !important;
+    }
+
+    .app .icon {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+   
 }

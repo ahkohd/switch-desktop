@@ -1,15 +1,9 @@
 // Modules to control application life and create native browser window
-const {
-  app,
-  BrowserWindow
-} = require("electron");
+const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const Positioner = require("electron-positioner");
-const {
-  execFile
-} = require("child_process");
+const { execFile } = require("child_process");
 const Sentry = require("@sentry/node");
-
 
 Sentry.init({
   dsn: "https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999"
@@ -39,11 +33,18 @@ if (!gotTheLock) {
   });
 
   function createWindow() {
+    const dimension = {
+      mac: [65, 600],
+      win: [70, 600]
+    };
+    const getDim = function() {
+      return process.platform == "darwin" ? dimension.mac : dimension.win;
+    };
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
-      width: 70,
-      // width: 400,
-      height: 600,
+      width: getDim()[0],
+      height: getDim()[1],
       frame: false,
       resizable: false,
       skipTaskbar: true,
@@ -53,10 +54,9 @@ if (!gotTheLock) {
       alwaysOnTop: true,
       autoHideMenuBar: true,
       transparent: true,
-      hasShadow: false,
       show: false,
-      darkTheme: true,
-      vibrancy: true,
+      vibrancy: "popover",
+      hasShadow: false,
       webPreferences: {
         nodeIntegration: true,
         devTools: false,
@@ -71,7 +71,7 @@ if (!gotTheLock) {
     // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
-    mainWindow.on("closed", function () {
+    mainWindow.on("closed", function() {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
@@ -84,17 +84,15 @@ if (!gotTheLock) {
       let placement = config.get("config");
       // get placement
       placement = placement == null ? "right" : placement.placement;
-      placement == "right" ?
-        positioner.move("rightCenter") :
-        positioner.move("leftCenter");
+      placement == "right"
+        ? positioner.move("rightCenter")
+        : positioner.move("leftCenter");
       const pos = mainWindow.getPosition();
-      placement == "right" ?
-        mainWindow.setPosition(pos[0] - 10, pos[1]) :
-        mainWindow.setPosition(pos[0] + 10, pos[1]);
+      placement == "right"
+        ? mainWindow.setPosition(pos[0] - 10, pos[1])
+        : mainWindow.setPosition(pos[0] + 10, pos[1]);
       mainWindow.show();
     });
-
-
   }
 
   // SPWAN SWITCH SERVICE
@@ -105,23 +103,23 @@ if (!gotTheLock) {
     const opsys = process.platform;
     if (opsys == "darwin" || opsys == "linux") {
       return execFile(
-        devmode ?
-        path.join(app.getAppPath(), "/service-binaries/switch") :
-        path.join(
-          path.dirname(app.getAppPath()),
-          "/service-binaries/switch"
-        ),
+        devmode
+          ? path.join(app.getAppPath(), "/service-binaries/switch")
+          : path.join(
+              path.dirname(app.getAppPath()),
+              "/service-binaries/switch"
+            ),
         [],
         (error, stdout, stderr) => {}
       );
     } else if (opsys == "win32" || "win64") {
       return execFile(
-        devmode ?
-        path.join(app.getAppPath(), "\\service-binaries\\switch") :
-        path.join(
-          path.dirname(app.getAppPath()),
-          "\\service-binaries\\switch"
-        ),
+        devmode
+          ? path.join(app.getAppPath(), "\\service-binaries\\switch")
+          : path.join(
+              path.dirname(app.getAppPath()),
+              "\\service-binaries\\switch"
+            ),
         [],
         (error, stdout, stderr) => {}
       );
@@ -142,7 +140,7 @@ if (!gotTheLock) {
   app.on("ready", createWindow);
 
   // Quit when all windows are closed.
-  app.on("window-all-closed", function () {
+  app.on("window-all-closed", function() {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     // kill switch service
@@ -150,7 +148,7 @@ if (!gotTheLock) {
     if (process.platform !== "darwin") app.quit();
   });
 
-  app.on("activate", function () {
+  app.on("activate", function() {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) createWindow();
@@ -158,5 +156,4 @@ if (!gotTheLock) {
 
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
-
 }

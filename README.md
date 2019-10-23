@@ -4,12 +4,14 @@
 
 
 Switch between your favourite apps lightning fast (Windows, MacOS - Under development)
-> NOTE: Switch works on Windows, macOS support is under development.
+> NOTE: Switch works on Windows, macOS ~~support is under development~~.
+
+> 🦄🤯🎉 Hurray! MacOS (beta) unsigned release is out for testing, feel free to [digg in!](https://github.com/ahkohd/switch-desktop/releases)
 
 # Features
 - Switch fast between apps.
 - Favourite apps loadout.
-- Convenience of use by both left and right handed users with the use of left/right <kbd>alt</kbd>.
+- Convenience of use by both left and right handed users with the use of left/right <kbd>alt</kbd> or <kbd>⌘</kbd> + <kbd>⌥</kbd> on macOS.
 
 > **[Download Switch now! 🦄](https://ahkohd.github.io/switch-desktop/)**
 
