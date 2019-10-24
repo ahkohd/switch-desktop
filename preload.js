@@ -149,6 +149,7 @@ const SPWAN_SWITCH_SERVICE_MAC = function() {
   );
 };
 
+
 if (process.platform == "darwin") {
   let child = SPWAN_SWITCH_SERVICE_MAC();
   // on error kill service and respawn
