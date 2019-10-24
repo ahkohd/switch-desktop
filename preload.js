@@ -3,6 +3,7 @@ const { remote, app } = require("electron");
 const { Tray, Menu, BrowserWindow } = remote;
 const url = require("url");
 const path = require("path");
+const { execFile } = require("child_process");
 
 const Store = require("electron-store");
 const config = new Store({
@@ -136,3 +137,24 @@ const trayMenuTemplate = [
 
 let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
 trayIcon.setContextMenu(trayMenu);
+
+/**
+ * Swicth service spawn stategy for mac OS
+ */
+const SPWAN_SWITCH_SERVICE_MAC = function() {
+  return execFile(
+    path.join(path.dirname(__dirname), "/service-binaries/switch"),
+    [],
+    (error, stdout, stderr) => {}
+  );
+};
+
+if (process.platform == "darwin") {
+  let child = SPWAN_SWITCH_SERVICE_MAC();
+  // on error kill service and respawn
+  child.stderr.on("data", data => {
+    child.kill();
+    // auto spwan..
+    child = SPWAN_SWITCH_SERVICE_MAC();
+  });
+}

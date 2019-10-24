@@ -4,7 +4,6 @@ const path = require("path");
 const Positioner = require("electron-positioner");
 const { execFile } = require("child_process");
 const Sentry = require("@sentry/node");
-
 Sentry.init({
   dsn: "https://1607ab9c0f4b4156be881c9ec9be23b5@sentry.io/1540999"
 });
@@ -14,6 +13,20 @@ const Store = require("electron-store");
 const config = new Store({
   projectName: "SwitchDock"
 });
+
+// SPWAN SWITCH SERVICE
+const devmode = process.argv[2] == "--dev" ? true : false;
+
+function SPWAN_SWITCH_SERVICE_WIN() {
+  // windows specific spawn
+  return execFile(
+    devmode
+      ? path.join(app.getAppPath(), "\\service-binaries\\switch")
+      : path.join(path.dirname(app.getAppPath()), "\\service-binaries\\switch"),
+    [],
+    (error, stdout, stderr) => {}
+  );
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -93,46 +106,18 @@ if (!gotTheLock) {
         : mainWindow.setPosition(pos[0] + 10, pos[1]);
       mainWindow.show();
     });
-  }
 
-  // SPWAN SWITCH SERVICE
-  const devmode = process.argv[2] == "--dev" ? true : false;
-
-  function SPWAN_SWITCH_SERVICE() {
-    // spawn the executable approraite for the platform
-    const opsys = process.platform;
-    if (opsys == "darwin" || opsys == "linux") {
-      return execFile(
-        devmode
-          ? path.join(app.getAppPath(), "/service-binaries/switch")
-          : path.join(
-              path.dirname(app.getAppPath()),
-              "/service-binaries/switch"
-            ),
-        [],
-        (error, stdout, stderr) => {}
-      );
-    } else if (opsys == "win32" || "win64") {
-      return execFile(
-        devmode
-          ? path.join(app.getAppPath(), "\\service-binaries\\switch")
-          : path.join(
-              path.dirname(app.getAppPath()),
-              "\\service-binaries\\switch"
-            ),
-        [],
-        (error, stdout, stderr) => {}
-      );
+    // spawn the executable approraite for the windows os.
+    if (process.platform == "win32") {
+      let child = SPWAN_SWITCH_SERVICE_WIN();
+      // on error kill service and respawn
+      child.stderr.on("data", data => {
+        child.kill();
+        // auto spwan..
+        child = SPWAN_SWITCH_SERVICE_WIN();
+      });
     }
   }
-
-  let child = SPWAN_SWITCH_SERVICE();
-  // on error kill service and respawn
-  child.stderr.on("data", data => {
-    child.kill();
-    // auto spwan..
-    child = SPWAN_SWITCH_SERVICE();
-  });
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
@@ -143,8 +128,6 @@ if (!gotTheLock) {
   app.on("window-all-closed", function() {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
-    // kill switch service
-    child.kill();
     if (process.platform !== "darwin") app.quit();
   });
 
