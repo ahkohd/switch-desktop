@@ -1,5 +1,4 @@
-export interface SwitchHotApp
-{
+export interface SwitchHotApp {
     empty: boolean,
     name: string,
     rawcode: number,

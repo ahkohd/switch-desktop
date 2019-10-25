@@ -38,11 +38,11 @@ export function firstUseAnalytics(uid) {
                 dh: 'switch-dock',
                 dp: 'intro?newUser=yes',
                 dt: 'Intro',
-              }, uid).then((response) => {
-                    return response;
-                }).catch((err) => {
-                    return err;
-                });
+            }, uid).then((response) => {
+                return response;
+            }).catch((err) => {
+                return err;
+            });
         } catch (e) { }
         localStorage.setItem('first-time', 'no');
     } else if (isFirstTime == 'no') {
@@ -52,11 +52,11 @@ export function firstUseAnalytics(uid) {
                 dh: 'switch-dock',
                 dp: 'intro?newUser=no',
                 dt: 'Intro',
-              }, uid).then((response) => {
-                    return response;
-                }).catch((err) => {
-                    return err;
-                });
+            }, uid).then((response) => {
+                return response;
+            }).catch((err) => {
+                return err;
+            });
         } catch (e) { }
     }
 }
@@ -69,11 +69,11 @@ export function logOnShowDock(uid, startup = false) {
                 dh: 'switch-dock',
                 dp: 'dock?version=' + appVersion + '&startup=true',
                 dt: 'Dock',
-              }, uid).then((response) => {
-                    return response;
-                }).catch((err) => {
-                    return err;
-                });
+            }, uid).then((response) => {
+                return response;
+            }).catch((err) => {
+                return err;
+            });
         } catch (e) { }
     } else {
         try {

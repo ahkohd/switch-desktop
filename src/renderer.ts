@@ -1,4 +1,4 @@
-import {Switch, osSpecificAppearance} from './switch';
+import { Switch, osSpecificAppearance } from './switch';
 const ipc = require('node-ipc');
 import { remote, app } from 'electron';
 import * as Sentry from '@sentry/browser';
@@ -32,7 +32,7 @@ const hide = () => {
   return setTimeout(() => {
     const window = remote.getCurrentWindow();
     window.setIgnoreMouseEvents(true);
-    if(process.platform == 'darwin') {
+    if (process.platform == 'darwin') {
       window.setOpacity(0);
     } else {
       document.body.style.opacity = '0';
@@ -44,7 +44,7 @@ const hide = () => {
 // Get user settings
 const settings = config.get('config');
 // save previous placement 
-let previousPlacement  = (settings == null) ? 'right' : settings.placement;
+let previousPlacement = (settings == null) ? 'right' : settings.placement;
 // holds auto hide timeout.
 let autoHide;
 // a flag
@@ -65,7 +65,7 @@ if (settings == null || settings.autoHide) {
 const show = (thenHide: boolean = true) => {
   const window = remote.getCurrentWindow();
   window.setIgnoreMouseEvents(false);
-  if(process.platform == 'darwin') {
+  if (process.platform == 'darwin') {
     window.setOpacity(1);
   } else {
     document.body.style.opacity = '1';
@@ -76,26 +76,24 @@ const show = (thenHide: boolean = true) => {
 
   try {
     logOnShowDock(uuid);
-  } catch(e) {}
-  
+  } catch (e) { }
+
 }
 
 (window as any).SHOW_DOCK = show;
 
 // places the dock to the left or right..
-function placeDock(placement: string)
-{
+function placeDock(placement: string) {
   const dock = remote.getCurrentWindow();
   const screenSize = window.screen;
   // 600 - window's height
-  let calcY = (screenSize.height / 2) - (600/2);
-  if(placement == 'left')
-  {
+  let calcY = (screenSize.height / 2) - (600 / 2);
+  if (placement == 'left') {
     dock.setPosition(10, calcY);
   } else {
     // place right..
     // 70 - window's width
-    let calcX = screenSize.width - (70+10);
+    let calcX = screenSize.width - (70 + 10);
     dock.setPosition(calcX, calcY);
   }
 
@@ -159,8 +157,8 @@ ipc.connectTo('switch-service-channel', () => {
   // When Switch service sends config update.
   ipc.of['switch-service-channel'].on('config-update', (settings) => {
     // check if user disable or enables dock autohide
-    
-    if(settings.placement && settings.placement == 'left' && previousPlacement != 'left') {
+
+    if (settings.placement && settings.placement == 'left' && previousPlacement != 'left') {
       placeDock('left');
       previousPlacement = 'left';
       clearTimeout(autoHide);
@@ -176,8 +174,8 @@ ipc.connectTo('switch-service-channel', () => {
       show(false);
       (window as any).DOCK_CAN_AUTO_HIDE = false;
     } else if (settings.autoHide && !(window as any).DOCK_CAN_AUTO_HIDE) {
-        show();
-        (window as any).DOCK_CAN_AUTO_HIDE = true;
+      show();
+      (window as any).DOCK_CAN_AUTO_HIDE = true;
     }
   });
 
