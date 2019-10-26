@@ -7,10 +7,21 @@
     "buildResources": "assets/app-icons"
   },
   "extraResources": ["./service-binaries/**/*"],
-  "files": ["./app/**/*", "./styles/**/*", "./assets/**/*", "package.json", "./main.js", "./index.html", "./intro.html", "./preload.js", "./settings.html"],
+  "files": [
+    "./app/**/*",
+    "./styles/**/*",
+    "./assets/**/*",
+    "package.json",
+    "./main.js",
+    "./index.html",
+    "./intro.html",
+    "./preload.js",
+    "./settings.html"
+  ],
   "linux": {
     "category": "Network",
-    "target": [{
+    "target": [
+      {
         "target": "deb",
         "arch": ["ia32", "x64"]
       },
@@ -27,6 +38,9 @@
   },
   "mac": {
     "publish": ["github"],
-    "category": "public.app-category.navigation"
+    "category": "public.app-category.navigation",
+    "extendInfo": {
+      "LSUIElement": 1
+    }
   }
 }

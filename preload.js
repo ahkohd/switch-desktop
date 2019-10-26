@@ -14,7 +14,7 @@ const config = new Store({
   projectName: "SwitchDock"
 });
 
-let trayIcon = new Tray(
+let tray = new Tray(
   path.join(
     __dirname,
     `/assets/app-icons/${
@@ -106,7 +106,7 @@ createSettingsWindow = () => {
     settingsWindowOpened = true;
     win.setMenu(null);
     win.show();
-    trayIcon.setContextMenu(trayMenu);
+    tray.setContextMenu(trayMenu);
     trayMenu.items[1].enabled = false;
   });
 };
@@ -143,14 +143,14 @@ if (process.platform == "darwin") {
   // If platform is mac add extra menu item to cater for starting
   // and stoping services ...
   trayMenuTemplate.unshift({
-    label: "Start Switch",
+    label: "Off 🧯",
     click: () => {
-      StartOrStopSwitchMacService(true);
+      StartOrStopSwitchMacService(false);
     }
   });
   // try and stop any existing switch service
   // and then build up tray menu
-  StartOrStopSwitchMacService(false);
+  StartOrStopSwitchMacService(true);
 } else {
   // build and show tray menu ...
   buildTrayMenu();
@@ -158,7 +158,7 @@ if (process.platform == "darwin") {
 
 function buildTrayMenu() {
   let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-  trayIcon.setContextMenu(trayMenu);
+  tray.setContextMenu(trayMenu);
 }
 
 /**
@@ -194,12 +194,12 @@ function StartOrStopSwitchMacService(start = true) {
         child = SPWAN_SWITCH_SERVICE_MAC();
       });
 
-      trayMenuTemplate[0].label = "Stop Switch";
+      trayMenuTemplate[0].label = "Off 🧯";
       trayMenuTemplate[0].click = () => {
         StartOrStopSwitchMacService(false);
       };
     } else {
-      trayMenuTemplate[0].label = "Start Switch";
+      trayMenuTemplate[0].label = "On 🔥";
       trayMenuTemplate[0].click = () => {
         StartOrStopSwitchMacService(true);
       };
