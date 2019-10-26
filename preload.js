@@ -180,7 +180,6 @@ const SPWAN_SWITCH_SERVICE_MAC = function() {
  */
 function StartOrStopSwitchMacService(start = true) {
   find("name", "/service-binaries/switch", false).then(function(list) {
-    // alert("Num: " + list.length);
     list.forEach(p => {
       ps.kill(p.pid, err => {});
     });
