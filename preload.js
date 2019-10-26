@@ -1,15 +1,20 @@
 const { remote, app } = require("electron");
 
+const find = require("find-process");
+const ps = require("ps-node");
+const isDev = require("electron-is-dev");
+
 const { Tray, Menu, BrowserWindow } = remote;
 const url = require("url");
 const path = require("path");
+const { execFile } = require("child_process");
 
 const Store = require("electron-store");
 const config = new Store({
   projectName: "SwitchDock"
 });
 
-let trayIcon = new Tray(
+let tray = new Tray(
   path.join(
     __dirname,
     `/assets/app-icons/${
@@ -101,7 +106,7 @@ createSettingsWindow = () => {
     settingsWindowOpened = true;
     win.setMenu(null);
     win.show();
-    trayIcon.setContextMenu(trayMenu);
+    tray.setContextMenu(trayMenu);
     trayMenu.items[1].enabled = false;
   });
 };
@@ -129,10 +134,75 @@ const trayMenuTemplate = [
   {
     label: "Quit",
     click: function() {
-      remote.getCurrentWindow().close();
+      app.quit();
     }
   }
 ];
 
-let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-trayIcon.setContextMenu(trayMenu);
+if (process.platform == "darwin") {
+  // If platform is mac add extra menu item to cater for starting
+  // and stoping services ...
+  trayMenuTemplate.unshift({
+    label: "Off 🧯",
+    click: () => {
+      StartOrStopSwitchMacService(false);
+    }
+  });
+  // try and stop any existing switch service
+  // and then build up tray menu
+  StartOrStopSwitchMacService(true);
+} else {
+  // build and show tray menu ...
+  buildTrayMenu();
+}
+
+function buildTrayMenu() {
+  let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
+  tray.setContextMenu(trayMenu);
+}
+
+/**
+ * Swicth service spawn stategy for mac OS
+ */
+const SPWAN_SWITCH_SERVICE_MAC = function() {
+  return execFile(
+    isDev
+      ? path.join(__dirname, "/service-binaries/switch")
+      : path.join(path.dirname(__dirname), "/service-binaries/switch"),
+    [],
+    (error, stdout, stderr) => {}
+  );
+};
+
+/**
+ * Tries to start a new switch service but then kills the existing ones
+ * @param {boolean} start If true, its a start operation otherwise its a stop
+ */
+function StartOrStopSwitchMacService(start = true) {
+  find("name", "/service-binaries/switch", false).then(function(list) {
+    list.forEach(p => {
+      ps.kill(p.pid, err => {});
+    });
+
+    if (start) {
+      let child = SPWAN_SWITCH_SERVICE_MAC();
+      // on error kill service and respawn
+      child.stderr.on("data", data => {
+        child.kill();
+        // auto spwan..
+        child = SPWAN_SWITCH_SERVICE_MAC();
+      });
+
+      trayMenuTemplate[0].label = "Off 🧯";
+      trayMenuTemplate[0].click = () => {
+        StartOrStopSwitchMacService(false);
+      };
+    } else {
+      trayMenuTemplate[0].label = "On 🔥";
+      trayMenuTemplate[0].click = () => {
+        StartOrStopSwitchMacService(true);
+      };
+    }
+    buildTrayMenu();
+  });
+}
