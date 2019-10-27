@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const Positioner = require("electron-positioner");
 const { execFile } = require("child_process");
@@ -104,7 +104,8 @@ if (!gotTheLock) {
       placement == "right"
         ? mainWindow.setPosition(pos[0] - 10, pos[1])
         : mainWindow.setPosition(pos[0] + 10, pos[1]);
-      mainWindow.show();
+      // delay a  bit
+      setTimeout(() => mainWindow.show(), 1000);
     });
 
     // spawn the executable approraite for the windows os.
@@ -139,4 +140,8 @@ if (!gotTheLock) {
 
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
+
+  ipcMain.on("quit-switch", function(event, arg) {
+    app.exit(0);
+  });
 }

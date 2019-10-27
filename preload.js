@@ -1,4 +1,4 @@
-const { remote, app } = require("electron");
+const { remote, app, ipcRenderer } = require("electron");
 
 const find = require("find-process");
 const ps = require("ps-node");
@@ -113,7 +113,7 @@ createSettingsWindow = () => {
 
 const trayMenuTemplate = [
   {
-    label: "Show dock",
+    label: "Show dock...",
     click: () => {
       try {
         window.SWITCH_SERVICE_CHANNEL.emit(
@@ -127,14 +127,19 @@ const trayMenuTemplate = [
   },
 
   {
-    label: "Settings",
+    label: "Preferences...",
     click: () => createSettingsWindow(),
     enabled: !settingsWindowOpened
   },
   {
+    type: "separator"
+  },
+  {
     label: "Quit",
-    click: function() {
-      app.quit();
+    click: () => {
+      // stop swicth service...
+      if (process.platform == "darwin") StartOrStopSwitchMacService(false);
+      ipcRenderer.send("quit-switch");
     }
   }
 ];
@@ -143,7 +148,10 @@ if (process.platform == "darwin") {
   // If platform is mac add extra menu item to cater for starting
   // and stoping services ...
   trayMenuTemplate.unshift({
-    label: "Off 🧯",
+    type: "separator"
+  });
+  trayMenuTemplate.unshift({
+    label: "Turn Off",
     click: () => {
       StartOrStopSwitchMacService(false);
     }
@@ -193,12 +201,12 @@ function StartOrStopSwitchMacService(start = true) {
         child = SPWAN_SWITCH_SERVICE_MAC();
       });
 
-      trayMenuTemplate[0].label = "Off 🧯";
+      trayMenuTemplate[0].label = "Turn Off";
       trayMenuTemplate[0].click = () => {
         StartOrStopSwitchMacService(false);
       };
     } else {
-      trayMenuTemplate[0].label = "On 🔥";
+      trayMenuTemplate[0].label = "Turn On";
       trayMenuTemplate[0].click = () => {
         StartOrStopSwitchMacService(true);
       };

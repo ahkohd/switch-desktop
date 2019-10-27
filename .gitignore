@@ -2,8 +2,6 @@ node_modules
 dist/*
 app/*
 !app/.gitkeep
-service-binaries/*.dll
-service-binaries/*.node
-service-binaries/**/*.exe
+service-binaries
 
 
