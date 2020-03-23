@@ -22,13 +22,13 @@ export class Switch {
   runningHotApps = [];
 
   constructor(public config) {
-    // Create hot apps elements
+    /// Create hot apps elements
     this.awakeAppList();
-    // Get them from store
+    /// Get them from store
     this.hotApps = this.getHotApps();
-    // Render them
+    /// Render them
     this.renderUIUpdate();
-    // set up context menu
+    /// Set up context menu
     this.setUpContextMenu();
   }
 
@@ -36,6 +36,7 @@ export class Switch {
    * Get a list of hot apps
    * @returns SwitchHotApp
    */
+
   getHotApps(): SwitchHotApp[] | null {
     let data = this.config.get("DockHotApps");
     if (data == null) {
@@ -49,6 +50,7 @@ export class Switch {
   /**
    * Render Changes
    */
+
   renderUIUpdate() {
     const appsListUI: HTMLCollectionOf<HTMLDivElement> = document.getElementsByClassName(
       "app"
@@ -58,7 +60,7 @@ export class Switch {
       let hot = this.hotApps[i];
       if (hot.empty) continue;
       elem.className = "app tooltip";
-      // tooltip
+      /// Tooltip
       document.getElementById("tip-" + i).innerHTML = `<p>${
         hot.name.split(".exe")[0]
       }</p>`;
@@ -88,6 +90,7 @@ export class Switch {
   /**
    * Bootstrap the appbar UI elements
    */
+
   awakeAppList() {
     const track = document.getElementById("track");
     for (let i = 0; i < 10; i++) {
@@ -99,9 +102,9 @@ export class Switch {
         i == 0 ? "top" : ""
       }"><p>Add app</p></div>`;
       file.type = "file";
-      // remove default title behaviour.
+      /// Remove default title behaviour.
       file.title = "";
-      // if(process.platform == 'darwin') file.accept = ".app";
+      /// if(process.platform == 'darwin') file.accept = ".app";
       file.id = "f-app-" + i;
       file.addEventListener("change", e => {
         (window as any).APP.onClickAddHotApp(e);
@@ -109,7 +112,7 @@ export class Switch {
       div.appendChild(file);
       track.appendChild(div);
 
-      //place tooltip
+      /// Place tooltip
       new Tether({
         element: document.getElementById("tip-" + i),
         target: div,
@@ -123,7 +126,7 @@ export class Switch {
         ]
       });
 
-      // add hover eventlistner
+      /// Add hover eventlistner
       div.onmouseenter = () => {
         document.getElementById("tip-" + i).classList.add("show");
       };
@@ -138,6 +141,7 @@ export class Switch {
    * Resets the hot app tile of as given index
    * @param {number} i Index to reset
    */
+
   resetAppTileUI(i: number) {
     const appTile = document.getElementById("app-" + i);
     appTile.innerHTML = "";
@@ -147,7 +151,7 @@ export class Switch {
     file.type = "file";
     file.id = "f-app-" + i;
     file.title = "";
-    // if(process.platform == 'darwin') file.accept = ".app";
+    /// if(process.platform == 'darwin') file.accept = ".app";
     file.addEventListener("change", e => {
       (window as any).APP.onClickAddHotApp(e);
     });
@@ -158,10 +162,11 @@ export class Switch {
    * Handles click event when user want to add new app
    * @param {Event} elem - Event
    */
+
   onClickAddHotApp(elem) {
     if (process.platform == "darwin") (window as any).SHOW_DOCK();
 
-    // request dock to appear. A fix for macOS - dock disappears while add app..
+    /// Request dock to appear. A fix for macOS - dock disappears while add app..
     try {
       (window as any).SWITCH_SERVICE_CHANNEL.emit(
         "switch-service-incoming",
@@ -176,7 +181,7 @@ export class Switch {
         return;
       }
 
-      // get app icon
+      /// Get app icon
       let opsys = process.platform;
       if (
         opsys == "darwin" &&
@@ -209,6 +214,7 @@ export class Switch {
    * @param  {string} path
    * @param  {string} name
    */
+
   checkIfAppExists(path: string, name: string) {
     const nameExits = this.hotApps.filter(
       hotapp => hotapp.name.toLowerCase() == name.toLocaleLowerCase()
@@ -225,6 +231,7 @@ export class Switch {
    * @param  {any} fileDetails
    * @param  {string} appIcon
    */
+
   addApp(index: any, fileDetails: any, appIcon: string) {
     let mapDarwinKeycode = parseInt(index) + 2;
     if (mapDarwinKeycode == 10) mapDarwinKeycode = 0;
@@ -244,6 +251,7 @@ export class Switch {
    * Removes an hotapp of given index and update store.
    * @param {number} index
    */
+
   removeApp(index: number) {
     this.hotApps[index] = this.hotApp;
     this.saveHotApps(this.hotApps);
@@ -254,9 +262,10 @@ export class Switch {
    * Saves hotapps update into the store
    * @param {any} update
    */
+
   saveHotApps(update) {
     this.config.set("DockHotApps", update);
-    // send update to background service
+    /// Send update to background service
     let hotAppsData = [];
     update.forEach(hot => {
       hotAppsData.push({
@@ -277,6 +286,7 @@ export class Switch {
    * Get the hot app index of a given hot app name
    * @param {string} name Hot app name
    */
+
   getHotApppIndex(name: string) {
     for (let i = 0; i < this.hotApps.length; i++) {
       if (this.hotApps[i].name == name) return i;
@@ -288,6 +298,7 @@ export class Switch {
    * Sets the last switched hot app
    * @param hotApp Last switched hot app
    */
+
   lastSwitchedApp(hotApp) {
     const hotAppIndex = this.getHotApppIndex(hotApp.name);
     if (this.lastHotAppIndex != null) {
@@ -302,6 +313,7 @@ export class Switch {
    * Open a hot app with a given index
    * @param {number} index Index of the hot app to open
    */
+
   openApp(index: number) {
     let hotAppData = this.hotApps[index];
     open(hotAppData.path);
@@ -315,6 +327,7 @@ export class Switch {
    * @param {number} i Index of the hot app
    * @returns {Menu} The built menu
    */
+
   buildContextMenuBasedOnHotAppIndex(i: number) {
     const menu = new Menu();
     const menuItems = [
@@ -342,6 +355,7 @@ export class Switch {
   /**
    * Add event listener on context menu.
    */
+
   setUpContextMenu() {
     window.addEventListener(
       "contextmenu",
