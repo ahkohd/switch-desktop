@@ -43,7 +43,7 @@
     "@sentry/browser": "^5.6.2",
     "@sentry/node": "^5.15.0",
     "concurrently": "^4.1.1",
-    "electron-google-analytics": "^0.1.0",
+    "electron-google-analytics": "^0.3.0",
     "electron-is-dev": "^1.1.0",
     "electron-positioner": "^4.1.0",
     "electron-store": "^4.0.0",
