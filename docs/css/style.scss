@@ -1,260 +1,248 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden !important;
-
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden !important;
 }
 
 nav.navbar {
-    background: transparent !important;
+  background: transparent !important;
 }
 
 .navbar-brand img {
-    transform: scale(.5);
+  transform: scale(0.5);
 }
 
-
 .demo_pane {
-    
-position: relative;
+  position: relative;
 
-    .embed-container {
-        margin-top: 4em;
-        border-radius: 8px;
-    }
-
+  .embed-container {
+    margin-top: 4em;
+    border-radius: 8px;
+  }
 }
 
 .rside {
+  padding-top: 3.5rem;
 
-    padding-top: 3.5rem;
+  h2 {
+    color: #3a3838;
+    font-size: 5.5em;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 45px;
+    line-height: 95.5%;
 
-    h2 {
-        color: #3A3838;
-        font-size: 5.5em;
-        font-family: Poppins;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 45px;
-        line-height: 95.5%;
-
-        sup {
-            font-size: 12px;
-        }
+    sup {
+      font-size: 12px;
     }
+  }
 
-    p {
-        color: #3A3838;
-        font-family: Poppins;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 22px;
-        line-height: 132.5%;
-        padding-left: 10px;
-        margin-top: 20px;
-
-
-    }
+  p {
+    color: #3a3838;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 132.5%;
+    padding-left: 10px;
+    margin-top: 20px;
+  }
 }
 
 .pan {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 button.win {
-    background: #6C63FF;
-    box-shadow: 0px 4px 10px #D1CEFF;
-    color: white;
-    border: none;
-    font-size: 18px;
-    outline: none !important;
+  background: #6c63ff;
+  box-shadow: 0px 4px 10px #d1ceff;
+  color: white;
+  border: none;
+  font-size: 18px;
+  outline: none !important;
 
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 147.5%;
-    /* or 27px */
-  
-    color: rgba(255, 255, 255, 0.93);
-    text-shadow: 0px 1px 4px rgba(35, 26, 192, 0.33);
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 147.5%;
+  /* or 27px */
 
+  color: rgba(255, 255, 255, 0.93);
+  text-shadow: 0px 1px 4px rgba(35, 26, 192, 0.33);
 }
 
 button {
-    padding: 10px 25px;
-    outline: none;
-    transition: ease all .2s;
-    margin: 3px;
-    border: none;
-    color: white;
-    border-radius: 8px;
+  padding: 10px 25px;
+  outline: none;
+  transition: ease all 0.2s;
+  margin: 3px;
+  border: none;
+  color: white;
+  border-radius: 8px;
 
-    i.fa {
-        font-size: 30px;
-        vertical-align: -4px;
-        margin-right: 10px;
-    }
+  i.fa {
+    font-size: 30px;
+    vertical-align: -4px;
+    margin-right: 10px;
+  }
 }
 
 button.gh {
-    transform: scale(.85);
-    margin-right: 30px;
-    background: #5E5E5E;
-    box-shadow: 0px 4px 10px rgba(90, 90, 90, 0.2);
-    border-radius: 8px;
-    border: none;
+  transform: scale(0.85);
+  margin-right: 30px;
+  background: #5e5e5e;
+  box-shadow: 0px 4px 10px rgba(90, 90, 90, 0.2);
+  border-radius: 8px;
+  border: none;
 
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 147.5%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 147.5%;
 }
 
 button.mac:hover {
-    background: darken($color: rgb(253, 90, 128), $amount: 1);
+  background: darken($color: rgb(253, 90, 128), $amount: 1);
 }
 
 button.win:hover {
-    background: darken($color: rgb(85, 77, 255), $amount: 1);
+  background: darken($color: rgb(85, 77, 255), $amount: 1);
 }
-
 
 button.mac {
-    background: #FF6388;
-    box-shadow: 0px 4px 10px #FCC9D5;
-    border-radius: 8px;
+  background: #ff6388;
+  box-shadow: 0px 4px 10px #fcc9d5;
+  border-radius: 8px;
 
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 147.5%;
-    opacity: .8;
-    // cursor: not-allowed;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 147.5%;
+  opacity: 0.8;
+  // cursor: not-allowed;
 
+  color: rgba(255, 255, 255, 0.93);
 
-    color: rgba(255, 255, 255, 0.93);
-
-    text-shadow: 0px 1px 4px #E81D4D;
+  text-shadow: 0px 1px 4px #e81d4d;
 }
-
-
-
 
 button:hover {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    border-color: transparent;
-    background: rgb(78, 78, 78);
-    color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-color: transparent;
+  background: rgb(78, 78, 78);
+  color: white;
 }
 
-
-//  particle effect 
+//  particle effect
 
 .particle {
-    top: 0;
-    position: absolute;
-    z-index: 0;
-    border-radius: 50%;
+  top: 0;
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
 }
 
 @for $i from 1 through 30 {
-    @keyframes particle-animation-#{$i} {
-        100% {
-            transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
-        }
+  @keyframes particle-animation-#{$i} {
+    100% {
+      transform: translate3d(
+        (random(90) * 1vw),
+        (random(90) * 1vh),
+        (random(100) * 1px)
+      );
     }
+  }
 
-    .particle:nth-child(#{$i}) {
-        animation: particle-animation-#{$i} 60s infinite;
-        $size: random(5) + 5 + px;
-        opacity: random(100)/100;
-        height: $size;
-        width: $size;
-        animation-delay: -$i * .2s;
-        transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
-        background: hsl(random(360), 70%, 50%);
-    }
+  .particle:nth-child(#{$i}) {
+    animation: particle-animation-#{$i} 60s infinite;
+    $size: random(5) + 5 + px;
+    opacity: random(100) / 100;
+    height: $size;
+    width: $size;
+    animation-delay: -$i * 0.2s;
+    transform: translate3d(
+      (random(90) * 1vw),
+      (random(90) * 1vh),
+      (random(100) * 1px)
+    );
+    background: hsl(random(360), 70%, 50%);
+  }
 }
 
 @media screen and (min-width: 801px) {
-    body {
-        overflow: hidden;
-    }
+  body {
+    overflow: hidden;
+  }
 }
 
 @media screen and (max-width: 800px) {
+  .col-md-6 {
+    flex: none !important;
+    max-width: 100% !important;
+  }
 
+  .ph-link {
+    display: table;
+    margin: 0 auto;
+  }
 
-    .col-md-6 {
-        flex: none !important;
-        max-width: 100% !important;
+  .rside {
+    padding: 5em 30px;
+
+    h2,
+    p {
+      text-align: center;
     }
+  }
 
-    
-    .ph-link
-    {
-        display: table;
-        margin: 0 auto;
+  .pan {
+    display: table;
+    margin: 40px auto;
+
+    button {
+      display: table;
+      margin: 20px auto;
+
+      i {
+        font-size: 18px;
+        vertical-align: 0;
+      }
     }
+  }
 
-    .rside {
-        padding: 5em 30px;
+  .navbar {
+    margin-bottom: 20px;
+  }
 
-        h2, p {
-            text-align: center;
-        }
-    }
+  .navbar-brand img {
+    transform: scale(1);
+    width: 120px;
+  }
 
-    .pan {
-        display: table;
-        margin: 40px auto;
-
-        button {
-            display: table;
-            margin: 20px auto;
-
-            i {
-                font-size: 18px;
-                vertical-align: 0;
-            }
-        }
-    }
-
-    .navbar {
-        margin-bottom: 20px;
-    }
-
-    .navbar-brand img {
-        transform: scale(1);
-        width: 120px;
-    }
-
-    .demo_pane, .embed-container
-    {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-
-
-
+  .demo_pane,
+  .embed-container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 }
 
 .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .embed-container iframe,
 .embed-container object,
 .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
