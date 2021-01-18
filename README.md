@@ -12,7 +12,7 @@ Keyboard-driven commands to navigate your apps faster. Available for 🪟 Window
 - Favourite apps loadout.
 - Convenience of use by both left and right handed users with the use of left/right <kbd>alt</kbd> or <kbd>⌘</kbd> + <kbd>⌥</kbd> on macOS.
 
-> **[Download Switch 👌]((https://get-switch.app)**
+> **[Download Switch now 🪟 🍏](https://get-switch.app)**
 
 # Screenshot
 
