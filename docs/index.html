@@ -1,19 +1,29 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>
+      Switch - switch between your favourite lightning fast. (Windows, MacOS)
+    </title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/style.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <title>Switch - switch between your favourite lightning fast. (Windows, MacOS - WIP) </title>
-</head>
-
-<body>
-
+  <body>
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
@@ -46,119 +56,165 @@
     <div class="particle"></div>
 
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="./switch-logo-dark.png" alt="">
-        </a>
+      <a class="navbar-brand" href="https://get-switch.app">
+        <img src="./switch-logo-dark.png" alt="" />
+      </a>
 
-
-        <ul class="navbar-nav d-none d-sm-block">
-            <li class="nav-item">
-                <button class="gh" onclick="window.location='http://www.github.com/ahkohd/switch-desktop'">
-                    <i class="fa fa-github"></i> GitHub
-                </button>
-            </li>
-        </ul>
+      <ul class="navbar-nav d-none d-sm-block">
+        <li class="nav-item">
+          <button
+            class="gh"
+            onclick="window.location='http://www.github.com/ahkohd/switch-desktop'"
+          >
+            <i class="fa fa-github"></i> GitHub
+          </button>
+        </li>
+      </ul>
     </nav>
 
+    <p id="update">
+      🆕 &nbsp;&nbsp;🥳 Hurray! We are happy to announce that Switch is now
+      available for MacOS.
+      <a href="https:/get-switch.app">Download now 👌</a>
+    </p>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 rside">
+      <div class="row">
+        <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 rside">
+          <h2>A crossplatform key+combo window manager</h2>
 
-                <h2>
-                    A crossplatform key+combo window manager
-                </h2>
+          <p>
+            Switch between your favourite apps lightning fast. (Windows, MacOS)
+          </p>
 
-                <p>
-                    Switch between your favourite apps lightning fast. (Windows, MacOS - WIP)
-                </p>
+          <div class="pan">
+            <button
+              class="win"
+              onclick="window.location='https://rebrand.ly/switch-win'"
+            >
+              <i class="fa fa-windows"></i> Install on Windows
+            </button>
+            <button
+              class="mac"
+              onclick="window.location='https://get-switch.app'"
+            >
+              <i class="fa fa-apple"></i> Install on MacOS
+            </button>
 
-                <div class="pan">
-                    <button class="win" onclick="window.location='https://rebrand.ly/switch-win'">
-                        <i class="fa fa-windows"></i> Install on Windows
-                    </button>
-                    <button class="mac" onclick="window.location='https://rebrand.ly/switch-mac'">
-                        <i class="fa fa-apple"></i> MacOS - 🚧
-                    </button>
-
-                    <br><br>
-                    <a class="ph-link"
-                        href="https://www.producthunt.com/posts/switch-8?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-switch-8"
-                        target="_blank"><img
-                            src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=166945&theme=light&period=daily"
-                            alt="Switch - Zap between your favorite apps lightning fast. | Product Hunt Embed"
-                            style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 demo_pane">
-                <div class='embed-container'>
-                    <iframe src='https://www.youtube.com/embed/cysVHi-pcxU' frameborder='0' allowfullscreen></iframe>
-                </div>
-            </div>
+            <br /><br />
+            <a
+              class="ph-link"
+              href="https://www.producthunt.com/posts/switch-8?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-switch-8"
+              target="_blank"
+              ><img
+                src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=166945&theme=light&period=daily"
+                alt="Switch - Zap between your favorite apps lightning fast. | Product Hunt Embed"
+                style="width: 250px; height: 54px"
+                width="250px"
+                height="54px"
+            /></a>
+          </div>
         </div>
+        <div class="col-sm-12 col-lg-6 col-md-6 col-xs-12 demo_pane">
+          <div class="embed-container">
+            <iframe
+              src="https://www.youtube.com/embed/cysVHi-pcxU"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
-        ! function () {
-            var analytics = window.analytics = window.analytics || [];
-            if (!analytics.initialize)
-                if (analytics.invoked) window.console && console.error && console.error(
-                    "Segment snippet included twice.");
-                else {
-                    analytics.invoked = !0;
-                    analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify",
-                        "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"
-                    ];
-                    analytics.factory = function (t) {
-                        return function () {
-                            var e = Array.prototype.slice.call(arguments);
-                            e.unshift(t);
-                            analytics.push(e);
-                            return analytics
-                        }
-                    };
-                    for (var t = 0; t < analytics.methods.length; t++) {
-                        var e = analytics.methods[t];
-                        analytics[e] = analytics.factory(e)
-                    }
-                    analytics.load = function (t, e) {
-                        var n = document.createElement("script");
-                        n.type = "text/javascript";
-                        n.async = !0;
-                        n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
-                        var a = document.getElementsByTagName("script")[0];
-                        a.parentNode.insertBefore(n, a);
-                        analytics._loadOptions = e
-                    };
-                    analytics.SNIPPET_VERSION = "4.1.0";
-                    analytics.load("gYFmTzv4VVjvMCIxZJgptjiGhRT1rqV0");
-                    analytics.page();
-                }
-        }();
+      !(function () {
+        var analytics = (window.analytics = window.analytics || []);
+        if (!analytics.initialize)
+          if (analytics.invoked)
+            window.console &&
+              console.error &&
+              console.error("Segment snippet included twice.");
+          else {
+            analytics.invoked = !0;
+            analytics.methods = [
+              "trackSubmit",
+              "trackClick",
+              "trackLink",
+              "trackForm",
+              "pageview",
+              "identify",
+              "reset",
+              "group",
+              "track",
+              "ready",
+              "alias",
+              "debug",
+              "page",
+              "once",
+              "off",
+              "on",
+            ];
+            analytics.factory = function (t) {
+              return function () {
+                var e = Array.prototype.slice.call(arguments);
+                e.unshift(t);
+                analytics.push(e);
+                return analytics;
+              };
+            };
+            for (var t = 0; t < analytics.methods.length; t++) {
+              var e = analytics.methods[t];
+              analytics[e] = analytics.factory(e);
+            }
+            analytics.load = function (t, e) {
+              var n = document.createElement("script");
+              n.type = "text/javascript";
+              n.async = !0;
+              n.src =
+                "https://cdn.segment.com/analytics.js/v1/" +
+                t +
+                "/analytics.min.js";
+              var a = document.getElementsByTagName("script")[0];
+              a.parentNode.insertBefore(n, a);
+              analytics._loadOptions = e;
+            };
+            analytics.SNIPPET_VERSION = "4.1.0";
+            analytics.load("gYFmTzv4VVjvMCIxZJgptjiGhRT1rqV0");
+            analytics.page();
+          }
+      })();
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126189060-3"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-126189060-3"
+    ></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
+      window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-        gtag('config', 'UA-126189060-3');
+      gtag("config", "UA-126189060-3");
     </script>
-
-</body>
-
+  </body>
 </html>
