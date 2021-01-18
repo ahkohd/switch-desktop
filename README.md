@@ -4,7 +4,9 @@
 
 Keyboard-driven commands to navigate your apps faster. Available for 🪟 Windows & 🍏 macOS
 
-> 🆕 🥳 Hurray! We are happy to announce that Switch is now available for macOS. [Download now 👌](https://get-switch.app)
+> 🆕 🥳 **Hurray!** We are happy to announce that Switch is now available for **macOS**. [**Download now 👌**](https://get-switch.app)
+
+> ℹ️ **Switch 2** for Windows is around the corner. Have a feature in mind? [Let us know! 👈](https://github.com/ahkohd/switch-desktop/discussions)
 
 # Features
 
