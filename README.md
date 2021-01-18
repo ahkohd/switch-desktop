@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.org/ahkohd/switch-desktop.svg?branch=master)](https://travis-ci.org/ahkohd/switch-desktop) [![Build status](https://ci.appveyor.com/api/projects/status/ueo46t4pb2p8tdrv?svg=true)](https://ci.appveyor.com/project/ahkohd/switch-desktop)
 
-Switch between your favourite apps lightning fast (Windows, MacOS - Under development)
+Keyboard-driven commands to navigate your apps faster. Available for 🪟 Windows & 🍏 macOS
 
-> NOTE: Switch works on Windows, macOS ~~support is under development~~.
-
-> 🦄🤯🎉 Hurray! MacOS (beta) unsigned release is out for testing - A bit buggy but feel free to [digg in!](https://github.com/ahkohd/switch-desktop/releases)
+> 🆕 🥳 Hurray! We are happy to announce that Switch is now available for macOS. [Download now 👌](https://get-switch.app)
 
 # Features
 
@@ -14,7 +12,7 @@ Switch between your favourite apps lightning fast (Windows, MacOS - Under develo
 - Favourite apps loadout.
 - Convenience of use by both left and right handed users with the use of left/right <kbd>alt</kbd> or <kbd>⌘</kbd> + <kbd>⌥</kbd> on macOS.
 
-> **[Download Switch now! 🦄](https://ahkohd.github.io/switch-desktop/)**
+> **[Download Switch 👌]((https://get-switch.app)**
 
 # Screenshot
 
